@@ -35,6 +35,8 @@ ECConfig.CANCELLATION_REFUND_FRACTION = 0.50
 
 ECConfig.FENCE_PADDING = 2
 
+ECConfig.ACTIVATABLE_BUFFER = 3
+
 function ECConfig.getMonthsForPrice(price)
     for _, threshold in ipairs(ECConfig.DURATION_THRESHOLDS) do
         if price <= threshold.maxPrice then
