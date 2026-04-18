@@ -1,0 +1,8 @@
+.vscode/
+moveZip.bat
+moveDebug.bat
+package.bat
+script.txt
+.kiro
+.DS_Store
+refs/

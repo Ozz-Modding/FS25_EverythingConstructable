@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUIProfiles>
+    <Profile name="ecSection" extends="baseReference" with="anchorTopLeft">
+    </Profile>
+
+    <Profile name="ecLabel" extends="baseReference" with="anchorTopLeft">
+        <textBold value="false"/>
+        <textSize value="15px"/>
+        <textAlignment value="left"/>
+        <textColor value="$preset_fs25_colorMainLight"/>
+    </Profile>
+
+    <Profile name="ecValue" extends="baseReference" with="anchorTopLeft">
+        <textBold value="false"/>
+        <textSize value="15px"/>
+        <textAlignment value="right"/>
+        <textColor value="$preset_fs25_colorMainLight"/>
+    </Profile>
+
+    <Profile name="ecHeader" extends="baseReference" with="anchorTopLeft">
+        <textBold value="true"/>
+        <textSize value="20px"/>
+        <textAlignment value="left"/>
+        <textColor value="$preset_fs25_colorMainHighlight"/>
+    </Profile>
+
+    <Profile name="ecSubHeader" extends="baseReference" with="anchorTopLeft">
+        <textBold value="true"/>
+        <textSize value="16px"/>
+        <textAlignment value="left"/>
+        <textColor value="$preset_fs25_colorMainHighlight"/>
+    </Profile>
+
+    <Profile name="ecListItem" extends="baseReference" with="anchorTopStretchingX alternating">
+        <height value="28px"/>
+        <imageColor value="$preset_fs25_colorGrey"/>
+        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+        <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
+    </Profile>
+
+    <Profile name="ecListCell" extends="baseReference" with="anchorStretchingYLeft">
+        <textBold value="false"/>
+        <textSize value="15px"/>
+        <textAlignment value="left"/>
+        <textColor value="$preset_fs25_colorMainLight"/>
+        <textSelectedColor value="$preset_fs25_colorMainDark"/>
+    </Profile>
+
+    <Profile name="ecListCellRight" extends="ecListCell">
+        <textAlignment value="right"/>
+    </Profile>
+
+    <Profile name="ecListTable" extends="emptyPanel" with="anchorStretchingYLeft pivotTopLeft"/>
+</GUIProfiles>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <translationContributors/>
+    <texts>
+        <text name="ec_constructionSite" text="Construction Site"/>
+        <text name="ec_action_viewConstruction" text="View Construction"/>
+        <text name="ec_phase" text="Phase %d of %d"/>
+        <text name="ec_mode_automatic" text="Automatic"/>
+        <text name="ec_mode_waitForResources" text="Wait for Resources"/>
+        <text name="ec_deposit" text="Deposit"/>
+        <text name="ec_phaseCost" text="Phase Cost"/>
+        <text name="ec_totalPaid" text="Total Paid"/>
+        <text name="ec_remaining" text="Remaining"/>
+        <text name="ec_resourcesNeeded" text="Resources Needed"/>
+        <text name="ec_resourcesDelivered" text="Delivered"/>
+        <text name="ec_progress" text="Progress"/>
+        <text name="ec_cancel" text="Cancel Project"/>
+        <text name="ec_cancelConfirm" text="Cancel this construction project? You will receive a %d%% refund of the amount paid so far."/>
+        <text name="ec_cancelled" text="Construction project cancelled. Refund: %s"/>
+        <text name="ec_completed" text="Construction complete: %s"/>
+        <text name="ec_phaseAdvanced" text="Construction phase %d complete for %s"/>
+        <text name="ec_paused" text="Construction paused (insufficient funds)"/>
+        <text name="ec_switchMode" text="Switch Mode"/>
+        <text name="ec_modeChanged" text="Construction mode changed to: %s"/>
+        <text name="ec_close" text="Close"/>
+        <text name="ec_buildingName" text="Building"/>
+        <text name="ec_monthsRemaining" text="Months Remaining"/>
+        <text name="ec_status_active" text="Active"/>
+        <text name="ec_status_paused" text="Paused"/>
+    </texts>
+</l10n>

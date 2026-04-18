@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="107">
+    <author>Ozz</author>
+    <version>1.0.0.0</version>
+    <iconFilename>icon_EverythingConstructable.dds</iconFilename>
+    <title>
+        <en>Everything Constructable</en>
+        <de>Alles Baubar</de>
+        <fr>Tout Constructible</fr>
+    </title>
+    <description>
+        <en><![CDATA[Everything Constructable
+
+Transforms building placement into a multi-phase construction process. Instead of buildings appearing instantly, placing a building will:
+
+1. Flatten the terrain as normal
+2. Place a construction fence around the site
+3. Create a construction project that spans multiple months
+4. Charge only an initial deposit
+
+Construction projects can run in two modes:
+- Automatic: Monthly charges are deducted and the build progresses each month
+- Wait for Resources: Deliver materials (wood beams, planks, cement, etc.) to advance each phase
+
+Approach a construction site on foot to view progress, change mode, or cancel for a partial refund.
+
+Fully supports multiplayer.
+]]></en>
+    </description>
+    <extraSourceFiles>
+        <sourceFile filename="src/ECConfig.lua"/>
+        <sourceFile filename="src/ECProject.lua"/>
+        <sourceFile filename="src/ECProjectManager.lua"/>
+        <sourceFile filename="src/ECFenceBuilder.lua"/>
+        <sourceFile filename="src/ECBuildingPlacer.lua"/>
+        <sourceFile filename="src/ECTerrainPainter.lua"/>
+        <sourceFile filename="src/ECConstructionActivatable.lua"/>
+        <sourceFile filename="src/events/ECCreateProjectEvent.lua"/>
+        <sourceFile filename="src/events/ECAdvancePhaseEvent.lua"/>
+        <sourceFile filename="src/events/ECResourceDeliveredEvent.lua"/>
+        <sourceFile filename="src/events/ECCompleteProjectEvent.lua"/>
+        <sourceFile filename="src/events/ECSetModeEvent.lua"/>
+        <sourceFile filename="src/events/ECCancelProjectEvent.lua"/>
+        <sourceFile filename="src/events/ECInitialClientStateEvent.lua"/>
+        <sourceFile filename="src/extensions/BuyPlaceableDataExtension.lua"/>
+        <sourceFile filename="src/extensions/BuyPlaceableEventExtension.lua"/>
+        <sourceFile filename="src/gui/ECConstructionDialog.lua"/>
+        <sourceFile filename="src/EverythingConstructable.lua"/>
+    </extraSourceFiles>
+    <multiplayer supported="true"/>
+    <l10n filenamePrefix="languages/l10n" />
+</modDesc>
