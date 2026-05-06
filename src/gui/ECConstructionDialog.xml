@@ -16,31 +16,34 @@
             </GuiElement>
 
             <!-- Info rows -->
-            <GuiElement profile="ecSection" position="40px -115px" size="670px 170px">
-                <Text profile="ecFieldLabel" text="Status:"                 position="0px 0px"    size="140px 20px"/>
-                <Text profile="ecFieldValue" text="" id="statusText"        position="140px 0px"  size="200px 20px"/>
+            <GuiElement profile="ecSection" position="40px -115px" size="670px 110px">
+                <Text profile="ecFieldLabel" text="Status:"                     position="0px 0px"    size="140px 20px"/>
+                <Text profile="ecFieldValue" text="" id="statusText"            position="140px 0px"  size="200px 20px"/>
 
-                <Text profile="ecFieldLabel" text="Mode:"                   position="380px 0px"  size="100px 20px"/>
-                <Text profile="ecFieldValue" text="" id="modeText"          position="480px 0px"  size="190px 20px"/>
+                <Text profile="ecFieldLabel" text="Mode:"                       position="380px 0px"  size="140px 20px"/>
+                <Text profile="ecFieldValue" text="" id="modeText"              position="520px 0px"  size="150px 20px"/>
 
-                <Text profile="ecFieldLabel" text="$l10n_ec_labourCost"     position="0px -26px"  size="140px 20px"/>
-                <Text profile="ecFieldValue" text="" id="labourCostText"    position="140px -26px" size="200px 20px"/>
+                <Text profile="ecFieldLabel" text="$l10n_ec_materialSaved"      position="0px -26px"  size="140px 20px"/>
+                <Text profile="ecFieldValue" text="" id="materialSavedText"     position="140px -26px" size="200px 20px"/>
 
-                <Text profile="ecFieldLabel" text="$l10n_ec_phaseCost"      position="380px -26px" size="100px 20px"/>
-                <Text profile="ecFieldValue" text="" id="phaseCostText"     position="480px -26px" size="190px 20px"/>
+                <Text profile="ecFieldLabel" text="$l10n_ec_totalPaid"          position="380px -26px" size="140px 20px"/>
+                <Text profile="ecFieldValue" text="" id="totalPaidText"         position="520px -26px" size="150px 20px"/>
 
-                <Text profile="ecFieldLabel" text="$l10n_ec_materialSaved"  position="0px -52px"  size="140px 20px"/>
-                <Text profile="ecFieldValue" text="" id="materialSavedText" position="140px -52px" size="200px 20px"/>
+                <Text profile="ecFieldLabel" text="$l10n_ec_totalRemaining"     position="0px -52px"  size="140px 20px"/>
+                <Text profile="ecFieldValue" text="" id="totalRemainingText"    position="140px -52px" size="200px 20px"/>
 
-                <Text profile="ecFieldLabel" text="$l10n_ec_totalPaid"      position="0px -78px"  size="140px 20px"/>
-                <Text profile="ecFieldValue" text="" id="totalPaidText"     position="140px -78px" size="200px 20px"/>
+                <Text profile="ecFieldLabel" text="$l10n_ec_labourCost"         position="380px -52px" size="140px 20px"/>
+                <Text profile="ecFieldValue" text="" id="labourCostText"        position="520px -52px" size="150px 20px"/>
+            </GuiElement>
 
-                <Text profile="ecFieldLabel" text="$l10n_ec_remaining"      position="380px -78px" size="100px 20px"/>
-                <Text profile="ecFieldValue" text="" id="remainingText"     position="480px -78px" size="190px 20px"/>
+            <!-- Phase costs -->
+            <GuiElement profile="ecSection" position="40px -240px" size="670px 50px">
+                <Text profile="ecColumnHeader" text="$l10n_ec_phaseCosts" position="0px 0px" size="670px 22px"/>
+                <Text profile="ecFieldLabel" text="" id="phaseCostsText" position="0px -26px" size="670px 20px"/>
             </GuiElement>
 
             <!-- Materials section -->
-            <GuiElement profile="ecSection" position="40px -300px" size="670px 200px">
+            <GuiElement profile="ecSection" position="40px -305px" size="670px 200px">
                 <Text profile="ecColumnHeader" text="$l10n_ec_materialsSupplyable" position="0px 0px" size="670px 22px"/>
 
                 <Text profile="ecMatLabel" text="" id="matName1"   position="10px -28px"  size="300px 20px"/>

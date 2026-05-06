@@ -59,14 +59,8 @@ function ECConstructionDialog:updateDisplay()
         self.totalPaidText:setText(g_i18n:formatMoney(project.totalPaid, 0, true, true))
     end
 
-    if self.remainingText ~= nil then
-        local remaining = project.totalPrice - project.totalPaid
-        self.remainingText:setText(g_i18n:formatMoney(remaining, 0, true, true))
-    end
-
-    if self.phaseCostText ~= nil then
-        local phaseCost = project:getPhaseCost()
-        self.phaseCostText:setText(g_i18n:formatMoney(phaseCost, 0, true, true))
+    if self.totalRemainingText ~= nil then
+        self.totalRemainingText:setText(g_i18n:formatMoney(project:getTotalRemainingCost(), 0, true, true))
     end
 
     if self.labourCostText ~= nil then
@@ -75,6 +69,16 @@ function ECConstructionDialog:updateDisplay()
 
     if self.materialSavedText ~= nil then
         self.materialSavedText:setText(g_i18n:formatMoney(project.materialSuppliedValue, 0, true, true))
+    end
+
+    if self.phaseCostsText ~= nil then
+        local parts = {}
+        for i = 1, project:getNumPhases() do
+            local cost = project:getCostForPhase(i)
+            local label = string.format("%d: %s", i, g_i18n:formatMoney(cost, 0, true, true))
+            table.insert(parts, label)
+        end
+        self.phaseCostsText:setText(table.concat(parts, "   "))
     end
 
     if self.statusText ~= nil then
@@ -111,6 +115,14 @@ function ECConstructionDialog:updateMaterialList()
                 slot = slot + 1
             end
         end
+    end
+
+    if slot == 1 then
+        local nameEl = self["matName1"]
+        if nameEl ~= nil then
+            nameEl:setText(g_i18n:getText("ec_allMaterialsSupplied"))
+        end
+        slot = 2
     end
 
     for i = slot, 6 do

@@ -3,7 +3,7 @@ local ECPalletCollector_mt = Class(ECPalletCollector)
 
 ECPalletCollector.TRIGGER_I3D = g_currentModDirectory .. "assets/palletTrigger.i3d"
 
-ECPalletCollector.TILE_SIZE = 3
+ECPalletCollector.TILE_SIZE = 1
 
 function ECPalletCollector.new(project)
     local self = setmetatable({}, ECPalletCollector_mt)
@@ -24,31 +24,59 @@ function ECPalletCollector:createTrigger()
     local dirX, dirZ = MathUtil.getDirectionFromYRotation(rotY)
     local sideX, _, sideZ = MathUtil.crossProduct(0, 1, 0, dirX, 0, dirZ)
     local cx = pos[1] + dirX * (fp.centerZ or 0) + sideX * (fp.centerX or 0)
-    local cy = pos[2] + 5
+    local cy = pos[2] + 0.5
     local cz = pos[3] + dirZ * (fp.centerZ or 0) + sideZ * (fp.centerX or 0)
 
-    -- Place a single trigger at center first to confirm it works
-    local i3dRoot = loadI3DFile(ECPalletCollector.TRIGGER_I3D)
-    if i3dRoot ~= nil and i3dRoot ~= 0 then
-        local triggerNode
-        local numChildren = getNumOfChildren(i3dRoot)
-        if numChildren > 0 then
-            triggerNode = getChildAt(i3dRoot, 0)
-        else
-            triggerNode = i3dRoot
-            i3dRoot = nil
+    -- First place the known-working single trigger at center+5 height
+    self:placeTriggerAt(cx, pos[2] + 5, cz, rotY)
+
+    -- Then try placing a border at ground level
+    local tileSize = ECPalletCollector.TILE_SIZE
+    local halfX = (fp.sizeX + 2) * 0.5
+    local halfZ = (fp.sizeZ + 2) * 0.5
+
+    local tilesX = math.ceil((fp.sizeX + 2) / tileSize)
+    local tilesZ = math.ceil((fp.sizeZ + 2) / tileSize)
+
+    for tx = 0, tilesX - 1 do
+        for tz = 0, tilesZ - 1 do
+            if tx == 0 or tx == tilesX - 1 or tz == 0 or tz == tilesZ - 1 then
+                local localX = -halfX + tileSize * 0.5 + tx * tileSize
+                local localZ = -halfZ + tileSize * 0.5 + tz * tileSize
+
+                local worldX = cx + sideX * localX + dirX * localZ
+                local worldZ = cz + sideZ * localX + dirZ * localZ
+
+                self:placeTriggerAt(worldX, cy, worldZ, rotY)
+            end
         end
-
-        setWorldTranslation(triggerNode, cx, cy, cz)
-        setWorldRotation(triggerNode, 0, rotY, 0)
-        addTrigger(triggerNode, "onTriggerCallback", self)
-
-        table.insert(self.triggers, {i3dRoot = i3dRoot, triggerNode = triggerNode})
     end
 
-    print(string.format("ECPalletCollector: placed %d trigger(s) at %.1f, %.1f, %.1f", #self.triggers, cx, cy, cz))
+    print(string.format("ECPalletCollector: placed %d triggers (%d border + 1 center)", #self.triggers, #self.triggers - 1))
 
     return #self.triggers > 0
+end
+
+function ECPalletCollector:placeTriggerAt(wx, wy, wz, rotY)
+    local i3dRoot = loadI3DFile(ECPalletCollector.TRIGGER_I3D)
+    if i3dRoot == nil or i3dRoot == 0 then
+        return
+    end
+
+    local triggerNode
+    local numChildren = getNumOfChildren(i3dRoot)
+    if numChildren > 0 then
+        triggerNode = getChildAt(i3dRoot, 0)
+    else
+        triggerNode = i3dRoot
+        i3dRoot = nil
+    end
+
+    setWorldTranslation(triggerNode, wx, wy, wz)
+    setWorldRotation(triggerNode, 0, rotY, 0)
+    addTrigger(triggerNode, "onTriggerCallback", self)
+
+    table.insert(self.triggers, {i3dRoot = i3dRoot, triggerNode = triggerNode})
 end
 
 function ECPalletCollector:delete()
@@ -80,8 +108,6 @@ function ECPalletCollector:onTriggerCallback(triggerId, otherId, onEnter, onLeav
         return
     end
 
-    print(string.format("ECPalletCollector: trigger fired! otherId=%s onEnter=%s", tostring(otherId), tostring(onEnter)))
-
     local object = g_currentMission:getNodeObject(otherId)
     if object == nil then
         object = g_currentMission:getNodeObject(getParent(otherId))
@@ -94,7 +120,6 @@ function ECPalletCollector:onTriggerCallback(triggerId, otherId, onEnter, onLeav
         return
     end
 
-    print("ECPalletCollector: pallet detected, absorbing...")
     self:tryAbsorbPallet(object)
 end
 

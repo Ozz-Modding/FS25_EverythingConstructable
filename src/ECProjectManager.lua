@@ -157,7 +157,9 @@ function ECProjectManager:cancelProject(projectId)
         return
     end
 
-    local refundAmount = math.floor(project.totalPaid * ECConfig.CANCELLATION_REFUND_FRACTION)
+    local cashRefund = math.floor(project.totalPaid * ECConfig.CANCELLATION_REFUND_FRACTION)
+    local materialRefund = math.floor(project.materialSuppliedValue * ECConfig.CANCELLATION_MATERIAL_REFUND_FRACTION)
+    local refundAmount = cashRefund + materialRefund
 
     if refundAmount > 0 then
         g_currentMission:addMoney(refundAmount, project.farmId, MoneyType.SHOP_PROPERTY_SELL, true, true)

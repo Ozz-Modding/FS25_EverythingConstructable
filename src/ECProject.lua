@@ -24,8 +24,9 @@ function ECProject.new(id, farmId, storeItemXml, position, rotation, configurati
     self.depositAmount = ECConfig.getDepositAmount(self.totalPrice)
     self.totalPaid = self.depositAmount + self.displacementCosts
 
-    self.labourPerPhase = ECConfig.getLabourPerPhase(self.totalPrice, numMonths)
-    self.materialBudget = ECConfig.getMaterialBudget(self.totalPrice)
+    local constructionCost = self.totalPrice - self.depositAmount
+    self.labourPerPhase = ECConfig.getLabourPerPhase(constructionCost, numMonths)
+    self.materialBudget = ECConfig.getMaterialBudget(constructionCost)
     self.materialSuppliedValue = 0
 
     self.materials = ECConfig.generateMaterialList(self.materialBudget)
@@ -73,7 +74,7 @@ end
 
 function ECProject:getRemainingMaterialBudget()
     local remainingPhases = #self.phases - (self.currentPhaseIndex - 1)
-    local remainingMaterialCost = ECConfig.getMaterialPerPhase(self.totalPrice, #self.phases) * remainingPhases
+    local remainingMaterialCost = math.floor(self.materialBudget / #self.phases) * remainingPhases
     return math.max(0, remainingMaterialCost - self.materialSuppliedValue)
 end
 
@@ -100,18 +101,33 @@ function ECProject:trimMaterials()
     end
 end
 
-function ECProject:getPhaseCost()
-    local materialPerPhase = ECConfig.getMaterialPerPhase(self.totalPrice, #self.phases)
-    local materialCharge = math.max(0, materialPerPhase - self:getMaterialCreditForPhase())
+function ECProject:getCostForPhase(phaseIndex)
+    if self.phases[phaseIndex] == nil then
+        return 0
+    end
+    if self.phases[phaseIndex].completed then
+        return 0
+    end
+
+    local materialPerPhase = math.floor(self.materialBudget / #self.phases)
+    local creditUsedBefore = materialPerPhase * (phaseIndex - 1)
+    local creditAvailable = math.max(0, self.materialSuppliedValue - creditUsedBefore)
+    local creditForPhase = math.min(creditAvailable, materialPerPhase)
+    local materialCharge = math.max(0, materialPerPhase - creditForPhase)
+
     return self.labourPerPhase + materialCharge
 end
 
-function ECProject:getMaterialCreditForPhase()
-    local materialPerPhase = ECConfig.getMaterialPerPhase(self.totalPrice, #self.phases)
-    local completedPhases = self.currentPhaseIndex - 1
-    local creditUsedByPriorPhases = materialPerPhase * completedPhases
-    local availableCredit = math.max(0, self.materialSuppliedValue - creditUsedByPriorPhases)
-    return math.min(availableCredit, materialPerPhase)
+function ECProject:getPhaseCost()
+    return self:getCostForPhase(self.currentPhaseIndex)
+end
+
+function ECProject:getTotalRemainingCost()
+    local total = 0
+    for i = self.currentPhaseIndex, #self.phases do
+        total = total + self:getCostForPhase(i)
+    end
+    return total
 end
 
 function ECProject:getStoreItemName()

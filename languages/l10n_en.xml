@@ -9,11 +9,12 @@
         <text name="ec_mode_paused" text="Paused"/>
         <text name="ec_deposit" text="Deposit"/>
         <text name="ec_labourCost" text="Labour (per phase)"/>
-        <text name="ec_phaseCost" text="Next Phase Cost"/>
+        <text name="ec_phaseCosts" text="Phase Costs"/>
         <text name="ec_materialSaved" text="Material Savings"/>
         <text name="ec_totalPaid" text="Total Paid"/>
-        <text name="ec_remaining" text="Remaining"/>
+        <text name="ec_totalRemaining" text="Total Remaining"/>
         <text name="ec_materialsSupplyable" text="Supplyable Materials"/>
+        <text name="ec_allMaterialsSupplied" text="All materials have been supplied."/>
         <text name="ec_resourcesDelivered" text="Delivered"/>
         <text name="ec_progress" text="Progress"/>
         <text name="ec_cancel" text="Cancel Project"/>
