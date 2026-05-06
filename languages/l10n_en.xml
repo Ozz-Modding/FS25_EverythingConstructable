@@ -6,12 +6,14 @@
         <text name="ec_action_viewConstruction" text="View Construction"/>
         <text name="ec_phase" text="Phase %d of %d"/>
         <text name="ec_mode_automatic" text="Automatic"/>
-        <text name="ec_mode_waitForResources" text="Wait for Resources"/>
+        <text name="ec_mode_paused" text="Paused"/>
         <text name="ec_deposit" text="Deposit"/>
-        <text name="ec_phaseCost" text="Phase Cost"/>
+        <text name="ec_labourCost" text="Labour (per phase)"/>
+        <text name="ec_phaseCost" text="Next Phase Cost"/>
+        <text name="ec_materialSaved" text="Material Savings"/>
         <text name="ec_totalPaid" text="Total Paid"/>
         <text name="ec_remaining" text="Remaining"/>
-        <text name="ec_resourcesNeeded" text="Resources Needed"/>
+        <text name="ec_materialsSupplyable" text="Supplyable Materials"/>
         <text name="ec_resourcesDelivered" text="Delivered"/>
         <text name="ec_progress" text="Progress"/>
         <text name="ec_cancel" text="Cancel Project"/>

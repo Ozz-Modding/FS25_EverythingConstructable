@@ -2,7 +2,7 @@ ECProject = {}
 local ECProject_mt = Class(ECProject)
 
 ECProject.MODE_AUTOMATIC = "automatic"
-ECProject.MODE_WAIT_FOR_RESOURCES = "waitForResources"
+ECProject.MODE_PAUSED = "paused"
 
 function ECProject.new(id, farmId, storeItemXml, position, rotation, configurations, configurationData, totalPrice, displacementCosts, footprint)
     local self = setmetatable({}, ECProject_mt)
@@ -19,17 +19,20 @@ function ECProject.new(id, farmId, storeItemXml, position, rotation, configurati
     self.footprint = footprint or {}
     self.mode = ECConfig.DEFAULT_MODE
     self.completed = false
-    self.paused = false
 
     local numMonths = ECConfig.getMonthsForPrice(self.totalPrice)
     self.depositAmount = ECConfig.getDepositAmount(self.totalPrice)
     self.totalPaid = self.depositAmount + self.displacementCosts
 
+    self.labourPerPhase = ECConfig.getLabourPerPhase(self.totalPrice, numMonths)
+    self.materialBudget = ECConfig.getMaterialBudget(self.totalPrice)
+    self.materialSuppliedValue = 0
+
+    self.materials = ECConfig.generateMaterialList(self.materialBudget)
+
     self.phases = {}
     for i = 1, numMonths do
         table.insert(self.phases, {
-            cost = ECConfig.getPhaseCost(self.totalPrice, numMonths, self.depositAmount),
-            resources = ECConfig.getResourcesForPhase(self.totalPrice, numMonths),
             completed = false,
         })
     end
@@ -68,44 +71,47 @@ function ECProject:getProgress()
     return completedPhases / #self.phases
 end
 
-function ECProject:isAllResourcesDelivered(phaseIndex)
-    local phase = self.phases[phaseIndex or self.currentPhaseIndex]
-    if phase == nil then
-        return false
-    end
-    for _, resource in ipairs(phase.resources) do
-        if resource.delivered < resource.amount then
-            return false
-        end
-    end
-    return true
+function ECProject:getRemainingMaterialBudget()
+    local remainingPhases = #self.phases - (self.currentPhaseIndex - 1)
+    local remainingMaterialCost = ECConfig.getMaterialPerPhase(self.totalPrice, #self.phases) * remainingPhases
+    return math.max(0, remainingMaterialCost - self.materialSuppliedValue)
 end
 
-function ECProject:getResourceDiscountForPhase(phaseIndex)
-    local phase = self.phases[phaseIndex or self.currentPhaseIndex]
-    if phase == nil then
-        return 0
+function ECProject:trimMaterials()
+    local remainingBudget = self:getRemainingMaterialBudget()
+    if remainingBudget <= 0 then
+        for _, mat in ipairs(self.materials) do
+            mat.amount = mat.delivered
+        end
+        return
     end
-    local totalDiscount = 0
-    for _, resource in ipairs(phase.resources) do
-        if resource.delivered > 0 then
-            local fillType = g_fillTypeManager:getFillTypeByIndex(resource.fillTypeIndex)
-            if fillType ~= nil then
-                local pricePerUnit = fillType.pricePerLiter or 0
-                totalDiscount = totalDiscount + (resource.delivered * pricePerUnit * ECConfig.RESOURCE_DISCOUNT_FACTOR)
+
+    for _, mat in ipairs(self.materials) do
+        local remaining = mat.amount - mat.delivered
+        if remaining > 0 then
+            local fillType = g_fillTypeManager:getFillTypeByIndex(mat.fillTypeIndex)
+            local pricePerUnit = (fillType ~= nil) and (fillType.pricePerLiter or 0) or 0
+            if pricePerUnit > 0 then
+                local maxAffordable = math.floor(remainingBudget / pricePerUnit)
+                local cap = mat.delivered + math.min(remaining, maxAffordable)
+                mat.amount = math.max(mat.delivered, cap)
             end
         end
     end
-    return math.floor(totalDiscount)
 end
 
-function ECProject:getEffectivePhaseCost(phaseIndex)
-    local phase = self.phases[phaseIndex or self.currentPhaseIndex]
-    if phase == nil then
-        return 0
-    end
-    local discount = self:getResourceDiscountForPhase(phaseIndex)
-    return math.max(0, phase.cost - discount)
+function ECProject:getPhaseCost()
+    local materialPerPhase = ECConfig.getMaterialPerPhase(self.totalPrice, #self.phases)
+    local materialCharge = math.max(0, materialPerPhase - self:getMaterialCreditForPhase())
+    return self.labourPerPhase + materialCharge
+end
+
+function ECProject:getMaterialCreditForPhase()
+    local materialPerPhase = ECConfig.getMaterialPerPhase(self.totalPrice, #self.phases)
+    local completedPhases = self.currentPhaseIndex - 1
+    local creditUsedByPriorPhases = materialPerPhase * completedPhases
+    local availableCredit = math.max(0, self.materialSuppliedValue - creditUsedByPriorPhases)
+    return math.min(availableCredit, materialPerPhase)
 end
 
 function ECProject:getStoreItemName()
@@ -135,6 +141,9 @@ function ECProject:saveToXML(xmlFile, key)
     setXMLBool(xmlFile, key .. "#completed", self.completed)
     setXMLInt(xmlFile, key .. "#startPeriod", self.startPeriod or 1)
     setXMLInt(xmlFile, key .. "#startYear", self.startYear or 1)
+    setXMLFloat(xmlFile, key .. "#labourPerPhase", self.labourPerPhase)
+    setXMLFloat(xmlFile, key .. "#materialBudget", self.materialBudget)
+    setXMLFloat(xmlFile, key .. "#materialSuppliedValue", self.materialSuppliedValue)
 
     if self.footprint.sizeX ~= nil then
         setXMLFloat(xmlFile, key .. ".footprint#sizeX", self.footprint.sizeX)
@@ -152,15 +161,14 @@ function ECProject:saveToXML(xmlFile, key)
 
     for pi, phase in ipairs(self.phases) do
         local phaseKey = string.format("%s.phases.phase(%d)", key, pi - 1)
-        setXMLFloat(xmlFile, phaseKey .. "#cost", phase.cost)
         setXMLBool(xmlFile, phaseKey .. "#completed", phase.completed)
+    end
 
-        for ri, resource in ipairs(phase.resources) do
-            local resKey = string.format("%s.resource(%d)", phaseKey, ri - 1)
-            setXMLString(xmlFile, resKey .. "#fillType", resource.fillTypeName)
-            setXMLFloat(xmlFile, resKey .. "#amount", resource.amount)
-            setXMLFloat(xmlFile, resKey .. "#delivered", resource.delivered)
-        end
+    for mi, mat in ipairs(self.materials) do
+        local matKey = string.format("%s.materials.material(%d)", key, mi - 1)
+        setXMLString(xmlFile, matKey .. "#fillType", mat.fillTypeName)
+        setXMLFloat(xmlFile, matKey .. "#amount", mat.amount)
+        setXMLFloat(xmlFile, matKey .. "#delivered", mat.delivered)
     end
 end
 
@@ -191,13 +199,15 @@ function ECProject.loadFromXML(xmlFile, key)
     project.mode = getXMLString(xmlFile, key .. "#mode") or ECConfig.DEFAULT_MODE
     project.currentPhaseIndex = getXMLInt(xmlFile, key .. "#currentPhase") or 1
     project.completed = getXMLBool(xmlFile, key .. "#completed") or false
-    project.paused = false
     project.startPeriod = getXMLInt(xmlFile, key .. "#startPeriod") or 1
     project.startYear = getXMLInt(xmlFile, key .. "#startYear") or 1
     project.fencePlaceableId = nil
     project.activatable = nil
     project.storage = nil
     project.unloadingStation = nil
+    project.labourPerPhase = getXMLFloat(xmlFile, key .. "#labourPerPhase") or 0
+    project.materialBudget = getXMLFloat(xmlFile, key .. "#materialBudget") or 0
+    project.materialSuppliedValue = getXMLFloat(xmlFile, key .. "#materialSuppliedValue") or 0
 
     project.footprint = {}
     if hasXMLProperty(xmlFile, key .. ".footprint") then
@@ -232,31 +242,30 @@ function ECProject.loadFromXML(xmlFile, key)
         if not hasXMLProperty(xmlFile, phaseKey) then
             break
         end
-        local phase = {
-            cost = getXMLFloat(xmlFile, phaseKey .. "#cost") or 0,
+        table.insert(project.phases, {
             completed = getXMLBool(xmlFile, phaseKey .. "#completed") or false,
-            resources = {},
-        }
-        local ri = 0
-        while true do
-            local resKey = string.format("%s.resource(%d)", phaseKey, ri)
-            if not hasXMLProperty(xmlFile, resKey) then
-                break
-            end
-            local fillTypeName = getXMLString(xmlFile, resKey .. "#fillType")
-            local fillTypeIndex = g_fillTypeManager:getFillTypeIndexByName(fillTypeName)
-            if fillTypeIndex ~= nil then
-                table.insert(phase.resources, {
-                    fillTypeIndex = fillTypeIndex,
-                    fillTypeName = fillTypeName,
-                    amount = getXMLFloat(xmlFile, resKey .. "#amount") or 0,
-                    delivered = getXMLFloat(xmlFile, resKey .. "#delivered") or 0,
-                })
-            end
-            ri = ri + 1
-        end
-        table.insert(project.phases, phase)
+        })
         pi = pi + 1
+    end
+
+    project.materials = {}
+    local mi = 0
+    while true do
+        local matKey = string.format("%s.materials.material(%d)", key, mi)
+        if not hasXMLProperty(xmlFile, matKey) then
+            break
+        end
+        local fillTypeName = getXMLString(xmlFile, matKey .. "#fillType")
+        local fillTypeIndex = g_fillTypeManager:getFillTypeIndexByName(fillTypeName)
+        if fillTypeIndex ~= nil then
+            table.insert(project.materials, {
+                fillTypeIndex = fillTypeIndex,
+                fillTypeName = fillTypeName,
+                amount = getXMLFloat(xmlFile, matKey .. "#amount") or 0,
+                delivered = getXMLFloat(xmlFile, matKey .. "#delivered") or 0,
+            })
+        end
+        mi = mi + 1
     end
 
     return project
@@ -281,6 +290,9 @@ function ECProject:writeStream(streamId)
     streamWriteBool(streamId, self.completed)
     streamWriteInt32(streamId, self.startPeriod or 1)
     streamWriteInt32(streamId, self.startYear or 1)
+    streamWriteFloat32(streamId, self.labourPerPhase)
+    streamWriteFloat32(streamId, self.materialBudget)
+    streamWriteFloat32(streamId, self.materialSuppliedValue)
 
     streamWriteBool(streamId, self.footprint.sizeX ~= nil)
     if self.footprint.sizeX ~= nil then
@@ -293,14 +305,14 @@ function ECProject:writeStream(streamId)
 
     streamWriteInt32(streamId, #self.phases)
     for _, phase in ipairs(self.phases) do
-        streamWriteFloat32(streamId, phase.cost)
         streamWriteBool(streamId, phase.completed)
-        streamWriteInt32(streamId, #phase.resources)
-        for _, resource in ipairs(phase.resources) do
-            streamWriteString(streamId, resource.fillTypeName)
-            streamWriteFloat32(streamId, resource.amount)
-            streamWriteFloat32(streamId, resource.delivered)
-        end
+    end
+
+    streamWriteInt32(streamId, #self.materials)
+    for _, mat in ipairs(self.materials) do
+        streamWriteString(streamId, mat.fillTypeName)
+        streamWriteFloat32(streamId, mat.amount)
+        streamWriteFloat32(streamId, mat.delivered)
     end
 end
 
@@ -329,7 +341,9 @@ function ECProject.readStream(streamId)
     project.completed = streamReadBool(streamId)
     project.startPeriod = streamReadInt32(streamId)
     project.startYear = streamReadInt32(streamId)
-    project.paused = false
+    project.labourPerPhase = streamReadFloat32(streamId)
+    project.materialBudget = streamReadFloat32(streamId)
+    project.materialSuppliedValue = streamReadFloat32(streamId)
     project.fencePlaceableId = nil
     project.activatable = nil
     project.storage = nil
@@ -350,23 +364,22 @@ function ECProject.readStream(streamId)
     local numPhases = streamReadInt32(streamId)
     project.phases = {}
     for _ = 1, numPhases do
-        local phase = {
-            cost = streamReadFloat32(streamId),
+        table.insert(project.phases, {
             completed = streamReadBool(streamId),
-            resources = {},
-        }
-        local numResources = streamReadInt32(streamId)
-        for _ = 1, numResources do
-            local fillTypeName = streamReadString(streamId)
-            local fillTypeIndex = g_fillTypeManager:getFillTypeIndexByName(fillTypeName)
-            table.insert(phase.resources, {
-                fillTypeIndex = fillTypeIndex,
-                fillTypeName = fillTypeName,
-                amount = streamReadFloat32(streamId),
-                delivered = streamReadFloat32(streamId),
-            })
-        end
-        table.insert(project.phases, phase)
+        })
+    end
+
+    local numMaterials = streamReadInt32(streamId)
+    project.materials = {}
+    for _ = 1, numMaterials do
+        local fillTypeName = streamReadString(streamId)
+        local fillTypeIndex = g_fillTypeManager:getFillTypeIndexByName(fillTypeName)
+        table.insert(project.materials, {
+            fillTypeIndex = fillTypeIndex,
+            fillTypeName = fillTypeName,
+            amount = streamReadFloat32(streamId),
+            delivered = streamReadFloat32(streamId),
+        })
     end
 
     return project

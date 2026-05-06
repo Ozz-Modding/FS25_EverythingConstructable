@@ -11,15 +11,17 @@ ECConfig.DURATION_THRESHOLDS = {
 }
 
 ECConfig.DEPOSIT_FRACTION = 0.10
+ECConfig.LABOUR_FRACTION = 0.25
+ECConfig.MATERIAL_FRACTION = 0.75
 
-ECConfig.RESOURCE_SCALE_PER_10K = {
-    {fillType = "WOODBEAM",   amount = 500},
-    {fillType = "PLANKS",     amount = 400},
-    {fillType = "CEMENT",     amount = 300},
-    {fillType = "PREFABWALL", amount = 200},
+ECConfig.RESOURCE_WEIGHTS = {
+    {fillType = "WOODBEAM",    weight = 2},
+    {fillType = "PLANKS",      weight = 2},
+    {fillType = "CEMENT",      weight = 1},
+    {fillType = "PREFABWALL",  weight = 1},
+    {fillType = "CEMENTBRICKS", weight = 1},
+    {fillType = "ROOFPLATES",  weight = 1},
 }
-
-ECConfig.RESOURCE_DISCOUNT_FACTOR = 0.5
 
 ECConfig.DEFAULT_MODE = "automatic"
 
@@ -50,29 +52,59 @@ function ECConfig.getDepositAmount(totalPrice)
     return math.floor(totalPrice * ECConfig.DEPOSIT_FRACTION)
 end
 
-function ECConfig.getResourcesForPhase(totalPrice, numPhases)
-    local pricePerPhase = totalPrice / numPhases
-    local scaleFactor = pricePerPhase / 10000
-    local resources = {}
+function ECConfig.getLabourCost(totalPrice)
+    return math.floor(totalPrice * ECConfig.LABOUR_FRACTION)
+end
 
-    for _, template in ipairs(ECConfig.RESOURCE_SCALE_PER_10K) do
-        local fillType = g_fillTypeManager:getFillTypeIndexByName(template.fillType)
-        if fillType ~= nil then
-            table.insert(resources, {
-                fillTypeIndex = fillType,
-                fillTypeName = template.fillType,
-                amount = math.max(1, math.floor(template.amount * scaleFactor)),
-                delivered = 0,
-            })
+function ECConfig.getMaterialBudget(totalPrice)
+    return math.floor(totalPrice * ECConfig.MATERIAL_FRACTION)
+end
+
+function ECConfig.getLabourPerPhase(totalPrice, numPhases)
+    return math.floor(ECConfig.getLabourCost(totalPrice) / numPhases)
+end
+
+function ECConfig.getMaterialPerPhase(totalPrice, numPhases)
+    return math.floor(ECConfig.getMaterialBudget(totalPrice) / numPhases)
+end
+
+function ECConfig.generateMaterialList(materialBudget)
+    local validResources = {}
+    local totalWeight = 0
+
+    for _, entry in ipairs(ECConfig.RESOURCE_WEIGHTS) do
+        local fillTypeIndex = g_fillTypeManager:getFillTypeIndexByName(entry.fillType)
+        if fillTypeIndex ~= nil then
+            local fillType = g_fillTypeManager:getFillTypeByIndex(fillTypeIndex)
+            if fillType ~= nil and (fillType.pricePerLiter or 0) > 0 then
+                table.insert(validResources, {
+                    fillTypeIndex = fillTypeIndex,
+                    fillTypeName = entry.fillType,
+                    weight = entry.weight,
+                    pricePerLiter = fillType.pricePerLiter,
+                })
+                totalWeight = totalWeight + entry.weight
+            end
         end
     end
 
-    return resources
-end
+    if totalWeight == 0 or #validResources == 0 then
+        return {}
+    end
 
-function ECConfig.getPhaseCost(totalPrice, numPhases, depositAmount)
-    local remainingCost = totalPrice - depositAmount
-    return math.floor(remainingCost / numPhases)
+    local materials = {}
+    for _, res in ipairs(validResources) do
+        local share = (res.weight / totalWeight) * materialBudget
+        local amount = math.max(1, math.floor(share / res.pricePerLiter))
+        table.insert(materials, {
+            fillTypeIndex = res.fillTypeIndex,
+            fillTypeName = res.fillTypeName,
+            amount = amount,
+            delivered = 0,
+        })
+    end
+
+    return materials
 end
 
 function ECConfig.shouldApplyConstruction(storeItem, placeable)

@@ -31,6 +31,11 @@ function ECProjectManager:cleanupProjectResources(project)
         g_currentMission.activatableObjectsSystem:removeActivatable(project.activatable)
         project.activatable = nil
     end
+
+    if project.palletCollector ~= nil then
+        project.palletCollector:delete()
+        project.palletCollector = nil
+    end
 end
 
 function ECProjectManager:createProject(farmId, storeItemXml, position, rotation, configurations, configurationData, totalPrice, displacementCosts, footprint)
@@ -52,6 +57,13 @@ function ECProjectManager:setupClientProject(project)
     if project.activatable == nil and not project.completed then
         project.activatable = ECConstructionActivatable.new(project)
         g_currentMission.activatableObjectsSystem:addActivatable(project.activatable)
+    end
+
+    if self.isServer and project.palletCollector == nil and not project.completed then
+        local collector = ECPalletCollector.new(project)
+        if collector:createTrigger() then
+            project.palletCollector = collector
+        end
     end
 end
 
@@ -87,51 +99,33 @@ function ECProjectManager:processProjectTick(project)
         return
     end
 
-    if project.mode == ECProject.MODE_AUTOMATIC then
-        self:processAutomaticPhase(project)
-    elseif project.mode == ECProject.MODE_WAIT_FOR_RESOURCES then
-        self:processWaitForResourcesPhase(project)
+    if project.mode == ECProject.MODE_PAUSED then
+        return
     end
+
+    self:advancePhase(project)
 end
 
-function ECProjectManager:processAutomaticPhase(project)
+function ECProjectManager:advancePhase(project)
     local phase = project:getCurrentPhase()
-    local effectiveCost = project:getEffectivePhaseCost()
+    local phaseCost = project:getPhaseCost()
 
     local farm = g_farmManager:getFarmById(project.farmId)
     if farm == nil then
         return
     end
 
-    if farm.money < effectiveCost then
-        project.paused = true
+    if farm.money < phaseCost then
         return
     end
 
-    project.paused = false
-
-    if effectiveCost > 0 then
-        g_currentMission:addMoney(-effectiveCost, project.farmId, MoneyType.SHOP_PROPERTY_BUY, true, true)
-        project.totalPaid = project.totalPaid + effectiveCost
+    if phaseCost > 0 then
+        g_currentMission:addMoney(-phaseCost, project.farmId, MoneyType.SHOP_PROPERTY_BUY, true, true)
+        project.totalPaid = project.totalPaid + phaseCost
     end
 
     phase.completed = true
-
-    if project.currentPhaseIndex >= project:getNumPhases() then
-        self:completeProject(project)
-    else
-        project.currentPhaseIndex = project.currentPhaseIndex + 1
-        g_server:broadcastEvent(ECAdvancePhaseEvent.new(project.id, project.currentPhaseIndex, project.totalPaid))
-    end
-end
-
-function ECProjectManager:processWaitForResourcesPhase(project)
-    if not project:isAllResourcesDelivered() then
-        return
-    end
-
-    local phase = project:getCurrentPhase()
-    phase.completed = true
+    project:trimMaterials()
 
     if project.currentPhaseIndex >= project:getNumPhases() then
         self:completeProject(project)
@@ -195,22 +189,25 @@ function ECProjectManager:deliverResource(projectId, fillTypeIndex, amount)
         return 0
     end
 
-    local phase = project:getCurrentPhase()
-    if phase == nil then
-        return 0
-    end
-
     local delivered = 0
-    for _, resource in ipairs(phase.resources) do
-        if resource.fillTypeIndex == fillTypeIndex then
-            local remaining = resource.amount - resource.delivered
+    for _, mat in ipairs(project.materials) do
+        if mat.fillTypeIndex == fillTypeIndex then
+            local remaining = mat.amount - mat.delivered
             local toDeliver = math.min(amount, remaining)
-            resource.delivered = resource.delivered + toDeliver
-            delivered = toDeliver
+            if toDeliver > 0 then
+                mat.delivered = mat.delivered + toDeliver
+                delivered = toDeliver
+
+                local fillType = g_fillTypeManager:getFillTypeByIndex(fillTypeIndex)
+                if fillType ~= nil then
+                    project.materialSuppliedValue = project.materialSuppliedValue + (toDeliver * (fillType.pricePerLiter or 0))
+                end
+            end
             break
         end
     end
 
+    project:trimMaterials()
     return delivered
 end
 
@@ -236,6 +233,7 @@ function ECProjectManager:onPhaseAdvancedOnClient(projectId, newPhaseIndex, tota
 
     project.currentPhaseIndex = newPhaseIndex
     project.totalPaid = totalPaid
+    project:trimMaterials()
 end
 
 function ECProjectManager:onProjectCompletedOnClient(projectId)

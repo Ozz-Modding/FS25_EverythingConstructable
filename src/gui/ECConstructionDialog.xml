@@ -2,53 +2,64 @@
 <GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
     <GuiElement profile="newLayer"/>
     <Bitmap profile="dialogFullscreenBg" id="dialogBg"/>
-
-    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="700px 520px">
+    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="750px 580px">
         <ThreePartBitmap profile="fs25_dialogBgMiddle"/>
         <ThreePartBitmap profile="fs25_dialogBgTop"/>
         <ThreePartBitmap profile="fs25_dialogBgBottom"/>
-
         <GuiElement profile="fs25_dialogContentContainer">
             <Text profile="dialogTitle" text="$l10n_ec_constructionSite" id="dialogTitleElement" position="0px -10px"/>
 
-            <!-- Building name -->
-            <Text profile="ecHeader" text="" id="buildingNameText" position="40px -50px" size="620px 28px"/>
-
-            <!-- Phase info -->
-            <Text profile="ecLabel" text="" id="phaseText" position="40px -82px" size="620px 22px"/>
-
-            <!-- Info rows -->
-            <GuiElement profile="ecSection" position="40px -115px" size="620px 140px">
-                <Text profile="ecLabel" text="Status:"              position="0px 0px"    size="200px 22px"/>
-                <Text profile="ecValue" text="" id="statusText"     position="200px 0px"  size="420px 22px"/>
-
-                <Text profile="ecLabel" text="Mode:"                position="0px -26px"  size="200px 22px"/>
-                <Text profile="ecValue" text="" id="modeText"       position="200px -26px" size="420px 22px"/>
-
-                <Text profile="ecLabel" text="$l10n_ec_phaseCost"   position="0px -52px"  size="200px 22px"/>
-                <Text profile="ecValue" text="" id="phaseCostText"  position="200px -52px" size="420px 22px"/>
-
-                <Text profile="ecLabel" text="$l10n_ec_totalPaid"   position="0px -78px"  size="200px 22px"/>
-                <Text profile="ecValue" text="" id="totalPaidText"  position="200px -78px" size="420px 22px"/>
-
-                <Text profile="ecLabel" text="$l10n_ec_remaining"   position="0px -104px" size="200px 22px"/>
-                <Text profile="ecValue" text="" id="remainingText"  position="200px -104px" size="420px 22px"/>
+            <!-- Building name + phase -->
+            <GuiElement profile="ecSection" position="40px -50px" size="670px 50px">
+                <Text profile="ecColumnHeader" text="" id="buildingNameText" position="0px 0px" size="670px 22px"/>
+                <Text profile="ecFieldLabel" text="" id="phaseText" position="0px -28px" size="670px 20px"/>
             </GuiElement>
 
-            <!-- Resources header -->
-            <Text profile="ecSubHeader" text="$l10n_ec_resourcesNeeded" position="40px -265px" size="620px 22px"/>
+            <!-- Info rows -->
+            <GuiElement profile="ecSection" position="40px -115px" size="670px 170px">
+                <Text profile="ecFieldLabel" text="Status:"                 position="0px 0px"    size="140px 20px"/>
+                <Text profile="ecFieldValue" text="" id="statusText"        position="140px 0px"  size="200px 20px"/>
 
-            <!-- Resource list -->
-            <SmoothList profile="ecListTable" id="resourceList" position="40px -290px" size="620px 120px">
-                <ListItem profile="ecListItem">
-                    <Text profile="ecListCell" name="resourceName" position="10px 0px" size="300px 28px"/>
-                    <Text profile="ecListCellRight" name="resourceAmount" position="310px 0px" size="300px 28px"/>
-                </ListItem>
-            </SmoothList>
+                <Text profile="ecFieldLabel" text="Mode:"                   position="380px 0px"  size="100px 20px"/>
+                <Text profile="ecFieldValue" text="" id="modeText"          position="480px 0px"  size="190px 20px"/>
+
+                <Text profile="ecFieldLabel" text="$l10n_ec_labourCost"     position="0px -26px"  size="140px 20px"/>
+                <Text profile="ecFieldValue" text="" id="labourCostText"    position="140px -26px" size="200px 20px"/>
+
+                <Text profile="ecFieldLabel" text="$l10n_ec_phaseCost"      position="380px -26px" size="100px 20px"/>
+                <Text profile="ecFieldValue" text="" id="phaseCostText"     position="480px -26px" size="190px 20px"/>
+
+                <Text profile="ecFieldLabel" text="$l10n_ec_materialSaved"  position="0px -52px"  size="140px 20px"/>
+                <Text profile="ecFieldValue" text="" id="materialSavedText" position="140px -52px" size="200px 20px"/>
+
+                <Text profile="ecFieldLabel" text="$l10n_ec_totalPaid"      position="0px -78px"  size="140px 20px"/>
+                <Text profile="ecFieldValue" text="" id="totalPaidText"     position="140px -78px" size="200px 20px"/>
+
+                <Text profile="ecFieldLabel" text="$l10n_ec_remaining"      position="380px -78px" size="100px 20px"/>
+                <Text profile="ecFieldValue" text="" id="remainingText"     position="480px -78px" size="190px 20px"/>
+            </GuiElement>
+
+            <!-- Materials section -->
+            <GuiElement profile="ecSection" position="40px -300px" size="670px 200px">
+                <Text profile="ecColumnHeader" text="$l10n_ec_materialsSupplyable" position="0px 0px" size="670px 22px"/>
+
+                <Text profile="ecMatLabel" text="" id="matName1"   position="10px -28px"  size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount1" position="320px -28px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName2"   position="10px -50px"  size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount2" position="320px -50px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName3"   position="10px -72px"  size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount3" position="320px -72px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName4"   position="10px -94px"  size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount4" position="320px -94px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName5"   position="10px -116px" size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount5" position="320px -116px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName6"   position="10px -138px" size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount6" position="320px -138px" size="340px 20px"/>
+            </GuiElement>
         </GuiElement>
 
         <!-- Buttons -->
-        <BoxLayout profile="fs25_dialogButtonBox" size="660px 60px">
+        <BoxLayout profile="fs25_dialogButtonBox" size="710px 60px">
             <Button profile="buttonActivate" text="$l10n_ec_switchMode" onClick="onClickSwitchMode" id="switchModeButton"/>
             <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
             <Button profile="buttonExtra1" text="$l10n_ec_cancel" onClick="onClickCancel" id="cancelButton"/>

@@ -6,6 +6,7 @@ function EverythingConstructable:loadMap()
     g_currentMission.ecProjectManager = ECProjectManager.new()
     g_currentMission.ecProjectManager:init()
 
+    g_gui:loadProfiles(EverythingConstructable.dir .. "src/gui/guiProfiles.xml")
     ECConstructionDialog.register()
 
     self:loadFromXMLFile()

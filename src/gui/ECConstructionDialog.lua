@@ -51,7 +51,7 @@ function ECConstructionDialog:updateDisplay()
     end
 
     if self.modeText ~= nil then
-        local modeKey = project.mode == ECProject.MODE_AUTOMATIC and "ec_mode_automatic" or "ec_mode_waitForResources"
+        local modeKey = project.mode == ECProject.MODE_AUTOMATIC and "ec_mode_automatic" or "ec_mode_paused"
         self.modeText:setText(g_i18n:getText(modeKey))
     end
 
@@ -65,47 +65,62 @@ function ECConstructionDialog:updateDisplay()
     end
 
     if self.phaseCostText ~= nil then
-        local effectiveCost = project:getEffectivePhaseCost()
-        self.phaseCostText:setText(g_i18n:formatMoney(effectiveCost, 0, true, true))
+        local phaseCost = project:getPhaseCost()
+        self.phaseCostText:setText(g_i18n:formatMoney(phaseCost, 0, true, true))
+    end
+
+    if self.labourCostText ~= nil then
+        self.labourCostText:setText(g_i18n:formatMoney(project.labourPerPhase, 0, true, true))
+    end
+
+    if self.materialSavedText ~= nil then
+        self.materialSavedText:setText(g_i18n:formatMoney(project.materialSuppliedValue, 0, true, true))
     end
 
     if self.statusText ~= nil then
-        local statusKey = project.paused and "ec_status_paused" or "ec_status_active"
+        local statusKey = project.mode == ECProject.MODE_PAUSED and "ec_status_paused" or "ec_status_active"
         self.statusText:setText(g_i18n:getText(statusKey))
     end
 
-    self:updateResourceList()
+    self:updateMaterialList()
 end
 
-function ECConstructionDialog:updateResourceList()
-    if self.resourceList == nil or self.project == nil then
+function ECConstructionDialog:updateMaterialList()
+    if self.project == nil then
         return
     end
 
-    self.resourceList:deleteListItems()
-
-    local phase = self.project:getCurrentPhase()
-    if phase == nil then
-        return
-    end
-
-    for _, resource in ipairs(phase.resources) do
-        local fillType = g_fillTypeManager:getFillTypeByIndex(resource.fillTypeIndex)
-        if fillType ~= nil then
-            local item = self.resourceList:addItem()
-            if item ~= nil then
-                local nameElement = item:getDescendantByName("resourceName")
-                local amountElement = item:getDescendantByName("resourceAmount")
-
-                if nameElement ~= nil then
-                    nameElement:setText(fillType.title)
+    local slot = 1
+    for _, mat in ipairs(self.project.materials) do
+        if slot > 6 then
+            break
+        end
+        if mat.amount > mat.delivered then
+            local fillType = g_fillTypeManager:getFillTypeByIndex(mat.fillTypeIndex)
+            if fillType ~= nil then
+                local nameEl = self["matName" .. slot]
+                local amountEl = self["matAmount" .. slot]
+                if nameEl ~= nil then
+                    nameEl:setText(fillType.title)
                 end
-                if amountElement ~= nil then
-                    amountElement:setText(string.format("%s / %s",
-                        g_i18n:formatVolume(resource.delivered),
-                        g_i18n:formatVolume(resource.amount)))
+                if amountEl ~= nil then
+                    amountEl:setText(string.format("%s / %s",
+                        g_i18n:formatVolume(mat.delivered),
+                        g_i18n:formatVolume(mat.amount)))
                 end
+                slot = slot + 1
             end
+        end
+    end
+
+    for i = slot, 6 do
+        local nameEl = self["matName" .. i]
+        local amountEl = self["matAmount" .. i]
+        if nameEl ~= nil then
+            nameEl:setText("")
+        end
+        if amountEl ~= nil then
+            amountEl:setText("")
         end
     end
 end
@@ -117,7 +132,7 @@ function ECConstructionDialog:onClickSwitchMode()
 
     local newMode
     if self.project.mode == ECProject.MODE_AUTOMATIC then
-        newMode = ECProject.MODE_WAIT_FOR_RESOURCES
+        newMode = ECProject.MODE_PAUSED
     else
         newMode = ECProject.MODE_AUTOMATIC
     end

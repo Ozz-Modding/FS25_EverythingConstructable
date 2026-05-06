@@ -1,54 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <GUIProfiles>
+    <!-- Section container -->
     <Profile name="ecSection" extends="baseReference" with="anchorTopLeft">
     </Profile>
 
-    <Profile name="ecLabel" extends="baseReference" with="anchorTopLeft">
-        <textBold value="false"/>
-        <textSize value="15px"/>
-        <textAlignment value="left"/>
-        <textColor value="$preset_fs25_colorMainLight"/>
-    </Profile>
-
-    <Profile name="ecValue" extends="baseReference" with="anchorTopLeft">
-        <textBold value="false"/>
-        <textSize value="15px"/>
-        <textAlignment value="right"/>
-        <textColor value="$preset_fs25_colorMainLight"/>
-    </Profile>
-
-    <Profile name="ecHeader" extends="baseReference" with="anchorTopLeft">
+    <!-- Section header (e.g. "Supplyable Materials") -->
+    <Profile name="ecColumnHeader" extends="baseReference" with="anchorTopLeft">
         <textBold value="true"/>
         <textSize value="20px"/>
         <textAlignment value="left"/>
         <textColor value="$preset_fs25_colorMainHighlight"/>
     </Profile>
 
-    <Profile name="ecSubHeader" extends="baseReference" with="anchorTopLeft">
-        <textBold value="true"/>
-        <textSize value="16px"/>
+    <!-- Field label (left side) -->
+    <Profile name="ecFieldLabel" extends="baseReference" with="anchorTopLeft">
+        <textBold value="false"/>
+        <textSize value="15px"/>
         <textAlignment value="left"/>
-        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textVerticalAlignment value="middle"/>
+        <textColor value="$preset_fs25_colorMainLight"/>
     </Profile>
 
-    <Profile name="ecListItem" extends="baseReference" with="anchorTopStretchingX alternating">
-        <height value="28px"/>
-        <imageColor value="$preset_fs25_colorGrey"/>
-        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
+    <!-- Field value (right of label) -->
+    <Profile name="ecFieldValue" extends="baseReference" with="anchorTopLeft">
+        <textBold value="false"/>
+        <textSize value="17px"/>
+        <textAlignment value="left"/>
+        <textColor value="$preset_fs25_colorMainLight"/>
     </Profile>
 
-    <Profile name="ecListCell" extends="baseReference" with="anchorStretchingYLeft">
+    <!-- Material row label -->
+    <Profile name="ecMatLabel" extends="baseReference" with="anchorTopLeft">
         <textBold value="false"/>
         <textSize value="15px"/>
         <textAlignment value="left"/>
         <textColor value="$preset_fs25_colorMainLight"/>
-        <textSelectedColor value="$preset_fs25_colorMainDark"/>
     </Profile>
 
-    <Profile name="ecListCellRight" extends="ecListCell">
+    <!-- Material row value (delivered / total) -->
+    <Profile name="ecMatValue" extends="baseReference" with="anchorTopLeft">
+        <textBold value="false"/>
+        <textSize value="15px"/>
         <textAlignment value="right"/>
+        <textColor value="$preset_fs25_colorMainLight"/>
     </Profile>
-
-    <Profile name="ecListTable" extends="emptyPanel" with="anchorStretchingYLeft pivotTopLeft"/>
 </GUIProfiles>
