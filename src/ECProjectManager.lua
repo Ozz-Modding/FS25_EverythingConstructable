@@ -134,6 +134,7 @@ function ECProjectManager:advancePhase(project)
         if project.currentPhaseIndex >= 2 and project.innerFenceSegments == nil then
             ECFenceBuilder.buildInnerFence(project)
         end
+        ECSiteDecorator.decorate(project)
         g_server:broadcastEvent(ECAdvancePhaseEvent.new(project.id, project.currentPhaseIndex, project.totalPaid))
     end
 end
@@ -143,6 +144,7 @@ function ECProjectManager:completeProject(project)
 
     self:cleanupProjectResources(project)
 
+    ECSiteDecorator.removeDecorations(project)
     ECFenceBuilder.removeFence(project)
 
     ECBuildingPlacer.placeBuilding(project, function(success)
@@ -169,6 +171,7 @@ function ECProjectManager:cancelProject(projectId)
     end
 
     self:cleanupProjectResources(project)
+    ECSiteDecorator.removeDecorations(project)
     ECFenceBuilder.removeFence(project)
 
     project.completed = true

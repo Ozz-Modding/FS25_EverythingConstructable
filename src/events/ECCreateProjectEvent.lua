@@ -38,6 +38,7 @@ function ECCreateProjectEvent:run(connection)
         end
 
         ECFenceBuilder.buildFence(self.project)
+        ECSiteDecorator.decorate(self.project)
 
         local deposit = self.project.depositAmount + self.project.displacementCosts
         g_currentMission:addMoney(-deposit, self.project.farmId, MoneyType.SHOP_PROPERTY_BUY, true, true)

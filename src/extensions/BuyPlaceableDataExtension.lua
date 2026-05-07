@@ -36,6 +36,7 @@ BuyPlaceableData.onBought = Utils.overwrittenFunction(BuyPlaceableData.onBought,
         )
 
         ECFenceBuilder.buildFence(project)
+        ECSiteDecorator.decorate(project)
         ECTerrainPainter.clearFootprint(project)
 
         local deposit = project.depositAmount + displacementCosts

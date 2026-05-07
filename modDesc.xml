@@ -36,6 +36,7 @@ Fully supports multiplayer.
         <sourceFile filename="src/ECTerrainPainter.lua"/>
         <sourceFile filename="src/ECConstructionActivatable.lua"/>
         <sourceFile filename="src/ECPalletCollector.lua"/>
+        <sourceFile filename="src/ECSiteDecorator.lua"/>
         <sourceFile filename="src/events/ECCreateProjectEvent.lua"/>
         <sourceFile filename="src/events/ECAdvancePhaseEvent.lua"/>
         <sourceFile filename="src/events/ECResourceDeliveredEvent.lua"/>

@@ -43,6 +43,11 @@ ECConfig.FENCE_INNER_OFFSET = 2
 
 ECConfig.ACTIVATABLE_BUFFER = 3
 
+ECConfig.SITE_DECORATION_CELL_SIZE = 1
+ECConfig.SITE_DECORATIONS = {
+    { i3d = "data/placeables/brandless/decoration/boardStacks/boardStackSmall.i3d", width = 4, depth = 2 },
+}
+
 function ECConfig.getMonthsForPrice(price)
     for _, threshold in ipairs(ECConfig.DURATION_THRESHOLDS) do
         if price <= threshold.maxPrice then
