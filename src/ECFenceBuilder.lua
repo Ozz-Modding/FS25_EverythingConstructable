@@ -128,10 +128,186 @@ function ECFenceBuilder.createSingleton(storeItem, project, corners)
     end, nil, {})
 end
 
+function ECFenceBuilder.buildInnerFence(project)
+    if project == nil or project.footprint == nil then
+        return
+    end
+
+    if project.innerFenceSegments ~= nil then
+        return
+    end
+
+    local corners = ECFenceBuilder.calculateInnerCorners(project)
+    if corners == nil then
+        return
+    end
+
+    project.innerFenceCorners = corners
+
+    local fenceXml = ECConfig.FENCE_INNER_XML
+    local storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
+    if storeItem == nil then
+        fenceXml = "$data/" .. ECConfig.FENCE_INNER_XML
+        storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
+    end
+    if storeItem == nil then
+        print("EverythingConstructable: Inner fence store item not found")
+        return
+    end
+
+    local xmlFilename = storeItem.xmlFilename
+    local existingFence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(xmlFilename)
+
+    if existingFence ~= nil then
+        ECFenceBuilder.addInnerSegmentsToFence(existingFence, project, corners)
+    else
+        ECFenceBuilder.createInnerSingleton(storeItem, project, corners)
+    end
+end
+
+function ECFenceBuilder.addInnerSegmentsToFence(fence, project, corners)
+    local segments = {}
+
+    if fence.spec_fence ~= nil then
+        for i = 1, 4 do
+            local nextI = (i % 4) + 1
+            local x1, z1 = corners[i][1], corners[i][2]
+            local x2, z2 = corners[nextI][1], corners[nextI][2]
+            local renderFirst = (i == 1)
+            local renderLast = (i == 4)
+            local segment = fence:createSegment(x1, z1, x2, z2, renderFirst, nil)
+            segment.renderLast = renderLast
+            fence:addSegment(segment, true)
+            table.insert(segments, segment)
+        end
+        project.innerFencePlaceable = fence
+        project.innerFenceSegments = segments
+
+    elseif fence.spec_newFence ~= nil then
+        local fenceObj = fence:getFence()
+        if fenceObj == nil then
+            return
+        end
+
+        local templates = fenceObj:getSegmentTemplates()
+        if templates == nil or #templates == 0 then
+            return
+        end
+        local templateId = templates[1]
+
+        for i = 1, 4 do
+            local nextI = (i % 4) + 1
+            local x1, z1 = corners[i][1], corners[i][2]
+            local x2, z2 = corners[nextI][1], corners[nextI][2]
+
+            local segment = fenceObj:createNewSegment(templateId)
+            if segment ~= nil then
+                local y1 = getTerrainHeightAtWorldPos(g_terrainNode, x1, 0, z1)
+                local y2 = getTerrainHeightAtWorldPos(g_terrainNode, x2, 0, z2)
+                segment:setStartPos(x1, y1, z1)
+                segment:setEndPos(x2, y2, z2)
+                segment:updateMeshes(true, false)
+
+                if segment.actualEndX ~= nil then
+                    segment.endPosX = segment.actualEndX
+                    segment.endPosY = segment.actualEndY
+                    segment.endPosZ = segment.actualEndZ
+                    addToPhysics(segment.root)
+                    fenceObj:addSegment(segment)
+                    segment:setCollisionAreaDirty()
+                    segment.notYetFinalized = nil
+                end
+
+                table.insert(segments, segment)
+            end
+        end
+        project.innerFencePlaceable = fence
+        project.innerFenceSegments = segments
+    end
+end
+
+function ECFenceBuilder.createInnerSingleton(storeItem, project, corners)
+    local buyData = BuyPlaceableData.new()
+    buyData:setStoreItem(storeItem)
+    buyData:setPosition(0, PlacementUtil.NETHER_HEIGHT - 1, 0)
+    buyData:setRotation(0, 0, 0)
+    buyData:setConfigurations({})
+    buyData:setOwnerFarmId(project.farmId)
+    buyData:setDisplacementCosts(0)
+    buyData:setModifyTerrain(false)
+    buyData:setIsFreeOfCharge(true)
+
+    buyData:buy(function(_, placeable, loadingState)
+        if loadingState ~= PlaceableLoadingState.OK then
+            return
+        end
+
+        local existingFence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(storeItem.xmlFilename)
+        if existingFence ~= nil then
+            ECFenceBuilder.addInnerSegmentsToFence(existingFence, project, corners)
+        end
+    end, nil, {})
+end
+
+function ECFenceBuilder.removeInnerFence(project)
+    if project == nil then
+        return
+    end
+
+    if project.innerFenceSegments ~= nil and project.innerFencePlaceable ~= nil then
+        local fence = project.innerFencePlaceable
+        if fence.spec_fence ~= nil then
+            for i = #project.innerFenceSegments, 1, -1 do
+                fence:deleteSegment(project.innerFenceSegments[i])
+            end
+        elseif fence.spec_newFence ~= nil then
+            local fenceObj = fence:getFence()
+            if fenceObj ~= nil then
+                for i = #project.innerFenceSegments, 1, -1 do
+                    fenceObj:removeSegment(project.innerFenceSegments[i])
+                    project.innerFenceSegments[i]:delete()
+                end
+            end
+        end
+    end
+
+    project.innerFenceSegments = nil
+    project.innerFencePlaceable = nil
+    project.innerFenceCorners = nil
+end
+
+function ECFenceBuilder.calculateInnerCorners(project)
+    local pos = project.position
+    local fp = project.footprint
+    local offset = ECConfig.FENCE_INNER_OFFSET
+    local halfX = math.max(0, (fp.sizeX or 10) * 0.5 - offset)
+    local halfZ = math.max(0, (fp.sizeZ or 10) * 0.5 - offset)
+    local rotY = fp.rotY or 0
+
+    local dirX, dirZ = MathUtil.getDirectionFromYRotation(rotY)
+    local sideX, _, sideZ = MathUtil.crossProduct(0, 1, 0, dirX, 0, dirZ)
+
+    local cx = pos[1] + dirX * (fp.centerZ or 0) + sideX * (fp.centerX or 0)
+    local cz = pos[3] + dirZ * (fp.centerZ or 0) + sideZ * (fp.centerX or 0)
+
+    if halfX < 1 or halfZ < 1 then
+        return nil
+    end
+
+    return {
+        {cx - sideX * halfX - dirX * halfZ, cz - sideZ * halfX - dirZ * halfZ},
+        {cx + sideX * halfX - dirX * halfZ, cz + sideZ * halfX - dirZ * halfZ},
+        {cx + sideX * halfX + dirX * halfZ, cz + sideZ * halfX + dirZ * halfZ},
+        {cx - sideX * halfX + dirX * halfZ, cz - sideZ * halfX + dirZ * halfZ},
+    }
+end
+
 function ECFenceBuilder.removeFence(project)
     if project == nil then
         return
     end
+
+    ECFenceBuilder.removeInnerFence(project)
 
     if project.fenceSegments ~= nil and project.fencePlaceable ~= nil then
         local fence = project.fencePlaceable

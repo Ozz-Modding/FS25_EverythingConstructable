@@ -131,6 +131,9 @@ function ECProjectManager:advancePhase(project)
         self:completeProject(project)
     else
         project.currentPhaseIndex = project.currentPhaseIndex + 1
+        if project.currentPhaseIndex >= 2 and project.innerFenceSegments == nil then
+            ECFenceBuilder.buildInnerFence(project)
+        end
         g_server:broadcastEvent(ECAdvancePhaseEvent.new(project.id, project.currentPhaseIndex, project.totalPaid))
     end
 end

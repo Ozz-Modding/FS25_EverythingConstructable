@@ -26,6 +26,9 @@ function EverythingConstructable:onStartMission()
     for _, project in pairs(g_currentMission.ecProjectManager.projects) do
         if not project.completed then
             ECFenceBuilder.buildFence(project)
+            if project.currentPhaseIndex >= 2 then
+                ECFenceBuilder.buildInnerFence(project)
+            end
             g_currentMission.ecProjectManager:setupClientProject(project)
         end
     end
@@ -116,6 +119,9 @@ function EverythingConstructable:consoleFinishPhase(projectId)
         return "Project completed: " .. project:getStoreItemName()
     else
         project.currentPhaseIndex = project.currentPhaseIndex + 1
+        if project.currentPhaseIndex >= 2 and project.innerFenceSegments == nil then
+            ECFenceBuilder.buildInnerFence(project)
+        end
         g_server:broadcastEvent(ECAdvancePhaseEvent.new(project.id, project.currentPhaseIndex, project.totalPaid))
         return string.format("Advanced to phase %d/%d", project.currentPhaseIndex, project:getNumPhases())
     end
