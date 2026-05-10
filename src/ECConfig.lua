@@ -46,6 +46,9 @@ ECConfig.ACTIVATABLE_BUFFER = 3
 
 ECConfig.SITE_DECORATION_CELL_SIZE = 1
 ECConfig.SITE_DECORATION_SIZE_BUFFER = 1
+ECConfig.SITE_DECORATION_CLUSTER_CHANCE = 0.6
+ECConfig.SITE_DECORATION_CLUSTER_RADIUS = 4
+ECConfig.SITE_DECORATION_ATTEMPT_MULTIPLIER = 5
 ECConfig.SITE_DECORATIONS = {
     { i3d = "data/placeables/brandless/decoration/boardStacks/boardStackSmall.i3d", max = 3 },
     { i3d = "data/placeables/brandless/decoration/boardStacks/boardStacksTiny.i3d", max = 3 },
@@ -57,7 +60,7 @@ ECConfig.SITE_DECORATIONS = {
     { i3d = "data/placeables/brandless/decoration/garbageContainers/trashcan01.i3d", max = 2 },
     { i3d = "data/placeables/brandless/decoration/benches/bench02.i3d", max = 2 },
     { i3d = "data/placeables/brandless/decoration/garbageContainers/garbageContainers.i3d", max = 1 },
-    { i3d = "data/placeables/mapAS/farmShacksAS/shackContainer01.i3d", max = 1, width = 9, depth = 6 },
+    { i3d = "data/placeables/mapAS/farmShacksAS/shackContainer01.i3d", max = 1, width = 9, depth = 6, priority = 1 },
 }
 
 function ECConfig.getMonthsForPrice(price)

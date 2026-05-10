@@ -157,8 +157,78 @@ function ECSiteDecorator.fillArea(area, project)
 
     local nodes = {}
     local decorations = ECConfig.SITE_DECORATIONS
-    local attempts = gridW * gridH * 2
+    local attempts = gridW * gridH * ECConfig.SITE_DECORATION_ATTEMPT_MULTIPLIER
     local placedCounts = {}
+    local placedPositions = {}
+    local clusterChance = ECConfig.SITE_DECORATION_CLUSTER_CHANCE
+    local clusterRadius = ECConfig.SITE_DECORATION_CLUSTER_RADIUS
+
+    local priorityItems = {}
+    for decoIndex, deco in ipairs(decorations) do
+        if deco.priority ~= nil then
+            table.insert(priorityItems, { index = decoIndex, priority = deco.priority })
+        end
+    end
+    table.sort(priorityItems, function(a, b) return a.priority < b.priority end)
+
+    for _, item in ipairs(priorityItems) do
+        local decoIndex = item.index
+        local deco = decorations[decoIndex]
+        local maxCount = deco.max or 1
+
+        for _ = 1, attempts do
+            if (placedCounts[decoIndex] or 0) >= maxCount then
+                break
+            end
+
+            local decoW, decoD = ECSiteDecorator.getDecoSize(deco)
+            local rotation = math.random(0, 3)
+            local w, d
+            if rotation % 2 == 0 then
+                w = decoW
+                d = decoD
+            else
+                w = decoD
+                d = decoW
+            end
+
+            local cellsW = math.ceil(w / cellSize)
+            local cellsD = math.ceil(d / cellSize)
+
+            if cellsW > gridW or cellsD > gridH then
+                break
+            end
+
+            local col = math.random(1, gridW - cellsW + 1)
+            local row = math.random(1, gridH - cellsD + 1)
+
+            if not ECSiteDecorator.canPlace(grid, row, col, cellsD, cellsW) then
+                continue
+            end
+
+            local localX = ((col - 1 + cellsW * 0.5) * cellSize) - area.halfX
+            local localZ = ((row - 1 + cellsD * 0.5) * cellSize) - area.halfZ
+
+            if ECSiteDecorator.straddlesInnerFence(area, localX, localZ, w * 0.5, d * 0.5) then
+                continue
+            end
+
+            ECSiteDecorator.markCells(grid, row, col, cellsD, cellsW)
+
+            local wx = area.cx + area.sideX * localX + area.dirX * localZ
+            local wz = area.cz + area.sideZ * localX + area.dirZ * localZ
+            local wy = getTerrainHeightAtWorldPos(g_terrainNode, wx, 0, wz)
+
+            local itemRotY = area.rotY + rotation * math.pi * 0.5
+
+            local node = ECSiteDecorator.placeDecoration(deco.i3d, wx, wy, wz, itemRotY)
+            if node ~= nil then
+                table.insert(nodes, node)
+                placedCounts[decoIndex] = (placedCounts[decoIndex] or 0) + 1
+                table.insert(placedPositions, { col = col, row = row })
+            end
+        end
+    end
 
     for _ = 1, attempts do
         local decoIndex = math.random(1, #decorations)
@@ -186,8 +256,17 @@ function ECSiteDecorator.fillArea(area, project)
             continue
         end
 
-        local col = math.random(1, gridW - cellsW + 1)
-        local row = math.random(1, gridH - cellsD + 1)
+        local col, row
+        if #placedPositions > 0 and math.random() < clusterChance then
+            local anchor = placedPositions[math.random(1, #placedPositions)]
+            col = anchor.col + math.random(-clusterRadius, clusterRadius)
+            row = anchor.row + math.random(-clusterRadius, clusterRadius)
+            col = math.max(1, math.min(col, gridW - cellsW + 1))
+            row = math.max(1, math.min(row, gridH - cellsD + 1))
+        else
+            col = math.random(1, gridW - cellsW + 1)
+            row = math.random(1, gridH - cellsD + 1)
+        end
 
         if not ECSiteDecorator.canPlace(grid, row, col, cellsD, cellsW) then
             continue
@@ -212,6 +291,7 @@ function ECSiteDecorator.fillArea(area, project)
         if node ~= nil then
             table.insert(nodes, node)
             placedCounts[decoIndex] = (placedCounts[decoIndex] or 0) + 1
+            table.insert(placedPositions, { col = col, row = row })
         end
     end
 
