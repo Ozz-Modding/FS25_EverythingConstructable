@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<placeable type="newFence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../shared/xml/schema/placeable.xsd">
+    <storeData>
+        <name>Ozz_Fence01</name>
+        <functions>
+            <function>$l10n_function_decoration</function>
+        </functions>
+        <image>$data/placeables/brandless/fences/EU/fence02/store_fence02.png</image>
+        <price>0</price>
+        <dailyUpkeep>0</dailyUpkeep>
+        <lifetime>1000</lifetime>
+        <rotation>0</rotation>
+        <brand>NONE</brand>
+        <species>PLACEABLE</species>
+        <category>fences</category>
+        <canBeSold>true</canBeSold>
+        <showInStore>false</showInStore>
+        <brush>
+            <type>newFence</type>
+            <category>decoration</category>
+            <tab>newFences</tab>
+        </brush>
+        <audioMemoryUsage>0</audioMemoryUsage>
+    </storeData>
+
+    <base>
+        <filename>assets/fence/Fence01.i3d</filename>
+    </base>
+
+    <placement useRandomYRotation="false" useManualYRotation="true">
+        <sounds>
+            <place template="fenceWoodImp" />
+            <destroy template="destroyFence" />
+        </sounds>
+    </placement>
+
+    <fence>
+        <segment id="panel01" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel01" length="3.51" />
+            </panels>
+        </segment>
+		
+        <segment id="panel02" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel02" length="3.51" />
+            </panels>
+        </segment>
+		
+        <segment id="panel03" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel03" length="3.6" />
+            </panels>
+        </segment>	
+		
+        <segment id="panel04a" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel04a" length="3.6" />
+            </panels>
+        </segment>	
+		
+        <segment id="panel04" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel04" length="3.6" />
+            </panels>
+        </segment>		
+		
+        <segment id="panel05" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel05" length="3.604" />
+            </panels>
+        </segment>
+		
+        <segment id="panel06" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel06" length="3.604" />
+            </panels>
+        </segment>		
+		
+        <segment id="panel07" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel07" length="3.604" />
+            </panels>
+        </segment>
+		
+        <segment id="panel08" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel08" length="3.604" />
+            </panels>
+        </segment>			
+        <segment id="panel09" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel09" length="3.604" />
+            </panels>
+        </segment>	
+		
+        <segment id="panel10" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel10" length="1.055" />
+            </panels>
+        </segment>
+		
+        <segment id="panel11" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel11" length="1.055" />
+            </panels>
+        </segment>
+		
+        <segment id="panel12" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel12" length="2.17" />
+            </panels>
+        </segment>
+		
+        <segment id="panel13" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel13" length="2.17" />
+            </panels>
+        </segment>
+		
+        <segment id="panel14" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel14" length="1.83" />
+            </panels>
+        </segment>
+		
+        <segment id="panel15" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel15" length="1.83" />
+            </panels>
+        </segment>
+		
+        <segment id="panel16" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel16" length="2" />
+            </panels>
+        </segment>
+		
+        <segment id="panel17" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel17" length="3" />
+            </panels>
+        </segment>
+	
+
+
+    </fence>
+
+
+    <i3dMappings>
+        <i3dMapping id="panel01" 	node="0>0" />
+        <i3dMapping id="panel02" 	node="1>0" />
+        <i3dMapping id="panel03" 	node="2>0" />
+        <i3dMapping id="panel04" 	node="3>0" />
+        <i3dMapping id="panel04a" 	node="3>1" />
+        <i3dMapping id="panel05" 	node="4>0" />
+        <i3dMapping id="panel06" 	node="5>0" />
+        <i3dMapping id="panel07" 	node="6>0" />
+        <i3dMapping id="panel08" 	node="7>0" />
+        <i3dMapping id="panel09" 	node="8>0" />
+        <i3dMapping id="panel10" 	node="9>0" />
+        <i3dMapping id="panel11" 	node="10>0" />
+        <i3dMapping id="panel12" 	node="11>0" />
+        <i3dMapping id="panel13" 	node="12>0" />
+        <i3dMapping id="panel14" 	node="13>0" />
+        <i3dMapping id="panel15" 	node="14>0" />
+        <i3dMapping id="panel16" 	node="15>0" />
+        <i3dMapping id="panel17" 	node="16>0" />
+    </i3dMappings>
+</placeable>

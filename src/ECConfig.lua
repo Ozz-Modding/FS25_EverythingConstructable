@@ -26,8 +26,9 @@ ECConfig.RESOURCE_WEIGHTS = {
 
 ECConfig.DEFAULT_MODE = "automatic"
 
-ECConfig.FENCE_XML = "data/placeables/brandless/fences/US/fence07/fenceMetal07.xml"
-ECConfig.FENCE_INNER_XML = "data/placeables/brandless/fences/US/fence04/fence04.xml"
+ECConfig.FENCE_XML = "assets/fence/fence01.xml"
+ECConfig.FENCE_SEGMENT_ID = "panel06"
+ECConfig.FENCE_INNER_SEGMENT_ID = "panel07"
 
 ECConfig.GROUND_TYPE = "asphalt"
 
@@ -44,8 +45,19 @@ ECConfig.FENCE_INNER_OFFSET = 2
 ECConfig.ACTIVATABLE_BUFFER = 3
 
 ECConfig.SITE_DECORATION_CELL_SIZE = 1
+ECConfig.SITE_DECORATION_SIZE_BUFFER = 1
 ECConfig.SITE_DECORATIONS = {
-    { i3d = "data/placeables/brandless/decoration/boardStacks/boardStackSmall.i3d", width = 4, depth = 2 },
+    { i3d = "data/placeables/brandless/decoration/boardStacks/boardStackSmall.i3d", max = 3 },
+    { i3d = "data/placeables/brandless/decoration/boardStacks/boardStacksTiny.i3d", max = 3 },
+    { i3d = "data/placeables/brandless/decoration/palletTruck/palletTruck.i3d", max = 1 },
+    { i3d = "data/placeables/brandless/decoration/garbageContainers/barrel01.i3d", max = 2 },
+    { i3d = "data/placeables/brandless/decoration/garbageContainers/barrel02.i3d", max = 2 },
+    { i3d = "data/placeables/brandless/decoration/garbageContainers/barrel03.i3d", max = 2 },
+    { i3d = "data/placeables/brandless/decoration/garbageContainers/barrel04.i3d", max = 2 },
+    { i3d = "data/placeables/brandless/decoration/garbageContainers/trashcan01.i3d", max = 2 },
+    { i3d = "data/placeables/brandless/decoration/benches/bench02.i3d", max = 2 },
+    { i3d = "data/placeables/brandless/decoration/garbageContainers/garbageContainers.i3d", max = 1 },
+    { i3d = "data/placeables/mapAS/farmShacksAS/shackContainer01.i3d", max = 1, width = 9, depth = 6 },
 }
 
 function ECConfig.getMonthsForPrice(price)

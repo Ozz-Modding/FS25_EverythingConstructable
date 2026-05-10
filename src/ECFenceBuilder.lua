@@ -1,5 +1,54 @@
 ECFenceBuilder = {}
 
+function ECFenceBuilder.getFenceStoreItem()
+    local fenceXml = EverythingConstructable.dir .. ECConfig.FENCE_XML
+    local storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
+    return storeItem
+end
+
+function ECFenceBuilder.getPanelLength(segmentId)
+    if ECFenceBuilder.panelLengths == nil then
+        ECFenceBuilder.panelLengths = {}
+        local xmlPath = EverythingConstructable.dir .. ECConfig.FENCE_XML
+        local xmlFile = loadXMLFile("ecFenceTemp", xmlPath)
+        if xmlFile ~= nil and xmlFile ~= 0 then
+            local i = 0
+            while true do
+                local segKey = string.format("placeable.fence.segment(%d)", i)
+                if not hasXMLProperty(xmlFile, segKey) then
+                    break
+                end
+                local id = getXMLString(xmlFile, segKey .. "#id")
+                local length = getXMLFloat(xmlFile, segKey .. ".panels.panel(0)#length")
+                if id ~= nil and length ~= nil then
+                    ECFenceBuilder.panelLengths[id] = length
+                end
+                i = i + 1
+            end
+            delete(xmlFile)
+        end
+    end
+    return ECFenceBuilder.panelLengths[segmentId] or 3.6
+end
+
+function ECFenceBuilder.snapToPanel(halfDist, panelLength)
+    local panels = math.max(1, math.floor((halfDist * 2) / panelLength))
+    return (panels * panelLength) / 2
+end
+
+function ECFenceBuilder.findTemplateBySegmentId(fenceObj, segmentId)
+    local templates = fenceObj:getSegmentTemplates()
+    if templates == nil or #templates == 0 then
+        return nil
+    end
+    for _, templateId in ipairs(templates) do
+        if templateId == segmentId then
+            return templateId
+        end
+    end
+    return templates[1]
+end
+
 function ECFenceBuilder.buildFence(project)
     if project == nil or project.footprint == nil then
         return
@@ -12,12 +61,7 @@ function ECFenceBuilder.buildFence(project)
 
     project.fenceCorners = corners
 
-    local fenceXml = ECConfig.FENCE_XML
-    local storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
-    if storeItem == nil then
-        fenceXml = "$data/" .. ECConfig.FENCE_XML
-        storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
-    end
+    local storeItem = ECFenceBuilder.getFenceStoreItem()
     if storeItem == nil then
         print("EverythingConstructable: Fence store item not found")
         return
@@ -59,12 +103,11 @@ function ECFenceBuilder.addSegmentsToFence(fence, project, corners)
             return
         end
 
-        local templates = fenceObj:getSegmentTemplates()
-        if templates == nil or #templates == 0 then
+        local templateId = ECFenceBuilder.findTemplateBySegmentId(fenceObj, ECConfig.FENCE_SEGMENT_ID)
+        if templateId == nil then
             print("EverythingConstructable: No segment templates found")
             return
         end
-        local templateId = templates[1]
 
         for i = 1, 4 do
             local nextI = (i % 4) + 1
@@ -144,12 +187,7 @@ function ECFenceBuilder.buildInnerFence(project)
 
     project.innerFenceCorners = corners
 
-    local fenceXml = ECConfig.FENCE_INNER_XML
-    local storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
-    if storeItem == nil then
-        fenceXml = "$data/" .. ECConfig.FENCE_INNER_XML
-        storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
-    end
+    local storeItem = ECFenceBuilder.getFenceStoreItem()
     if storeItem == nil then
         print("EverythingConstructable: Inner fence store item not found")
         return
@@ -189,11 +227,10 @@ function ECFenceBuilder.addInnerSegmentsToFence(fence, project, corners)
             return
         end
 
-        local templates = fenceObj:getSegmentTemplates()
-        if templates == nil or #templates == 0 then
+        local templateId = ECFenceBuilder.findTemplateBySegmentId(fenceObj, ECConfig.FENCE_INNER_SEGMENT_ID)
+        if templateId == nil then
             return
         end
-        local templateId = templates[1]
 
         for i = 1, 4 do
             local nextI = (i % 4) + 1
@@ -279,9 +316,12 @@ end
 function ECFenceBuilder.calculateInnerCorners(project)
     local pos = project.position
     local fp = project.footprint
+    local panelLength = ECFenceBuilder.getPanelLength(ECConfig.FENCE_INNER_SEGMENT_ID)
     local offset = ECConfig.FENCE_INNER_OFFSET
-    local halfX = math.max(0, (fp.sizeX or 10) * 0.5 - offset)
-    local halfZ = math.max(0, (fp.sizeZ or 10) * 0.5 - offset)
+    local rawHalfX = math.max(0, (fp.sizeX or 10) * 0.5 - offset)
+    local rawHalfZ = math.max(0, (fp.sizeZ or 10) * 0.5 - offset)
+    local halfX = ECFenceBuilder.snapToPanel(rawHalfX, panelLength)
+    local halfZ = ECFenceBuilder.snapToPanel(rawHalfZ, panelLength)
     local rotY = fp.rotY or 0
 
     local dirX, dirZ = MathUtil.getDirectionFromYRotation(rotY)
@@ -290,7 +330,7 @@ function ECFenceBuilder.calculateInnerCorners(project)
     local cx = pos[1] + dirX * (fp.centerZ or 0) + sideX * (fp.centerX or 0)
     local cz = pos[3] + dirZ * (fp.centerZ or 0) + sideZ * (fp.centerX or 0)
 
-    if halfX < 1 or halfZ < 1 then
+    if halfX < panelLength * 0.5 or halfZ < panelLength * 0.5 then
         return nil
     end
 
@@ -334,8 +374,9 @@ end
 function ECFenceBuilder.calculateCorners(project)
     local pos = project.position
     local fp = project.footprint
-    local halfX = (fp.sizeX or 10) * 0.5
-    local halfZ = (fp.sizeZ or 10) * 0.5
+    local panelLength = ECFenceBuilder.getPanelLength(ECConfig.FENCE_SEGMENT_ID)
+    local halfX = ECFenceBuilder.snapToPanel((fp.sizeX or 10) * 0.5, panelLength)
+    local halfZ = ECFenceBuilder.snapToPanel((fp.sizeZ or 10) * 0.5, panelLength)
     local rotY = fp.rotY or 0
 
     local dirX, dirZ = MathUtil.getDirectionFromYRotation(rotY)

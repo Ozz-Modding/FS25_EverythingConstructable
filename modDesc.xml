@@ -49,6 +49,9 @@ Fully supports multiplayer.
         <sourceFile filename="src/gui/ECConstructionDialog.lua"/>
         <sourceFile filename="src/EverythingConstructable.lua"/>
     </extraSourceFiles>
+    <storeItems>
+        <storeItem xmlFilename="assets/fence/fence01.xml"/>
+    </storeItems>
     <multiplayer supported="true"/>
     <l10n filenamePrefix="languages/l10n" />
 </modDesc>
