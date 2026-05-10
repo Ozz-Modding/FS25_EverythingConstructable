@@ -45,13 +45,19 @@ ECConfig.FENCE_INNER_OFFSET = 2
 ECConfig.ACTIVATABLE_BUFFER = 3
 
 ECConfig.SITE_DECORATION_CELL_SIZE = 1
-ECConfig.SITE_DECORATION_SIZE_BUFFER = 1
+ECConfig.SITE_DECORATION_SIZE_BUFFER = 0.5
 ECConfig.SITE_DECORATION_CLUSTER_CHANCE = 0.6
-ECConfig.SITE_DECORATION_CLUSTER_RADIUS = 4
+ECConfig.SITE_DECORATION_CLUSTER_RADIUS = 3
 ECConfig.SITE_DECORATION_ATTEMPT_MULTIPLIER = 5
 ECConfig.SITE_DECORATIONS = {
-    { i3d = "data/placeables/brandless/decoration/boardStacks/boardStackSmall.i3d", max = 3 },
-    { i3d = "data/placeables/brandless/decoration/boardStacks/boardStacksTiny.i3d", max = 3 },
+    { i3d = "data/maps/mapEU/textures/props/boots.i3d", max = 1 },
+    { i3d = "data/maps/mapEU/textures/props/cementMixer01.i3d", max = 1 },
+    { i3d = "data/maps/mapEU/textures/props/lockedContainer01.i3d", max = 1 },
+    { i3d = "data/maps/mapEU/textures/props/sawhorse.i3d", max = 1 },
+    { i3d = "data/maps/mapEU/textures/props/stepStool.i3d", max = 1 },
+    { i3d = "data/maps/mapEU/textures/props/wheelBarrow.i3d", max = 1 },
+    { i3d = "data/maps/mapEU/textures/props/workBench01.i3d", max = 1 },
+    { i3d = "data/placeables/brandless/decoration/boardStacks/boardStackSmall.i3d", max = 4 },
     { i3d = "data/placeables/brandless/decoration/palletTruck/palletTruck.i3d", max = 1 },
     { i3d = "data/placeables/brandless/decoration/garbageContainers/barrel01.i3d", max = 2 },
     { i3d = "data/placeables/brandless/decoration/garbageContainers/barrel02.i3d", max = 2 },

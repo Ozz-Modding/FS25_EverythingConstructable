@@ -272,8 +272,10 @@ function ECSiteDecorator.fillArea(area, project)
             continue
         end
 
-        local localX = ((col - 1 + cellsW * 0.5) * cellSize) - area.halfX
-        local localZ = ((row - 1 + cellsD * 0.5) * cellSize) - area.halfZ
+        local jitterX = (math.random() - 0.5) * cellSize * 0.5
+        local jitterZ = (math.random() - 0.5) * cellSize * 0.5
+        local localX = ((col - 1 + cellsW * 0.5) * cellSize) - area.halfX + jitterX
+        local localZ = ((row - 1 + cellsD * 0.5) * cellSize) - area.halfZ + jitterZ
 
         if ECSiteDecorator.straddlesInnerFence(area, localX, localZ, w * 0.5, d * 0.5) then
             continue
