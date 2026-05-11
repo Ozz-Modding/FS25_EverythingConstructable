@@ -11,6 +11,11 @@ BuyPlaceableEvent.run = Utils.overwrittenFunction(BuyPlaceableEvent.run, functio
         return
     end
 
+    if not ECSettings.current.constructionEnabled then
+        superFunc(self, connection)
+        return
+    end
+
     if not ECConfig.shouldApplyConstruction(self.buyData.storeItem, nil) then
         superFunc(self, connection)
         return

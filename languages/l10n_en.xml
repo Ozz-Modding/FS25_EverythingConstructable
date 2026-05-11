@@ -30,5 +30,12 @@
         <text name="ec_monthsRemaining" text="Months Remaining"/>
         <text name="ec_status_active" text="Active"/>
         <text name="ec_status_paused" text="Paused"/>
+
+        <text name="ec_setting_disabled" text="Disabled"/>
+        <text name="ec_setting_enabled" text="Enabled"/>
+        <text name="setting_ec_section" text="Everything Constructable"/>
+        <text name="setting_ec_constructionEnabled" text="Construction Projects"/>
+        <text name="setting_ec_constructionEnabled_tooltip" text="When enabled, placing buildings creates a multi-phase construction project. When disabled, buildings are placed instantly as per the base game."/>
+        <text name="permission_ec_ecSettings" text="Change Construction Settings"/>
     </texts>
 </l10n>

@@ -6,6 +6,11 @@ BuyPlaceableData.onBought = Utils.overwrittenFunction(BuyPlaceableData.onBought,
         return
     end
 
+    if not ECSettings.current.constructionEnabled then
+        superFunc(self, placeable, loadingState, args)
+        return
+    end
+
     if not ECConfig.shouldApplyConstruction(self.storeItem, placeable) then
         superFunc(self, placeable, loadingState, args)
         return

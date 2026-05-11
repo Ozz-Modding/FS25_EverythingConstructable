@@ -28,6 +28,8 @@ Fully supports multiplayer.
 ]]></en>
     </description>
     <extraSourceFiles>
+        <sourceFile filename="src/ECSettings.lua"/>
+        <sourceFile filename="src/events/ECSettingsEvent.lua"/>
         <sourceFile filename="src/ECConfig.lua"/>
         <sourceFile filename="src/ECProject.lua"/>
         <sourceFile filename="src/ECProjectManager.lua"/>

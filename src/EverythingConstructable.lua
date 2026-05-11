@@ -8,6 +8,7 @@ function EverythingConstructable:loadMap()
 
     g_gui:loadProfiles(EverythingConstructable.dir .. "src/gui/guiProfiles.xml")
     ECConstructionDialog.register()
+    ECSettings.addSettingsToMenu()
 
     self:loadFromXMLFile()
 
@@ -66,6 +67,11 @@ function EverythingConstructable:loadFromXMLFile()
         return
     end
 
+    local constructionEnabled = getXMLBool(xmlFile, "EverythingConstructable.settings#constructionEnabled")
+    if constructionEnabled ~= nil then
+        ECSettings.current.constructionEnabled = constructionEnabled
+    end
+
     g_currentMission.ecProjectManager:loadFromXMLFile(xmlFile)
     delete(xmlFile)
 end
@@ -81,12 +87,15 @@ function EverythingConstructable:saveToXmlFile()
         return
     end
 
+    setXMLBool(xmlFile, "EverythingConstructable.settings#constructionEnabled", ECSettings.current.constructionEnabled)
+
     g_currentMission.ecProjectManager:saveToXMLFile(xmlFile)
     saveXMLFile(xmlFile)
     delete(xmlFile)
 end
 
 function EverythingConstructable:sendInitialClientState(connection, user, farm)
+    connection:sendEvent(ECSettingsEvent.new())
     connection:sendEvent(ECInitialClientStateEvent.new())
 end
 
