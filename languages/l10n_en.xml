@@ -24,6 +24,8 @@
         <text name="ec_phaseAdvanced" text="Construction phase %d complete for %s"/>
         <text name="ec_paused" text="Construction paused (insufficient funds)"/>
         <text name="ec_switchMode" text="Switch Mode"/>
+        <text name="ec_pauseProject" text="PAUSE PROJECT"/>
+        <text name="ec_continueProject" text="CONTINUE PROJECT"/>
         <text name="ec_modeChanged" text="Construction mode changed to: %s"/>
         <text name="ec_close" text="Close"/>
         <text name="ec_buildingName" text="Building"/>
@@ -36,6 +38,10 @@
         <text name="setting_ec_section" text="Everything Constructable"/>
         <text name="setting_ec_constructionEnabled" text="Construction Projects"/>
         <text name="setting_ec_constructionEnabled_tooltip" text="When enabled, placing buildings creates a multi-phase construction project. When disabled, buildings are placed instantly as per the base game."/>
+        <text name="setting_ec_labourFraction" text="Labour Cost Fraction"/>
+        <text name="setting_ec_labourFraction_tooltip" text="Percentage of total building cost allocated to labour. The deposit is deducted from this amount, and the remainder is paid over the construction phases. Higher values mean less material is needed but more cash is spent directly."/>
+        <text name="setting_ec_materialSupplyBonus" text="Material Supply Bonus"/>
+        <text name="setting_ec_materialSupplyBonus_tooltip" text="Bonus applied when you supply materials yourself. A higher bonus means fewer materials are required to cover the material cost."/>
         <text name="permission_ec_ecSettings" text="Change Construction Settings"/>
     </texts>
 </l10n>

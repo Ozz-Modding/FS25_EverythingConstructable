@@ -11,8 +11,6 @@ ECConfig.DURATION_THRESHOLDS = {
 }
 
 ECConfig.DEPOSIT_FRACTION = 0.10
-ECConfig.LABOUR_FRACTION = 0.32
-ECConfig.MATERIAL_FRACTION = 0.68
 
 ECConfig.RESOURCE_WEIGHTS = {
     { fillType = "BOARDS", weight = 5 },
@@ -83,11 +81,13 @@ function ECConfig.getDepositAmount(totalPrice)
 end
 
 function ECConfig.getLabourCost(totalPrice)
-    return math.floor(totalPrice * ECConfig.LABOUR_FRACTION)
+    local labourFraction = ECSettings.getValue('labourFraction')
+    return math.floor(totalPrice * labourFraction) - ECConfig.getDepositAmount(totalPrice)
 end
 
 function ECConfig.getMaterialBudget(totalPrice)
-    return math.floor(totalPrice * ECConfig.MATERIAL_FRACTION)
+    local labourFraction = ECSettings.getValue('labourFraction')
+    return totalPrice - math.floor(totalPrice * labourFraction)
 end
 
 function ECConfig.getLabourPerPhase(totalPrice, numPhases)
@@ -131,7 +131,28 @@ function ECConfig.generateMaterialList(materialBudget)
             fillTypeName = res.fillTypeName,
             amount = amount,
             delivered = 0,
+            pricePerLiter = res.pricePerLiter,
         })
+    end
+
+    local supplyBonus = ECSettings.getValue('materialSupplyBonus')
+    if supplyBonus > 0 then
+        local discountRemaining = materialBudget * supplyBonus
+
+        table.sort(materials, function(a, b) return a.pricePerLiter > b.pricePerLiter end)
+
+        for _, mat in ipairs(materials) do
+            if discountRemaining <= 0 then
+                break
+            end
+            local unitsToRemove = math.min(mat.amount - 1, math.floor(discountRemaining / mat.pricePerLiter))
+            mat.amount = mat.amount - unitsToRemove
+            discountRemaining = discountRemaining - (unitsToRemove * mat.pricePerLiter)
+        end
+    end
+
+    for _, mat in ipairs(materials) do
+        mat.pricePerLiter = nil
     end
 
     return materials

@@ -3,6 +3,8 @@ ECSettings.CONTROLS = {}
 
 ECSettings.menuItems = {
     'constructionEnabled',
+    'labourFraction',
+    'materialSupplyBonus',
 }
 
 ECSettings.multiplayerPermissions = {
@@ -25,8 +27,26 @@ ECSettings.SETTINGS.constructionEnabled = {
     }
 }
 
+ECSettings.SETTINGS.materialSupplyBonus = {
+    ['default'] = 2,
+    ['serverOnly'] = true,
+    ['permission'] = 'ecSettings',
+    ['values'] = { 0, 0.02, 0.05, 0.10 },
+    ['strings'] = { "0%", "2%", "5%", "10%" }
+}
+
+ECSettings.SETTINGS.labourFraction = {
+    ['default'] = 5,
+    ['serverOnly'] = true,
+    ['permission'] = 'ecSettings',
+    ['values'] = { 0.24, 0.26, 0.28, 0.30, 0.32, 0.34, 0.36, 0.38, 0.40 },
+    ['strings'] = { "24%", "26%", "28%", "30%", "32%", "34%", "36%", "38%", "40%" }
+}
+
 ECSettings.current = {
     constructionEnabled = true,
+    labourFraction = 0.32,
+    materialSupplyBonus = 0.02,
 }
 
 function ECSettings.getValue(id)

@@ -86,6 +86,11 @@ function ECConstructionDialog:updateDisplay()
         self.statusText:setText(g_i18n:getText(statusKey))
     end
 
+    if self.switchModeButton ~= nil then
+        local buttonKey = project.mode == ECProject.MODE_AUTOMATIC and "ec_pauseProject" or "ec_continueProject"
+        self.switchModeButton:setText(g_i18n:getText(buttonKey))
+    end
+
     self:updateMaterialList()
 end
 
