@@ -36,16 +36,16 @@ ECSettings.SETTINGS.materialSupplyBonus = {
 }
 
 ECSettings.SETTINGS.labourFraction = {
-    ['default'] = 5,
+    ['default'] = 6,
     ['serverOnly'] = true,
     ['permission'] = 'ecSettings',
-    ['values'] = { 0.24, 0.26, 0.28, 0.30, 0.32, 0.34, 0.36, 0.38, 0.40 },
-    ['strings'] = { "24%", "26%", "28%", "30%", "32%", "34%", "36%", "38%", "40%" }
+    ['values'] = { 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75 },
+    ['strings'] = { "25%", "30%", "35%", "40%", "45%", "50%", "55%", "60%", "65%", "70%", "75%" }
 }
 
 ECSettings.current = {
     constructionEnabled = true,
-    labourFraction = 0.32,
+    labourFraction = 0.50,
     materialSupplyBonus = 0.02,
 }
 
