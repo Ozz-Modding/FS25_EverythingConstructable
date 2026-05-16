@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<i3D name="Fence01.i3d" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+<i3D name="fence01.i3d" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
   <Asset>
     <Export program="GIANTS Editor 64bit" version="10.0.11"/>
   </Asset>
@@ -40,191 +40,191 @@
 
 
   <Materials>
-    <Material name="fabric.001" materialId="282" customShaderId="4">
+    <Material name="fabric.001" materialId="5" customShaderId="4">
       <Texture fileId="13"/>
       <Normalmap fileId="14" bumpDepth="0.1"/>
       <Glossmap fileId="9"/>
     </Material>
-    <Material name="fabric.002" materialId="302" customShaderId="4">
+    <Material name="fabric.002" materialId="6" customShaderId="4">
       <Texture fileId="7"/>
       <Normalmap fileId="8" bumpDepth="0.1"/>
       <Glossmap fileId="9"/>
     </Material>
-    <Material name="fabric.003" materialId="232" customShaderId="4">
+    <Material name="fabric.003" materialId="7" customShaderId="4">
       <Texture fileId="17"/>
       <Normalmap fileId="18" bumpDepth="0.1"/>
       <Glossmap fileId="9"/>
     </Material>
-    <Material name="fabric.003" materialId="7" customShaderId="4">
+    <Material name="fabric.003" materialId="8" customShaderId="4">
       <Texture fileId="17"/>
       <Normalmap fileId="18"/>
       <Glossmap fileId="9"/>
     </Material>
-    <Material name="fabric.004" materialId="210">
+    <Material name="fabric.004" materialId="9">
       <Texture fileId="21"/>
       <Normalmap fileId="22" bumpDepth="0.1"/>
       <Glossmap fileId="9"/>
     </Material>
-    <Material name="fence.001" materialId="278" customShaderId="4">
+    <Material name="fence.001" materialId="10" customShaderId="4">
       <Texture fileId="11"/>
       <Normalmap fileId="12" bumpDepth="0.1"/>
       <Glossmap fileId="3"/>
     </Material>
-    <Material name="fence.002" materialId="298" customShaderId="4">
+    <Material name="fence.002" materialId="11" customShaderId="4">
       <Texture fileId="1"/>
       <Normalmap fileId="2" bumpDepth="0.1"/>
       <Glossmap fileId="3"/>
     </Material>
-    <Material name="fence.003" materialId="220" customShaderId="4">
+    <Material name="fence.003" materialId="12" customShaderId="4">
       <Texture fileId="15"/>
       <Normalmap fileId="16" bumpDepth="0.1"/>
       <Glossmap fileId="3"/>
     </Material>
-    <Material name="fence.004" materialId="206" customShaderId="4">
+    <Material name="fence.004" materialId="13" customShaderId="4">
       <Texture fileId="19"/>
       <Normalmap fileId="20" bumpDepth="0.1"/>
       <Glossmap fileId="3"/>
     </Material>
-    <Material name="fence.007" materialId="198" customShaderId="4">
+    <Material name="fence.007" materialId="14" customShaderId="4">
       <Texture fileId="23"/>
       <Normalmap fileId="24" bumpDepth="0.1"/>
       <Glossmap fileId="3"/>
     </Material>
-    <Material name="fence.008" materialId="168" customShaderId="4">
+    <Material name="fence.008" materialId="15" customShaderId="4">
       <Texture fileId="27"/>
       <Normalmap fileId="28" bumpDepth="0.1"/>
       <Glossmap fileId="3"/>
     </Material>
-    <Material name="sign.001" materialId="176" customShaderId="4">
+    <Material name="sign.001" materialId="16" customShaderId="4">
       <Texture fileId="29"/>
       <Normalmap fileId="30" bumpDepth="0.1"/>
       <Glossmap fileId="3"/>
     </Material>
-    <Material name="sign.002" materialId="146">
+    <Material name="sign.002" materialId="17">
       <Texture fileId="31"/>
       <Normalmap fileId="32" bumpDepth="0.1"/>
       <Glossmap fileId="33"/>
     </Material>
-    <Material name="sign.003" materialId="172" customShaderId="4">
+    <Material name="sign.003" materialId="18" customShaderId="4">
       <Texture fileId="25"/>
       <Normalmap fileId="26" bumpDepth="0.1"/>
       <Glossmap fileId="3"/>
     </Material>
-    <Material name="UnnamedMaterial" materialId="18" diffuseColor="1 1 1 1">
+    <Material name="UnnamedMaterial" materialId="19" diffuseColor="1 1 1 1">
     </Material>
   </Materials>
 
 
-  <Shapes externalShapesFile="Fence01.i3d.shapes">
+  <Shapes externalShapesFile="fence01.i3d.shapes">
   </Shapes>
 
   <Scene>
-    <TransformGroup name="panel01" visibility="false" clipDistance="300" nodeId="40">
-      <Shape name="fence002" shapeId="1" clipDistance="300" nodeId="41" castsShadows="true" receiveShadows="true" materialIds="298">
-        <Shape name="fabric.002" shapeId="2" clipDistance="300" nodeId="42" castsShadows="true" receiveShadows="true" materialIds="302"/>
-        <Shape name="col" shapeId="3" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="43" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel01" clipDistance="500" nodeId="41">
+      <Shape name="fence002" shapeId="1" clipDistance="500" nodeId="42" castsShadows="true" receiveShadows="true" materialIds="11">
+        <Shape name="fabric.002" shapeId="2" clipDistance="500" nodeId="43" castsShadows="true" receiveShadows="true" materialIds="6"/>
+        <Shape name="col" shapeId="3" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="44" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel02" visibility="false" clipDistance="300" nodeId="44">
-      <Shape name="fence.002" translation="0 0 3.51" shapeId="4" clipDistance="300" nodeId="45" castsShadows="true" receiveShadows="true" materialIds="298">
-        <Shape name="col" shapeId="3" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="46" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel02" clipDistance="500" nodeId="45">
+      <Shape name="fence.002" translation="0 0 3.51" shapeId="4" clipDistance="500" nodeId="46" castsShadows="true" receiveShadows="true" materialIds="11">
+        <Shape name="col" shapeId="3" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="47" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel03" visibility="false" clipDistance="300" nodeId="47">
-      <Shape name="fence.001" shapeId="5" clipDistance="300" nodeId="48" castsShadows="true" receiveShadows="true" materialIds="278">
-        <Shape name="fabric.001" shapeId="6" clipDistance="300" nodeId="49" castsShadows="true" receiveShadows="true" materialIds="282"/>
-        <Shape name="col" shapeId="7" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="50" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel03" visibility="false" clipDistance="500" nodeId="48">
+      <Shape name="fence.001" shapeId="5" clipDistance="500" nodeId="49" castsShadows="true" receiveShadows="true" materialIds="10">
+        <Shape name="fabric.001" shapeId="6" clipDistance="500" nodeId="50" castsShadows="true" receiveShadows="true" materialIds="5"/>
+        <Shape name="col" shapeId="7" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="51" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel04" visibility="false" clipDistance="300" nodeId="51">
-      <TransformGroup name="panel04" translation="0 0 3.6" clipDistance="300" nodeId="52">
-        <Shape name="fence.001" shapeId="5" clipDistance="300" nodeId="53" castsShadows="true" receiveShadows="true" materialIds="278">
-          <Shape name="col" shapeId="7" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="54" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel04" visibility="false" clipDistance="500" nodeId="52">
+      <TransformGroup name="panel04" translation="0 0 3.6" clipDistance="500" nodeId="53">
+        <Shape name="fence.001" shapeId="5" clipDistance="500" nodeId="54" castsShadows="true" receiveShadows="true" materialIds="10">
+          <Shape name="col" shapeId="7" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="55" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
         </Shape>
       </TransformGroup>
-      <TransformGroup name="panel04a" translation="0 0 7.2" clipDistance="300" nodeId="55">
-        <Shape name="fence.001" shapeId="5" clipDistance="300" nodeId="56" castsShadows="true" receiveShadows="true" materialIds="278">
-          <Shape name="fabric.001" translation="-2.19759e-08 0 3.54" rotation="0 180 0" shapeId="6" clipDistance="300" nodeId="57" castsShadows="true" receiveShadows="true" materialIds="282"/>
-          <Shape name="col" shapeId="7" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="58" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+      <TransformGroup name="panel04a" translation="0 0 7.2" clipDistance="500" nodeId="56">
+        <Shape name="fence.001" shapeId="5" clipDistance="500" nodeId="57" castsShadows="true" receiveShadows="true" materialIds="10">
+          <Shape name="fabric.001" translation="-2.19759e-08 0 3.54" rotation="0 180 0" shapeId="6" clipDistance="500" nodeId="58" castsShadows="true" receiveShadows="true" materialIds="5"/>
+          <Shape name="col" shapeId="7" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="59" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
         </Shape>
       </TransformGroup>
     </TransformGroup>
-    <TransformGroup name="panel05" visibility="false" clipDistance="300" nodeId="59">
-      <Shape name="fence.003" shapeId="8" clipDistance="300" nodeId="60" castsShadows="true" receiveShadows="true" materialIds="220">
-        <Shape name="fabric.003" shapeId="9" clipDistance="300" nodeId="61" castsShadows="true" receiveShadows="true" materialIds="232"/>
-        <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="62" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel05" visibility="false" clipDistance="500" nodeId="60">
+      <Shape name="fence.003" shapeId="8" clipDistance="500" nodeId="61" castsShadows="true" receiveShadows="true" materialIds="12">
+        <Shape name="fabric.003" shapeId="9" clipDistance="500" nodeId="62" castsShadows="true" receiveShadows="true" materialIds="7"/>
+        <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="63" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel06" visibility="false" clipDistance="300" nodeId="63">
-      <Shape name="fence.003" translation="0 0 3.60364" shapeId="8" clipDistance="300" nodeId="64" castsShadows="true" receiveShadows="true" materialIds="220">
-        <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="65" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel06" visibility="false" clipDistance="500" nodeId="64">
+      <Shape name="fence.003" translation="0 0 3.60364" shapeId="8" clipDistance="500" nodeId="65" castsShadows="true" receiveShadows="true" materialIds="12">
+        <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="66" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel07" visibility="false" clipDistance="300" nodeId="66">
-      <Shape name="fence.003" shapeId="8" clipDistance="300" nodeId="67" castsShadows="true" receiveShadows="true" materialIds="220">
-        <Shape name="fabric.003" shapeId="9" clipDistance="300" nodeId="68" castsShadows="true" receiveShadows="true" materialIds="232"/>
-        <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="69" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
-        <Shape name="fence.003" translation="0 2.30893 0" shapeId="8" clipDistance="300" nodeId="70" castsShadows="true" receiveShadows="true" materialIds="220">
-          <Shape name="fabric.003" shapeId="9" clipDistance="300" nodeId="71" castsShadows="true" receiveShadows="true" materialIds="7"/>
-          <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="72" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel07" visibility="false" clipDistance="500" nodeId="67">
+      <Shape name="fence.003" shapeId="8" clipDistance="500" nodeId="68" castsShadows="true" receiveShadows="true" materialIds="12">
+        <Shape name="fabric.003" shapeId="9" clipDistance="500" nodeId="69" castsShadows="true" receiveShadows="true" materialIds="7"/>
+        <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="70" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
+        <Shape name="fence.003" translation="0 2.30893 0" shapeId="8" clipDistance="500" nodeId="71" castsShadows="true" receiveShadows="true" materialIds="12">
+          <Shape name="fabric.003" shapeId="9" clipDistance="500" nodeId="72" castsShadows="true" receiveShadows="true" materialIds="8"/>
+          <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="73" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
         </Shape>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel08" visibility="false" clipDistance="300" nodeId="73">
-      <Shape name="fence.003" translation="0 0 3.60364" shapeId="8" clipDistance="300" nodeId="74" castsShadows="true" receiveShadows="true" materialIds="220">
-        <Shape name="fabric.003" shapeId="9" clipDistance="300" nodeId="75" castsShadows="true" receiveShadows="true" materialIds="232"/>
-        <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="76" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
-        <Shape name="fence.003" translation="0 2.30893 0" shapeId="8" clipDistance="300" nodeId="77" castsShadows="true" receiveShadows="true" materialIds="220">
-          <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="78" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel08" visibility="false" clipDistance="500" nodeId="74">
+      <Shape name="fence.003" translation="0 0 3.60364" shapeId="8" clipDistance="500" nodeId="75" castsShadows="true" receiveShadows="true" materialIds="12">
+        <Shape name="fabric.003" shapeId="9" clipDistance="500" nodeId="76" castsShadows="true" receiveShadows="true" materialIds="7"/>
+        <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="77" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
+        <Shape name="fence.003" translation="0 2.30893 0" shapeId="8" clipDistance="500" nodeId="78" castsShadows="true" receiveShadows="true" materialIds="12">
+          <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="79" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
         </Shape>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel09" visibility="false" clipDistance="300" nodeId="79">
-      <Shape name="fence.003" translation="0 0 7.208" shapeId="8" clipDistance="300" nodeId="80" castsShadows="true" receiveShadows="true" materialIds="220">
-        <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="81" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
-        <Shape name="fence.003" translation="0 2.30893 0" shapeId="8" clipDistance="300" nodeId="82" castsShadows="true" receiveShadows="true" materialIds="220">
-          <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="83" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel09" visibility="false" clipDistance="500" nodeId="80">
+      <Shape name="fence.003" translation="0 0 7.208" shapeId="8" clipDistance="500" nodeId="81" castsShadows="true" receiveShadows="true" materialIds="12">
+        <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="82" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
+        <Shape name="fence.003" translation="0 2.30893 0" shapeId="8" clipDistance="500" nodeId="83" castsShadows="true" receiveShadows="true" materialIds="12">
+          <Shape name="col" shapeId="10" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="84" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
         </Shape>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel10" clipDistance="300" nodeId="84">
-      <Shape name="fence.004" shapeId="11" clipDistance="300" nodeId="85" castsShadows="true" receiveShadows="true" materialIds="206">
-        <Shape name="fabric.004" shapeId="12" clipDistance="300" nodeId="86" castsShadows="true" receiveShadows="true" materialIds="210"/>
-        <Shape name="col" shapeId="13" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="87" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel10" visibility="false" clipDistance="500" nodeId="85">
+      <Shape name="fence.004" shapeId="11" clipDistance="500" nodeId="86" castsShadows="true" receiveShadows="true" materialIds="13">
+        <Shape name="fabric.004" shapeId="12" clipDistance="500" nodeId="87" castsShadows="true" receiveShadows="true" materialIds="9"/>
+        <Shape name="col" shapeId="13" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="88" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel11" visibility="false" clipDistance="300" nodeId="88">
-      <Shape name="fence.004" translation="0 0 1.055" shapeId="11" clipDistance="300" nodeId="89" castsShadows="true" receiveShadows="true" materialIds="206">
-        <Shape name="col" shapeId="13" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="90" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel11" visibility="false" clipDistance="500" nodeId="89">
+      <Shape name="fence.004" translation="0 0 1.055" shapeId="11" clipDistance="500" nodeId="90" castsShadows="true" receiveShadows="true" materialIds="13">
+        <Shape name="col" shapeId="13" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="91" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel12" visibility="false" clipDistance="300" nodeId="91">
-      <Shape name="fence.007" shapeId="14" clipDistance="300" nodeId="92" castsShadows="true" receiveShadows="true" materialIds="198">
-        <Shape name="col" shapeId="15" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="93" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel12" visibility="false" clipDistance="500" nodeId="92">
+      <Shape name="fence.007" shapeId="14" clipDistance="500" nodeId="93" castsShadows="true" receiveShadows="true" materialIds="14">
+        <Shape name="col" shapeId="15" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="94" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel13" visibility="false" clipDistance="300" nodeId="94">
-      <Shape name="fence.007" translation="1.00365e-07 0 2.17" shapeId="14" clipDistance="300" nodeId="95" castsShadows="true" receiveShadows="true" materialIds="198">
-        <Shape name="sign.003" translation="-0.0187399 0.464041 0.557429" shapeId="16" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="96" castsShadows="true" receiveShadows="true" materialIds="172"/>
-        <Shape name="col" shapeId="15" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="97" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel13" visibility="false" clipDistance="500" nodeId="95">
+      <Shape name="fence.007" translation="1.00365e-07 0 2.17" shapeId="14" clipDistance="500" nodeId="96" castsShadows="true" receiveShadows="true" materialIds="14">
+        <Shape name="sign.003" translation="-0.0187399 0.464041 0.557429" shapeId="16" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="97" castsShadows="true" receiveShadows="true" materialIds="18"/>
+        <Shape name="col" shapeId="15" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="98" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel14" visibility="false" clipDistance="300" nodeId="98">
-      <Shape name="fence.008" shapeId="17" clipDistance="300" nodeId="99" castsShadows="true" receiveShadows="true" materialIds="168">
-        <Shape name="col" shapeId="18" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="100" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
+    <TransformGroup name="panel14" visibility="false" clipDistance="500" nodeId="99">
+      <Shape name="fence.008" shapeId="17" clipDistance="500" nodeId="100" castsShadows="true" receiveShadows="true" materialIds="15">
+        <Shape name="col" shapeId="18" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="101" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel15" visibility="false" clipDistance="300" nodeId="101">
-      <Shape name="fence.008" translation="0 0 1.83049" shapeId="17" clipDistance="300" nodeId="102" castsShadows="true" receiveShadows="true" materialIds="168">
-        <Shape name="col" shapeId="18" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="103" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="18"/>
-        <Shape name="sign.003" translation="-0.0180096 0.464041 0.557732" shapeId="16" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="104" castsShadows="true" receiveShadows="true" materialIds="172"/>
+    <TransformGroup name="panel15" visibility="false" clipDistance="500" nodeId="102">
+      <Shape name="fence.008" translation="0 0 1.83049" shapeId="17" clipDistance="500" nodeId="103" castsShadows="true" receiveShadows="true" materialIds="15">
+        <Shape name="col" shapeId="18" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="104" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
+        <Shape name="sign.003" translation="-0.0180096 0.464041 0.557732" shapeId="16" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="105" castsShadows="true" receiveShadows="true" materialIds="18"/>
       </Shape>
     </TransformGroup>
-    <TransformGroup name="panel16" visibility="false" clipDistance="300" nodeId="105">
-      <Shape name="sign.001" shapeId="19" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="106" castsShadows="true" receiveShadows="true" materialIds="176"/>
+    <TransformGroup name="panel16" visibility="false" clipDistance="500" nodeId="106">
+      <Shape name="sign.001" shapeId="19" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="107" castsShadows="true" receiveShadows="true" materialIds="16"/>
     </TransformGroup>
-    <TransformGroup name="panel17" visibility="false" clipDistance="300" nodeId="107">
-      <Shape name="sign.002" shapeId="20" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="300" nodeId="108" castsShadows="true" receiveShadows="true" materialIds="146"/>
+    <TransformGroup name="panel17" visibility="false" clipDistance="500" nodeId="108">
+      <Shape name="sign.002" shapeId="20" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="109" castsShadows="true" receiveShadows="true" materialIds="17"/>
     </TransformGroup>
   </Scene>
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<placeable type="newFence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../shared/xml/schema/placeable.xsd">
+    <storeData>
+        <name>Curved Barrier</name>
+        <functions>
+            <function>$l10n_function_decoration</function>
+        </functions>
+        <image>assets/fence/store/store_fence06.dds</image>
+        <price>0</price>
+        <dailyUpkeep>0</dailyUpkeep>
+        <lifetime>1000</lifetime>
+        <rotation>0</rotation>
+        <brand>NONE</brand>
+        <species>PLACEABLE</species>
+        <category>fences</category>
+        <canBeSold>true</canBeSold>
+        <showInStore>true</showInStore>
+        <brush>
+            <type>newFence</type>
+            <category>decoration</category>
+            <tab>newFences</tab>
+        </brush>
+        <audioMemoryUsage>0</audioMemoryUsage>
+    </storeData>
+
+    <base>
+        <filename>assets/fence/fence06.i3d</filename>
+    </base>
+
+    <placement useRandomYRotation="false" useManualYRotation="true">
+        <sounds>
+            <place template="fenceWoodImp" />
+            <destroy template="destroyFence" />
+        </sounds>
+    </placement>
+
+    <fence>
+        <segment id="panel12" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel12" length="2.17" />
+            </panels>
+        </segment>
+
+        <segment id="panel13" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel13" length="2.17" />
+            </panels>
+        </segment>
+    </fence>
+
+    <i3dMappings>
+        <i3dMapping id="panel12" node="11>0" />
+        <i3dMapping id="panel13" node="12>0" />
+    </i3dMappings>
+</placeable>

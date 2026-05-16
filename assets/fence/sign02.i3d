@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<i3D name="sign02.i3d" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="GIANTS Editor 64bit" version="10.0.11"/>
+  </Asset>
+
+  <Files>
+    <File fileId="1" filename="textures/sign.002_BaseColor.png"/>
+    <File fileId="2" filename="textures/sign.002_Normal.png"/>
+    <File fileId="3" filename="textures/sign.002_Roughness.dds"/>
+  </Files>
+
+
+  <Materials>
+    <Material name="sign.002" materialId="36">
+      <Texture fileId="1"/>
+      <Normalmap fileId="2" bumpDepth="0.1"/>
+      <Glossmap fileId="3"/>
+    </Material>
+  </Materials>
+
+
+  <Shapes externalShapesFile="sign02.i3d.shapes">
+  </Shapes>
+
+  <Scene>
+    <TransformGroup name="OzzFencePack" nodeId="13">
+      <TransformGroup name="clearAreas" nodeId="14">
+        <TransformGroup name="clearArea1Start" translation="1 0 -1" nodeId="15">
+          <TransformGroup name="clearArea1Width" translation="0 0 5" nodeId="16"/>
+          <TransformGroup name="clearArea1Height" translation="-3.5 0 0" nodeId="17"/>
+        </TransformGroup>
+      </TransformGroup>
+      <TransformGroup name="levelAreas" nodeId="18">
+        <TransformGroup name="levelArea1Start" translation="1 0 -1" nodeId="19">
+          <TransformGroup name="levelArea1Width" translation="0 0 5" nodeId="20"/>
+          <TransformGroup name="levelArea1Height" translation="-3.5 0 0" nodeId="21"/>
+        </TransformGroup>
+      </TransformGroup>
+      <TransformGroup name="testAreas" nodeId="22">
+        <TransformGroup name="testArea1Start" translation="1.0134 0 -1" nodeId="23">
+          <TransformGroup name="testArea1End" translation="-3.25913 5.2 4.28862" nodeId="24"/>
+        </TransformGroup>
+      </TransformGroup>
+      <TransformGroup name="visuals" nodeId="25">
+        <Shape name="sign.002" shapeId="1" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="56" castsShadows="true" receiveShadows="true" materialIds="36"/>
+      </TransformGroup>
+    </TransformGroup>
+  </Scene>
+
+</i3D>

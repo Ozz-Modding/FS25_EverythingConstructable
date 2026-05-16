@@ -24,7 +24,7 @@ ECConfig.RESOURCE_WEIGHTS = {
 
 ECConfig.DEFAULT_MODE = "automatic"
 
-ECConfig.FENCE_XML = "assets/fence/fence01.xml"
+ECConfig.FENCE_XML = "assets/fence/ec_fence.xml"
 ECConfig.FENCE_SEGMENT_ID = "panel06"
 ECConfig.FENCE_INNER_SEGMENT_ID = "panel07"
 

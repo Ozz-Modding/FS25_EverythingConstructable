@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<i3D name="fence02.i3d" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="GIANTS Editor 64bit" version="10.0.11"/>
+  </Asset>
+
+  <Files>
+    <File fileId="7" filename="textures/fabric.001_fabric.001_BaseColor.png"/>
+    <File fileId="8" filename="textures/fabric.001_fabric.001_Normal.png"/>
+    <File fileId="1" filename="textures/fence.001_BaseColor.png"/>
+    <File fileId="2" filename="textures/fence.001_Normal.png"/>
+    <File fileId="4" filename="$data/shaders/placeableShader.xml"/>
+    <File fileId="3" filename="$data/shared/detailLibrary/metallic/zincGalvanized_specular.dds"/>
+    <File fileId="9" filename="$data/shared/detailLibrary/nonMetallic/fabric/fabric1_specular.dds"/>
+  </Files>
+
+
+  <Materials>
+    <Material name="fabric.001" materialId="5" customShaderId="4">
+      <Texture fileId="7"/>
+      <Normalmap fileId="8" bumpDepth="0.1"/>
+      <Glossmap fileId="9"/>
+    </Material>
+    <Material name="fence.001" materialId="10" customShaderId="4">
+      <Texture fileId="1"/>
+      <Normalmap fileId="2" bumpDepth="0.1"/>
+      <Glossmap fileId="3"/>
+    </Material>
+    <Material name="UnnamedMaterial" materialId="19" diffuseColor="1 1 1 1">
+    </Material>
+  </Materials>
+
+
+  <Shapes externalShapesFile="fence02.i3d.shapes">
+  </Shapes>
+
+  <Scene>
+    <TransformGroup name="panel01" visibility="false" clipDistance="500" nodeId="41"/>
+    <TransformGroup name="panel02" visibility="false" clipDistance="500" nodeId="45"/>
+    <TransformGroup name="panel03" clipDistance="500" nodeId="48">
+      <Shape name="fence.001" shapeId="1" clipDistance="500" nodeId="49" castsShadows="true" receiveShadows="true" materialIds="10">
+        <Shape name="fabric.001" shapeId="2" clipDistance="500" nodeId="50" castsShadows="true" receiveShadows="true" materialIds="5"/>
+        <Shape name="col" shapeId="3" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="51" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
+      </Shape>
+    </TransformGroup>
+    <TransformGroup name="panel04" clipDistance="500" nodeId="52">
+      <TransformGroup name="panel04" translation="0 0 3.6" clipDistance="500" nodeId="53">
+        <Shape name="fence.001" shapeId="1" clipDistance="500" nodeId="54" castsShadows="true" receiveShadows="true" materialIds="10">
+          <Shape name="col" shapeId="3" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="55" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
+        </Shape>
+      </TransformGroup>
+      <TransformGroup name="panel04a" translation="0 0 7.2" clipDistance="500" nodeId="56">
+        <Shape name="fence.001" shapeId="1" clipDistance="500" nodeId="57" castsShadows="true" receiveShadows="true" materialIds="10">
+          <Shape name="fabric.001" translation="-2.19759e-08 0 3.54" rotation="0 180 0" shapeId="2" clipDistance="500" nodeId="58" castsShadows="true" receiveShadows="true" materialIds="5"/>
+          <Shape name="col" shapeId="3" static="true" collisionFilterGroup="0x3e" collisionFilterMask="0xfffffbff" clipDistance="500" nodeId="59" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="19"/>
+        </Shape>
+      </TransformGroup>
+    </TransformGroup>
+    <TransformGroup name="panel05" visibility="false" clipDistance="500" nodeId="60"/>
+    <TransformGroup name="panel06" visibility="false" clipDistance="500" nodeId="64"/>
+    <TransformGroup name="panel07" visibility="false" clipDistance="500" nodeId="67"/>
+    <TransformGroup name="panel08" visibility="false" clipDistance="500" nodeId="74"/>
+    <TransformGroup name="panel09" visibility="false" clipDistance="500" nodeId="80"/>
+    <TransformGroup name="panel10" visibility="false" clipDistance="500" nodeId="85"/>
+    <TransformGroup name="panel11" visibility="false" clipDistance="500" nodeId="89"/>
+    <TransformGroup name="panel12" visibility="false" clipDistance="500" nodeId="92"/>
+    <TransformGroup name="panel13" visibility="false" clipDistance="500" nodeId="95"/>
+    <TransformGroup name="panel14" visibility="false" clipDistance="500" nodeId="99"/>
+    <TransformGroup name="panel15" visibility="false" clipDistance="500" nodeId="102"/>
+    <TransformGroup name="panel16" visibility="false" clipDistance="500" nodeId="106"/>
+    <TransformGroup name="panel17" visibility="false" clipDistance="500" nodeId="108"/>
+  </Scene>
+
+</i3D>

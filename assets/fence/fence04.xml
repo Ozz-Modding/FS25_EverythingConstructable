@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<placeable type="newFence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../shared/xml/schema/placeable.xsd">
+    <storeData>
+        <name>Double Height Fence</name>
+        <functions>
+            <function>$l10n_function_decoration</function>
+        </functions>
+        <image>assets/fence/store/store_fence04.dds</image>
+        <price>0</price>
+        <dailyUpkeep>0</dailyUpkeep>
+        <lifetime>1000</lifetime>
+        <rotation>0</rotation>
+        <brand>NONE</brand>
+        <species>PLACEABLE</species>
+        <category>fences</category>
+        <canBeSold>true</canBeSold>
+        <showInStore>true</showInStore>
+        <brush>
+            <type>newFence</type>
+            <category>decoration</category>
+            <tab>newFences</tab>
+        </brush>
+        <audioMemoryUsage>0</audioMemoryUsage>
+    </storeData>
+
+    <base>
+        <filename>assets/fence/fence04.i3d</filename>
+    </base>
+
+    <placement useRandomYRotation="false" useManualYRotation="true">
+        <sounds>
+            <place template="fenceWoodImp" />
+            <destroy template="destroyFence" />
+        </sounds>
+    </placement>
+
+    <fence>
+        <segment id="panel07" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel07" length="3.604" />
+            </panels>
+        </segment>
+
+        <segment id="panel08" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel08" length="3.604" />
+            </panels>
+        </segment>
+
+        <segment id="panel09" class="FenceSegment" maxVerticalAngle="45">
+            <panels maxScale="1.05">
+                <panel node="panel09" length="3.604" />
+            </panels>
+        </segment>
+    </fence>
+
+    <i3dMappings>
+        <i3dMapping id="panel07" node="6>0" />
+        <i3dMapping id="panel08" node="7>0" />
+        <i3dMapping id="panel09" node="8>0" />
+    </i3dMappings>
+</placeable>

@@ -52,7 +52,16 @@ Fully supports multiplayer.
         <sourceFile filename="src/EverythingConstructable.lua"/>
     </extraSourceFiles>
     <storeItems>
+        <storeItem xmlFilename="assets/fence/ec_fence.xml"/>
         <storeItem xmlFilename="assets/fence/fence01.xml"/>
+        <storeItem xmlFilename="assets/fence/fence02.xml"/>
+        <storeItem xmlFilename="assets/fence/fence03.xml"/>
+        <storeItem xmlFilename="assets/fence/fence04.xml"/>
+        <storeItem xmlFilename="assets/fence/fence05.xml"/>
+        <storeItem xmlFilename="assets/fence/fence06.xml"/>
+        <storeItem xmlFilename="assets/fence/fence07.xml"/>
+        <storeItem xmlFilename="assets/fence/sign01.xml"/>
+        <storeItem xmlFilename="assets/fence/sign02.xml"/>
     </storeItems>
     <multiplayer supported="true"/>
     <l10n filenamePrefix="languages/l10n" />
