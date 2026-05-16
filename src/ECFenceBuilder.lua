@@ -1,5 +1,21 @@
 ECFenceBuilder = {}
 
+function ECFenceBuilder.lockFence(fence)
+    if fence == nil or fence.ecFenceLocked then
+        return
+    end
+
+    fence.getAllowFenceSegmentDeletion = function()
+        return false
+    end
+
+    fence.canBeSold = function()
+        return false, g_i18n:getText("ec_cannotDeleteFence")
+    end
+
+    fence.ecFenceLocked = true
+end
+
 function ECFenceBuilder.getFenceStoreItem()
     local fenceXml = EverythingConstructable.dir .. ECConfig.FENCE_XML
     local storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
@@ -78,6 +94,7 @@ function ECFenceBuilder.buildFence(project)
 end
 
 function ECFenceBuilder.addSegmentsToFence(fence, project, corners)
+    ECFenceBuilder.lockFence(fence)
     local segments = {}
 
     if fence.spec_fence ~= nil then
@@ -208,6 +225,7 @@ function ECFenceBuilder.buildInnerFence(project)
 end
 
 function ECFenceBuilder.addInnerSegmentsToFence(fence, project, corners)
+    ECFenceBuilder.lockFence(fence)
     local segments = {}
 
     if fence.spec_fence ~= nil then

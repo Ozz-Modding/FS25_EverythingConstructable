@@ -42,6 +42,7 @@
         <text name="setting_ec_labourFraction_tooltip" text="Percentage of total building cost allocated to labour. The deposit is deducted from this amount, and the remainder is paid over the construction phases. Higher values mean less material is needed but more cash is spent directly."/>
         <text name="setting_ec_materialSupplyBonus" text="Material Supply Bonus"/>
         <text name="setting_ec_materialSupplyBonus_tooltip" text="Bonus applied when you supply materials yourself. A higher bonus means fewer materials are required to cover the material cost."/>
+        <text name="ec_cannotDeleteFence" text="Construction fences cannot be removed while a project is active."/>
         <text name="permission_ec_ecSettings" text="Change Construction Settings"/>
     </texts>
 </l10n>

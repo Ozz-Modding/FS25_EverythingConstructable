@@ -13,7 +13,7 @@
         <brand>NONE</brand>
         <species>PLACEABLE</species>
         <category>fences</category>
-        <canBeSold>true</canBeSold>
+        <canBeSold>false</canBeSold>
         <showInStore>false</showInStore>
         <brush>
             <type>newFence</type>
