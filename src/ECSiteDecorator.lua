@@ -1,5 +1,13 @@
 ECSiteDecorator = {}
 ECSiteDecorator.sizeCache = {}
+ECSiteDecorator.modDir = g_currentModDirectory
+
+function ECSiteDecorator.resolveI3dPath(deco)
+    if deco.modLocal then
+        return ECSiteDecorator.modDir .. deco.i3d
+    end
+    return deco.i3d
+end
 
 function ECSiteDecorator.getDecoSize(deco)
     if deco.width ~= nil and deco.depth ~= nil then
@@ -7,15 +15,17 @@ function ECSiteDecorator.getDecoSize(deco)
         return deco.width + buf, deco.depth + buf
     end
 
-    local cached = ECSiteDecorator.sizeCache[deco.i3d]
+    local i3dPath = ECSiteDecorator.resolveI3dPath(deco)
+
+    local cached = ECSiteDecorator.sizeCache[i3dPath]
     if cached ~= nil then
         local buf = ECConfig.SITE_DECORATION_SIZE_BUFFER * 2
         return cached.width + buf, cached.depth + buf
     end
 
-    local i3dRoot, sharedLoadRequestId = g_i3DManager:loadSharedI3DFile(deco.i3d, false, false)
+    local i3dRoot, sharedLoadRequestId = g_i3DManager:loadSharedI3DFile(i3dPath, false, false)
     if i3dRoot == nil or i3dRoot == 0 then
-        ECSiteDecorator.sizeCache[deco.i3d] = { width = 2, depth = 2 }
+        ECSiteDecorator.sizeCache[i3dPath] = { width = 2, depth = 2 }
         return 2, 2
     end
 
@@ -41,7 +51,7 @@ function ECSiteDecorator.getDecoSize(deco)
 
     g_i3DManager:releaseSharedI3DFile(sharedLoadRequestId)
 
-    ECSiteDecorator.sizeCache[deco.i3d] = { width = rawWidth, depth = rawDepth }
+    ECSiteDecorator.sizeCache[i3dPath] = { width = rawWidth, depth = rawDepth }
 
     local buf = ECConfig.SITE_DECORATION_SIZE_BUFFER * 2
     return rawWidth + buf, rawDepth + buf
@@ -221,7 +231,7 @@ function ECSiteDecorator.fillArea(area, project)
 
             local itemRotY = area.rotY + rotation * math.pi * 0.5
 
-            local node = ECSiteDecorator.placeDecoration(deco.i3d, wx, wy, wz, itemRotY)
+            local node = ECSiteDecorator.placeDecoration(ECSiteDecorator.resolveI3dPath(deco), wx, wy, wz, itemRotY)
             if node ~= nil then
                 table.insert(nodes, node)
                 placedCounts[decoIndex] = (placedCounts[decoIndex] or 0) + 1
@@ -289,7 +299,7 @@ function ECSiteDecorator.fillArea(area, project)
 
         local itemRotY = area.rotY + rotation * math.pi * 0.5
 
-        local node = ECSiteDecorator.placeDecoration(deco.i3d, wx, wy, wz, itemRotY)
+        local node = ECSiteDecorator.placeDecoration(ECSiteDecorator.resolveI3dPath(deco), wx, wy, wz, itemRotY)
         if node ~= nil then
             table.insert(nodes, node)
             placedCounts[decoIndex] = (placedCounts[decoIndex] or 0) + 1

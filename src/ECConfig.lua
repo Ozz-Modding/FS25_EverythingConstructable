@@ -58,8 +58,8 @@ ECConfig.SITE_DECORATIONS = {
     { i3d = "data/maps/mapEU/textures/props/stepStool.i3d", max = 1 },
     { i3d = "data/maps/mapEU/textures/props/wheelBarrow.i3d", max = 1 },
     { i3d = "data/maps/mapEU/textures/props/workBench01.i3d", max = 1 },
-    { i3d = "data/placeables/brandless/decoration/boardStacks/boardStackSmall.i3d", max = 4 },
-    { i3d = "data/placeables/brandless/decoration/palletTruck/palletTruck.i3d", max = 1 },
+    { i3d = "data/placeables/brandless/decoration/boardStacks/boardStackSmall.i3d", max = 4, width = 5, depth = 2 },
+    { i3d = "data/placeables/brandless/decoration/palletTruck/palletTruck.i3d", max = 1, width = 4, depth = 2 },
     { i3d = "data/placeables/brandless/decoration/garbageContainers/barrel01.i3d", max = 2 },
     { i3d = "data/placeables/brandless/decoration/garbageContainers/barrel02.i3d", max = 2 },
     { i3d = "data/placeables/brandless/decoration/garbageContainers/barrel03.i3d", max = 2 },
@@ -68,6 +68,8 @@ ECConfig.SITE_DECORATIONS = {
     { i3d = "data/placeables/brandless/decoration/benches/bench02.i3d", max = 2 },
     { i3d = "data/placeables/brandless/decoration/garbageContainers/garbageContainers.i3d", max = 1 },
     { i3d = "data/placeables/mapAS/farmShacksAS/shackContainer01.i3d", max = 1, width = 9, depth = 6, priority = 1 },
+    { i3d = "assets/fence/sign01.i3d", modLocal = true, max = 1 },
+    { i3d = "assets/fence/sign02.i3d", modLocal = true, max = 1, width = 4, depth = 3 },
 }
 
 function ECConfig.getMonthsForPrice(price)

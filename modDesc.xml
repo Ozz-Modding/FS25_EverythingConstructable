@@ -11,18 +11,11 @@
     <description>
         <en><![CDATA[Everything Constructable
 
-Transforms building placement into a multi-phase construction process. Instead of buildings appearing instantly, placing a building will:
+Buildings no longer appear instantly. Instead, placing a building creates a realistic multi-phase construction project with fenced sites, monthly progress, and resource delivery.
 
-1. Flatten the terrain as normal
-2. Place a construction fence around the site
-3. Create a construction project that spans multiple months
-4. Charge only an initial deposit
+You can disable and enable this process at will. For construction projects, you can deliver material yourself to reduce the cost. Projects will take a number of months, depending on the cost.
 
-Construction projects can run in two modes:
-- Automatic: Monthly charges are deducted and the build progresses each month
-- Wait for Resources: Deliver materials (wood beams, planks, cement, etc.) to advance each phase
-
-Approach a construction site on foot to view progress, change mode, or cancel for a partial refund.
+You can pause a project if you want to wait and supply materials. You must always pay for labour, but can configure the portion of the total cost for labour vs materials.
 
 Fully supports multiplayer.
 ]]></en>
