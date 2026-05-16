@@ -2,8 +2,6 @@
 
 A Farming Simulator 25 mod that transforms instant building placement into a multi-phase construction process. Furthermore, it allows you to supply to materials towards the cost of any placeable.
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M41K5NPV)
-
 ## How It Works
 
 When you place a building:
@@ -30,3 +28,5 @@ Switch between modes at any time by approaching the site on foot and opening the
 ## Included Placeables
 
 The mod includes a set of free construction fences (7 styles) and construction signs (2 styles) that can be placed independently via the fences and decoration menu.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M41K5NPV)
