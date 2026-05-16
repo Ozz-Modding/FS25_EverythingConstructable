@@ -114,6 +114,10 @@ function ECFenceBuilder.addSegmentsToFence(fence, project, corners)
             local x1, z1 = corners[i][1], corners[i][2]
             local x2, z2 = corners[nextI][1], corners[nextI][2]
 
+            if ECConfig.FENCE_OUTER_REVERSE_WINDING then
+                x1, z1, x2, z2 = x2, z2, x1, z1
+            end
+
             local segment = fenceObj:createNewSegment(templateId)
             if segment ~= nil then
                 local y1 = getTerrainHeightAtWorldPos(g_terrainNode, x1, 0, z1)
@@ -236,6 +240,10 @@ function ECFenceBuilder.addInnerSegmentsToFence(fence, project, corners)
             local nextI = (i % 4) + 1
             local x1, z1 = corners[i][1], corners[i][2]
             local x2, z2 = corners[nextI][1], corners[nextI][2]
+
+            if ECConfig.FENCE_INNER_REVERSE_WINDING then
+                x1, z1, x2, z2 = x2, z2, x1, z1
+            end
 
             local segment = fenceObj:createNewSegment(templateId)
             if segment ~= nil then
