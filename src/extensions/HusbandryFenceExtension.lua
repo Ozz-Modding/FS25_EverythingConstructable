@@ -42,12 +42,14 @@ function HusbandryFenceExtension.markForConversion(placeable, buyData)
     if hasMeadow then
         local originalCreateMeadow = placeable.createMeadow
         placeable.createMeadow = function(self, doCreateMeadow, noEventSend)
-            originalCreateMeadow(self, doCreateMeadow, noEventSend)
             local objId = NetworkUtil.getObjectId(self)
             if objId ~= nil and HusbandryFenceExtension.pendingPlaceables[objId] ~= nil then
                 HusbandryFenceExtension.pendingPlaceables[objId] = nil
                 pending.createMeadow = doCreateMeadow or false
+                originalCreateMeadow(self, false, noEventSend)
                 HusbandryFenceExtension.convertToProject(pending)
+            else
+                originalCreateMeadow(self, doCreateMeadow, noEventSend)
             end
         end
     end
