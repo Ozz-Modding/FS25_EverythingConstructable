@@ -186,6 +186,27 @@ function ECProject:saveToXML(xmlFile, key)
         setXMLFloat(xmlFile, matKey .. "#amount", mat.amount)
         setXMLFloat(xmlFile, matKey .. "#delivered", mat.delivered)
     end
+
+    if self.husbandryFenceData ~= nil then
+        setXMLBool(xmlFile, key .. ".husbandryFence#hasMeadow", self.husbandryMeadow or false)
+        for si, seg in ipairs(self.husbandryFenceData) do
+            local segKey = string.format("%s.husbandryFence.segment(%d)", key, si - 1)
+            setXMLFloat(xmlFile, segKey .. "#sx", seg.startPos[1])
+            setXMLFloat(xmlFile, segKey .. "#sy", seg.startPos[2])
+            setXMLFloat(xmlFile, segKey .. "#sz", seg.startPos[3])
+            setXMLFloat(xmlFile, segKey .. "#ex", seg.endPos[1])
+            setXMLFloat(xmlFile, segKey .. "#ey", seg.endPos[2])
+            setXMLFloat(xmlFile, segKey .. "#ez", seg.endPos[3])
+            setXMLBool(xmlFile, segKey .. "#isCustomizable", seg.isCustomizable or false)
+            setXMLBool(xmlFile, segKey .. "#isDefaultSegment", seg.isDefaultSegment or false)
+            if seg.templateId ~= nil then
+                setXMLString(xmlFile, segKey .. "#templateId", seg.templateId)
+            end
+            if seg.isReversed then
+                setXMLBool(xmlFile, segKey .. "#isReversed", true)
+            end
+        end
+    end
 end
 
 function ECProject.loadFromXML(xmlFile, key)
@@ -284,6 +305,35 @@ function ECProject.loadFromXML(xmlFile, key)
         mi = mi + 1
     end
 
+    if hasXMLProperty(xmlFile, key .. ".husbandryFence") then
+        project.husbandryMeadow = getXMLBool(xmlFile, key .. ".husbandryFence#hasMeadow") or false
+        project.husbandryFenceData = {}
+        local si = 0
+        while true do
+            local segKey = string.format("%s.husbandryFence.segment(%d)", key, si)
+            if not hasXMLProperty(xmlFile, segKey) then
+                break
+            end
+            table.insert(project.husbandryFenceData, {
+                startPos = {
+                    getXMLFloat(xmlFile, segKey .. "#sx") or 0,
+                    getXMLFloat(xmlFile, segKey .. "#sy") or 0,
+                    getXMLFloat(xmlFile, segKey .. "#sz") or 0,
+                },
+                endPos = {
+                    getXMLFloat(xmlFile, segKey .. "#ex") or 0,
+                    getXMLFloat(xmlFile, segKey .. "#ey") or 0,
+                    getXMLFloat(xmlFile, segKey .. "#ez") or 0,
+                },
+                isCustomizable = getXMLBool(xmlFile, segKey .. "#isCustomizable") or false,
+                isDefaultSegment = getXMLBool(xmlFile, segKey .. "#isDefaultSegment") or false,
+                templateId = getXMLString(xmlFile, segKey .. "#templateId"),
+                isReversed = getXMLBool(xmlFile, segKey .. "#isReversed") or false,
+            })
+            si = si + 1
+        end
+    end
+
     return project
 end
 
@@ -329,6 +379,25 @@ function ECProject:writeStream(streamId)
         streamWriteString(streamId, mat.fillTypeName)
         streamWriteFloat32(streamId, mat.amount)
         streamWriteFloat32(streamId, mat.delivered)
+    end
+
+    local hasFenceData = self.husbandryFenceData ~= nil
+    streamWriteBool(streamId, hasFenceData)
+    if hasFenceData then
+        streamWriteBool(streamId, self.husbandryMeadow or false)
+        streamWriteInt32(streamId, #self.husbandryFenceData)
+        for _, seg in ipairs(self.husbandryFenceData) do
+            streamWriteFloat32(streamId, seg.startPos[1])
+            streamWriteFloat32(streamId, seg.startPos[2])
+            streamWriteFloat32(streamId, seg.startPos[3])
+            streamWriteFloat32(streamId, seg.endPos[1])
+            streamWriteFloat32(streamId, seg.endPos[2])
+            streamWriteFloat32(streamId, seg.endPos[3])
+            streamWriteBool(streamId, seg.isCustomizable or false)
+            streamWriteBool(streamId, seg.isDefaultSegment or false)
+            streamWriteString(streamId, seg.templateId or "")
+            streamWriteBool(streamId, seg.isReversed or false)
+        end
     end
 end
 
@@ -396,6 +465,27 @@ function ECProject.readStream(streamId)
             amount = streamReadFloat32(streamId),
             delivered = streamReadFloat32(streamId),
         })
+    end
+
+    if streamReadBool(streamId) then
+        project.husbandryMeadow = streamReadBool(streamId)
+        local numSegments = streamReadInt32(streamId)
+        project.husbandryFenceData = {}
+        for _ = 1, numSegments do
+            table.insert(project.husbandryFenceData, {
+                startPos = {streamReadFloat32(streamId), streamReadFloat32(streamId), streamReadFloat32(streamId)},
+                endPos = {streamReadFloat32(streamId), streamReadFloat32(streamId), streamReadFloat32(streamId)},
+                isCustomizable = streamReadBool(streamId),
+                isDefaultSegment = streamReadBool(streamId),
+                templateId = streamReadString(streamId),
+                isReversed = streamReadBool(streamId),
+            })
+        end
+        for _, seg in ipairs(project.husbandryFenceData) do
+            if seg.templateId == "" then
+                seg.templateId = nil
+            end
+        end
     end
 
     return project

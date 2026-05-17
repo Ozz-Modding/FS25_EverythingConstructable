@@ -87,10 +87,57 @@ function ECFenceBuilder.buildFence(project)
     local existingFence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(xmlFilename)
 
     if existingFence ~= nil then
+        if ECFenceBuilder.adoptExistingSegments(existingFence, project, corners) then
+            ECFenceBuilder.lockFence(existingFence)
+            return
+        end
         ECFenceBuilder.addSegmentsToFence(existingFence, project, corners)
     else
         ECFenceBuilder.createSingleton(storeItem, project, corners)
     end
+end
+
+function ECFenceBuilder.adoptExistingSegments(fence, project, corners)
+    if fence.spec_newFence == nil then
+        return false
+    end
+    local fenceObj = fence:getFence()
+    if fenceObj == nil then
+        return false
+    end
+
+    local adopted = {}
+    for i = 1, 4 do
+        local nextI = (i % 4) + 1
+        local cx1, cz1 = corners[i][1], corners[i][2]
+        local cx2, cz2 = corners[nextI][1], corners[nextI][2]
+
+        if ECConfig.FENCE_OUTER_REVERSE_WINDING then
+            cx1, cz1, cx2, cz2 = cx2, cz2, cx1, cz1
+        end
+
+        for _, segment in ipairs(fenceObj:getSegments()) do
+            if not table.hasElement(adopted, segment) then
+                local sx, _, sz = segment:getStartPos()
+                local ex, _, ez = segment:getEndPos()
+                local matchForward = math.abs(sx - cx1) < 0.5 and math.abs(sz - cz1) < 0.5 and
+                                     math.abs(ex - cx2) < 0.5 and math.abs(ez - cz2) < 0.5
+                local matchReverse = math.abs(sx - cx2) < 0.5 and math.abs(sz - cz2) < 0.5 and
+                                     math.abs(ex - cx1) < 0.5 and math.abs(ez - cz1) < 0.5
+                if matchForward or matchReverse then
+                    table.insert(adopted, segment)
+                    break
+                end
+            end
+        end
+    end
+
+    if #adopted == 4 then
+        project.fencePlaceable = fence
+        project.fenceSegments = adopted
+        return true
+    end
+    return false
 end
 
 function ECFenceBuilder.addSegmentsToFence(fence, project, corners)
@@ -218,10 +265,57 @@ function ECFenceBuilder.buildInnerFence(project)
     local existingFence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(xmlFilename)
 
     if existingFence ~= nil then
+        if ECFenceBuilder.adoptExistingInnerSegments(existingFence, project, corners) then
+            ECFenceBuilder.lockFence(existingFence)
+            return
+        end
         ECFenceBuilder.addInnerSegmentsToFence(existingFence, project, corners)
     else
         ECFenceBuilder.createInnerSingleton(storeItem, project, corners)
     end
+end
+
+function ECFenceBuilder.adoptExistingInnerSegments(fence, project, corners)
+    if fence.spec_newFence == nil then
+        return false
+    end
+    local fenceObj = fence:getFence()
+    if fenceObj == nil then
+        return false
+    end
+
+    local adopted = {}
+    for i = 1, 4 do
+        local nextI = (i % 4) + 1
+        local cx1, cz1 = corners[i][1], corners[i][2]
+        local cx2, cz2 = corners[nextI][1], corners[nextI][2]
+
+        if ECConfig.FENCE_INNER_REVERSE_WINDING then
+            cx1, cz1, cx2, cz2 = cx2, cz2, cx1, cz1
+        end
+
+        for _, segment in ipairs(fenceObj:getSegments()) do
+            if not table.hasElement(adopted, segment) then
+                local sx, _, sz = segment:getStartPos()
+                local ex, _, ez = segment:getEndPos()
+                local matchForward = math.abs(sx - cx1) < 0.5 and math.abs(sz - cz1) < 0.5 and
+                                     math.abs(ex - cx2) < 0.5 and math.abs(ez - cz2) < 0.5
+                local matchReverse = math.abs(sx - cx2) < 0.5 and math.abs(sz - cz2) < 0.5 and
+                                     math.abs(ex - cx1) < 0.5 and math.abs(ez - cz1) < 0.5
+                if matchForward or matchReverse then
+                    table.insert(adopted, segment)
+                    break
+                end
+            end
+        end
+    end
+
+    if #adopted == 4 then
+        project.innerFencePlaceable = fence
+        project.innerFenceSegments = adopted
+        return true
+    end
+    return false
 end
 
 function ECFenceBuilder.addInnerSegmentsToFence(fence, project, corners)
@@ -317,7 +411,18 @@ function ECFenceBuilder.removeInnerFence(project)
         return
     end
 
-    if project.innerFenceSegments ~= nil and project.innerFencePlaceable ~= nil then
+    if project.innerFenceSegments == nil or project.innerFencePlaceable == nil then
+        local corners = ECFenceBuilder.calculateInnerCorners(project)
+        if corners ~= nil then
+            local storeItem = ECFenceBuilder.getFenceStoreItem()
+            if storeItem ~= nil then
+                local fence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(storeItem.xmlFilename)
+                if fence ~= nil then
+                    ECFenceBuilder.removeSegmentsByCorners(fence, project, corners)
+                end
+            end
+        end
+    else
         local fence = project.innerFencePlaceable
         if fence.spec_fence ~= nil then
             for i = #project.innerFenceSegments, 1, -1 do
@@ -375,7 +480,19 @@ function ECFenceBuilder.removeFence(project)
 
     ECFenceBuilder.removeInnerFence(project)
 
-    if project.fenceSegments ~= nil and project.fencePlaceable ~= nil then
+    if project.fenceSegments == nil or project.fencePlaceable == nil then
+        print(string.format("EverythingConstructable: removeFence - no references for project %d (segments=%s, placeable=%s)",
+            project.id, tostring(project.fenceSegments ~= nil), tostring(project.fencePlaceable ~= nil)))
+
+        local storeItem = ECFenceBuilder.getFenceStoreItem()
+        if storeItem ~= nil then
+            local fence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(storeItem.xmlFilename)
+            if fence ~= nil then
+                print("EverythingConstructable: removeFence - found fence placeable by filename, attempting corner-based removal")
+                ECFenceBuilder.removeSegmentsByCorners(fence, project)
+            end
+        end
+    else
         local fence = project.fencePlaceable
         if fence.spec_fence ~= nil then
             for i = #project.fenceSegments, 1, -1 do
@@ -395,6 +512,51 @@ function ECFenceBuilder.removeFence(project)
     project.fenceSegments = nil
     project.fencePlaceable = nil
     project.fenceCorners = nil
+end
+
+function ECFenceBuilder.removeSegmentsByCorners(fence, project, corners)
+    if corners == nil then
+        corners = ECFenceBuilder.calculateCorners(project)
+    end
+    if corners == nil then
+        return
+    end
+
+    local fenceObj = nil
+    if fence.spec_newFence ~= nil then
+        fenceObj = fence:getFence()
+    end
+    if fenceObj == nil then
+        return
+    end
+
+    local toRemove = {}
+    for _, segment in ipairs(fenceObj:getSegments()) do
+        local sx, _, sz = segment:getStartPos()
+        local ex, _, ez = segment:getEndPos()
+        for i = 1, 4 do
+            local nextI = (i % 4) + 1
+            local cx1, cz1 = corners[i][1], corners[i][2]
+            local cx2, cz2 = corners[nextI][1], corners[nextI][2]
+
+            local matchForward = math.abs(sx - cx1) < 0.5 and math.abs(sz - cz1) < 0.5 and
+                                 math.abs(ex - cx2) < 0.5 and math.abs(ez - cz2) < 0.5
+            local matchReverse = math.abs(sx - cx2) < 0.5 and math.abs(sz - cz2) < 0.5 and
+                                 math.abs(ex - cx1) < 0.5 and math.abs(ez - cz1) < 0.5
+
+            if matchForward or matchReverse then
+                table.insert(toRemove, segment)
+                break
+            end
+        end
+    end
+
+    for i = #toRemove, 1, -1 do
+        fenceObj:removeSegment(toRemove[i])
+        toRemove[i]:delete()
+    end
+
+    print(string.format("EverythingConstructable: removeFence - removed %d segments by corner matching for project %d", #toRemove, project.id))
 end
 
 function ECFenceBuilder.calculateCorners(project)

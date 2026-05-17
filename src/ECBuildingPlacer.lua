@@ -36,6 +36,8 @@ function ECBuildingPlacer.placeBuilding(project, callback)
         placeable:finalizePlacement()
         placeable:onBuy()
 
+        ECBuildingPlacer.restoreHusbandryFence(project, placeable)
+
         print(string.format("EverythingConstructable: Building placed for project %d: %s",
             project.id, project:getStoreItemName()))
 
@@ -43,4 +45,52 @@ function ECBuildingPlacer.placeBuilding(project, callback)
             callback(true)
         end
     end, nil)
+end
+
+function ECBuildingPlacer.restoreHusbandryFence(project, placeable)
+    if project.husbandryFenceData == nil then
+        return
+    end
+
+    local spec = placeable.spec_husbandryFence
+    if spec == nil or spec.fence == nil then
+        return
+    end
+
+    for _, segment in ipairs_reverse(spec.fence:getSegments()) do
+        spec.fence:removeSegment(segment)
+        segment:delete()
+    end
+
+    if spec.previewSegments ~= nil then
+        spec.previewSegments = {}
+    end
+
+    for _, segData in ipairs(project.husbandryFenceData) do
+        local templateId = segData.templateId
+        if templateId == nil then
+            templateId = spec.fenceSegmentsData[1] and spec.fenceSegmentsData[1].segmentId
+        end
+        if templateId ~= nil then
+            local segment = spec.fence:createNewSegment(templateId)
+            if segment ~= nil then
+                segment:setStartPos(segData.startPos[1], segData.startPos[2], segData.startPos[3])
+                segment:setEndPos(segData.endPos[1], segData.endPos[2], segData.endPos[3])
+                if segData.isReversed and segment.setIsReversed ~= nil then
+                    segment:setIsReversed(segData.isReversed)
+                end
+                segment.husbandryFenceIsCustomizable = segData.isCustomizable
+                segment.husbandryFenceIsDefaultSegment = segData.isDefaultSegment
+                segment:updateMeshes(true, false)
+                segment:finalize()
+            end
+        end
+    end
+
+    spec.fence:finalize()
+    placeable:finalizeHusbandryFence()
+
+    if project.husbandryMeadow and placeable.createMeadow ~= nil then
+        placeable:createMeadow(true)
+    end
 end

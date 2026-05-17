@@ -39,8 +39,10 @@ Fully supports multiplayer.
         <sourceFile filename="src/events/ECSetModeEvent.lua"/>
         <sourceFile filename="src/events/ECCancelProjectEvent.lua"/>
         <sourceFile filename="src/events/ECInitialClientStateEvent.lua"/>
+        <sourceFile filename="src/events/ECHusbandryConvertEvent.lua"/>
         <sourceFile filename="src/extensions/BuyPlaceableDataExtension.lua"/>
         <sourceFile filename="src/extensions/BuyPlaceableEventExtension.lua"/>
+        <sourceFile filename="src/extensions/HusbandryFenceExtension.lua"/>
         <sourceFile filename="src/gui/ECConstructionDialog.lua"/>
         <sourceFile filename="src/EverythingConstructable.lua"/>
     </extraSourceFiles>
