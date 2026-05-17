@@ -479,6 +479,7 @@ function ECFenceBuilder.removeFence(project)
     end
 
     ECFenceBuilder.removeInnerFence(project)
+    ECFenceBuilder.removePastureFence(project)
 
     if project.fenceSegments == nil or project.fencePlaceable == nil then
         print(string.format("EverythingConstructable: removeFence - no references for project %d (segments=%s, placeable=%s)",
@@ -579,4 +580,171 @@ function ECFenceBuilder.calculateCorners(project)
         {cx + sideX * halfX + dirX * halfZ, cz + sideZ * halfX + dirZ * halfZ},
         {cx - sideX * halfX + dirX * halfZ, cz - sideZ * halfX + dirZ * halfZ},
     }
+end
+
+function ECFenceBuilder.buildPastureFence(project)
+    if project == nil or project.husbandryFenceData == nil then
+        return
+    end
+
+    local siteCorners = ECFenceBuilder.calculateCorners(project)
+    if siteCorners == nil then
+        return
+    end
+
+    local storeItem = ECFenceBuilder.getFenceStoreItem()
+    if storeItem == nil then
+        return
+    end
+
+    local xmlFilename = storeItem.xmlFilename
+    local fence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(xmlFilename)
+    if fence == nil or fence.spec_newFence == nil then
+        return
+    end
+
+    local fenceObj = fence:getFence()
+    if fenceObj == nil then
+        return
+    end
+
+    local templateId = ECFenceBuilder.findTemplateBySegmentId(fenceObj, ECConfig.FENCE_PASTURE_SEGMENT_ID)
+    if templateId == nil then
+        return
+    end
+
+    local panelLength = ECFenceBuilder.getPanelLength(ECConfig.FENCE_PASTURE_SEGMENT_ID)
+    local pieces = ECFenceBuilder.subdivideFenceData(project.husbandryFenceData, panelLength)
+
+    local segments = {}
+    for _, piece in ipairs(pieces) do
+        if not ECFenceBuilder.segmentInsideSite(piece.sx, piece.sz, piece.ex, piece.ez, siteCorners) then
+            local segment = fenceObj:createNewSegment(templateId)
+            if segment ~= nil then
+                local sy = getTerrainHeightAtWorldPos(g_terrainNode, piece.sx, 0, piece.sz)
+                local ey = getTerrainHeightAtWorldPos(g_terrainNode, piece.ex, 0, piece.ez)
+                segment:setStartPos(piece.sx, sy, piece.sz)
+                segment:setEndPos(piece.ex, ey, piece.ez)
+                segment:updateMeshes(true, false)
+
+                if segment.actualEndX ~= nil then
+                    segment.endPosX = segment.actualEndX
+                    segment.endPosY = segment.actualEndY
+                    segment.endPosZ = segment.actualEndZ
+                    addToPhysics(segment.root)
+                    fenceObj:addSegment(segment)
+                    segment:setCollisionAreaDirty()
+                    segment.notYetFinalized = nil
+                    table.insert(segments, segment)
+                else
+                    segment:delete()
+                end
+            end
+        end
+    end
+
+    if #segments > 0 then
+        project.pastureFencePlaceable = fence
+        project.pastureFenceSegments = segments
+    end
+end
+
+function ECFenceBuilder.removePastureFence(project)
+    if project == nil then
+        return
+    end
+
+    if project.pastureFenceSegments == nil or project.pastureFencePlaceable == nil then
+        return
+    end
+
+    local fence = project.pastureFencePlaceable
+    if fence.spec_newFence ~= nil then
+        local fenceObj = fence:getFence()
+        if fenceObj ~= nil then
+            for i = #project.pastureFenceSegments, 1, -1 do
+                fenceObj:removeSegment(project.pastureFenceSegments[i])
+                project.pastureFenceSegments[i]:delete()
+            end
+        end
+    end
+
+    project.pastureFenceSegments = nil
+    project.pastureFencePlaceable = nil
+end
+
+function ECFenceBuilder.subdivideFenceData(fenceData, panelLength)
+    local pieces = {}
+    for _, segData in ipairs(fenceData) do
+        local sx, sz = segData.startPos[1], segData.startPos[3]
+        local ex, ez = segData.endPos[1], segData.endPos[3]
+        local dx = ex - sx
+        local dz = ez - sz
+        local dist = math.sqrt(dx * dx + dz * dz)
+
+        if dist <= panelLength * 1.05 then
+            table.insert(pieces, {sx = sx, sz = sz, ex = ex, ez = ez})
+        else
+            local numPanels = math.max(1, math.floor(dist / panelLength + 0.5))
+            local stepX = dx / numPanels
+            local stepZ = dz / numPanels
+            for i = 0, numPanels - 1 do
+                local px = sx + stepX * i
+                local pz = sz + stepZ * i
+                local qx = sx + stepX * (i + 1)
+                local qz = sz + stepZ * (i + 1)
+                table.insert(pieces, {sx = px, sz = pz, ex = qx, ez = qz})
+            end
+        end
+    end
+    return pieces
+end
+
+function ECFenceBuilder.segmentInsideSite(sx, sz, ex, ez, corners)
+    if ECFenceBuilder.pointInsideQuad(sx, sz, corners) then
+        return true
+    end
+    if ECFenceBuilder.pointInsideQuad(ex, ez, corners) then
+        return true
+    end
+    local midX = (sx + ex) * 0.5
+    local midZ = (sz + ez) * 0.5
+    if ECFenceBuilder.pointInsideQuad(midX, midZ, corners) then
+        return true
+    end
+    for i = 1, 4 do
+        local nextI = (i % 4) + 1
+        local ax, az = corners[i][1], corners[i][2]
+        local bx, bz = corners[nextI][1], corners[nextI][2]
+        if ECFenceBuilder.linesIntersect(sx, sz, ex, ez, ax, az, bx, bz) then
+            return true
+        end
+    end
+    return false
+end
+
+function ECFenceBuilder.linesIntersect(ax, az, bx, bz, cx, cz, dx, dz)
+    local d1 = (dx - cx) * (az - cz) - (dz - cz) * (ax - cx)
+    local d2 = (dx - cx) * (bz - cz) - (dz - cz) * (bx - cx)
+    local d3 = (bx - ax) * (cz - az) - (bz - az) * (cx - ax)
+    local d4 = (bx - ax) * (dz - az) - (bz - az) * (dx - ax)
+    if d1 * d2 < 0 and d3 * d4 < 0 then
+        return true
+    end
+    return false
+end
+
+function ECFenceBuilder.pointInsideQuad(px, pz, corners)
+    local inside = true
+    for i = 1, 4 do
+        local nextI = (i % 4) + 1
+        local ax, az = corners[i][1], corners[i][2]
+        local bx, bz = corners[nextI][1], corners[nextI][2]
+        local cross = (bx - ax) * (pz - az) - (bz - az) * (px - ax)
+        if cross < -0.5 then
+            inside = false
+            break
+        end
+    end
+    return inside
 end

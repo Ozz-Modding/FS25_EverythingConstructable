@@ -29,6 +29,7 @@ function EverythingConstructable:onStartMission()
     for _, project in pairs(g_currentMission.ecProjectManager.projects) do
         if not project.completed then
             ECFenceBuilder.buildFence(project)
+            ECFenceBuilder.buildPastureFence(project)
             if project.currentPhaseIndex >= 2 then
                 ECFenceBuilder.buildInnerFence(project)
             end

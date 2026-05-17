@@ -134,6 +134,7 @@ function HusbandryFenceExtension.convertToProject(pending)
     project.husbandryMeadow = pending.createMeadow or false
 
     ECFenceBuilder.buildFence(project)
+    ECFenceBuilder.buildPastureFence(project)
     ECSiteDecorator.decorate(project)
     ECTerrainPainter.clearFootprint(project)
 
