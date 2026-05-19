@@ -13,25 +13,21 @@ When you place a building:
 
 ## Construction Modes
 
-**Automatic** — Monthly labour charges are deducted and the build progresses each month until complete.
+**Automatic** — Monthly labour charges are deducted and the build progresses each phase automatically until complete.
 
-**Wait for Resources** — Deliver materials (wood beams, planks, cement, bricks, roof plates, etc.) to the construction site to advance each phase. No monthly charges in this mode.
+**Paused** — Pauses automatic phase progression so you can supply materials yourself to reduce costs. No monthly charges while paused.
 
 ## Interacting with Construction Sites
 
 Walk up to the construction fence on foot and press **R** to open the construction dialog. From here you can:
 
 - View progress and costs
-- Switch between Automatic and Wait for Resources modes
-- Pause or cancel the project
+- Switch between Automatic and Paused modes
+- Cancel the project
 
 ## Supplying Materials
 
-In **Wait for Resources** mode, you can deliver materials directly to reduce costs:
-
-1. Load materials (wood beams, planks, cement, bricks, roof plates, etc.) onto a trailer or vehicle
-2. Drive up to the construction fence and unload — the site will accept any required materials automatically
-3. Supplied materials count toward the phase cost with a bonus discount
+Review the supplyable materials in the construction dialog. Simply bring the materials to the perimeter fence and costs will be reduced.
 
 ## Settings
 
