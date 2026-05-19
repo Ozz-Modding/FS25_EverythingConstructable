@@ -16,7 +16,8 @@ BuyPlaceableData.onBought = Utils.overwrittenFunction(BuyPlaceableData.onBought,
         return
     end
 
-    if placeable.spec_husbandryFence ~= nil and g_currentMission:getIsServer() then
+    local isHusbandryBrush = self.storeItem.brush ~= nil and self.storeItem.brush.type == "husbandry"
+    if placeable.spec_husbandryFence ~= nil and isHusbandryBrush and g_currentMission:getIsServer() then
         local deposit = ECConfig.getDepositAmount(self.price)
         local displacementCosts = self.displacementCosts or 0
         if not self.isFreeOfCharge then
