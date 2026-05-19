@@ -29,6 +29,14 @@
         <textColor value="$preset_fs25_colorMainLight"/>
     </Profile>
 
+    <!-- Hint text below section header -->
+    <Profile name="ecHintLabel" extends="baseReference" with="anchorTopLeft">
+        <textBold value="false"/>
+        <textSize value="15px"/>
+        <textAlignment value="left"/>
+        <textColor value="$preset_fs25_colorSubLight"/>
+    </Profile>
+
     <!-- Material row label -->
     <Profile name="ecMatLabel" extends="baseReference" with="anchorTopLeft">
         <textBold value="false"/>

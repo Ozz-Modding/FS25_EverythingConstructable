@@ -37,27 +37,28 @@
             </GuiElement>
 
             <!-- Phase costs -->
-            <GuiElement profile="ecSection" position="40px -240px" size="670px 50px">
+            <GuiElement profile="ecSection" position="40px -225px" size="670px 50px">
                 <Text profile="ecColumnHeader" text="$l10n_ec_phaseCosts" position="0px 0px" size="670px 22px"/>
                 <Text profile="ecFieldLabel" text="" id="phaseCostsText" position="0px -26px" size="670px 20px"/>
             </GuiElement>
 
             <!-- Materials section -->
-            <GuiElement profile="ecSection" position="40px -305px" size="670px 200px">
+            <GuiElement profile="ecSection" position="40px -290px" size="670px 200px">
                 <Text profile="ecColumnHeader" text="$l10n_ec_materialsSupplyable" position="0px 0px" size="670px 22px"/>
+                <Text profile="ecHintLabel" text="$l10n_ec_materialsSupplyHint" position="0px -28px" size="670px 18px"/>
 
-                <Text profile="ecMatLabel" text="" id="matName1"   position="10px -28px"  size="300px 20px"/>
-                <Text profile="ecMatValue" text="" id="matAmount1" position="320px -28px" size="340px 20px"/>
-                <Text profile="ecMatLabel" text="" id="matName2"   position="10px -50px"  size="300px 20px"/>
-                <Text profile="ecMatValue" text="" id="matAmount2" position="320px -50px" size="340px 20px"/>
-                <Text profile="ecMatLabel" text="" id="matName3"   position="10px -72px"  size="300px 20px"/>
-                <Text profile="ecMatValue" text="" id="matAmount3" position="320px -72px" size="340px 20px"/>
-                <Text profile="ecMatLabel" text="" id="matName4"   position="10px -94px"  size="300px 20px"/>
-                <Text profile="ecMatValue" text="" id="matAmount4" position="320px -94px" size="340px 20px"/>
-                <Text profile="ecMatLabel" text="" id="matName5"   position="10px -116px" size="300px 20px"/>
-                <Text profile="ecMatValue" text="" id="matAmount5" position="320px -116px" size="340px 20px"/>
-                <Text profile="ecMatLabel" text="" id="matName6"   position="10px -138px" size="300px 20px"/>
-                <Text profile="ecMatValue" text="" id="matAmount6" position="320px -138px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName1"   position="0px -54px"  size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount1" position="320px -54px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName2"   position="0px -76px"  size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount2" position="320px -76px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName3"   position="0px -98px"  size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount3" position="320px -98px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName4"   position="0px -120px" size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount4" position="320px -120px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName5"   position="0px -142px" size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount5" position="320px -142px" size="340px 20px"/>
+                <Text profile="ecMatLabel" text="" id="matName6"   position="0px -164px" size="300px 20px"/>
+                <Text profile="ecMatValue" text="" id="matAmount6" position="320px -164px" size="340px 20px"/>
             </GuiElement>
         </GuiElement>
 

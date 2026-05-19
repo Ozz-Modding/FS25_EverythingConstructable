@@ -14,6 +14,7 @@
         <text name="ec_totalPaid" text="Total Paid"/>
         <text name="ec_totalRemaining" text="Total Remaining"/>
         <text name="ec_materialsSupplyable" text="Supplyable Materials"/>
+        <text name="ec_materialsSupplyHint" text="To supply materials, bring them to the fence."/>
         <text name="ec_allMaterialsSupplied" text="All materials have been supplied."/>
         <text name="ec_resourcesDelivered" text="Delivered"/>
         <text name="ec_progress" text="Progress"/>

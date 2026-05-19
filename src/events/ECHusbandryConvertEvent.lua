@@ -1,6 +1,6 @@
 ECHusbandryConvertEvent = {}
 local ECHusbandryConvertEvent_mt = Class(ECHusbandryConvertEvent, Event)
-InitStaticEventClass(ECHusbandryConvertEvent, "ECHusbandryConvertEvent")
+InitEventClass(ECHusbandryConvertEvent, "ECHusbandryConvertEvent")
 
 function ECHusbandryConvertEvent.emptyNew()
     return Event.new(ECHusbandryConvertEvent_mt)
