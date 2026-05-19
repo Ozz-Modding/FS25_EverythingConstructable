@@ -33,7 +33,6 @@
         <text name="ec_monthsRemaining" text="Months Remaining"/>
         <text name="ec_status_active" text="Active"/>
         <text name="ec_status_paused" text="Paused"/>
-
         <text name="ec_setting_disabled" text="Disabled"/>
         <text name="ec_setting_enabled" text="Enabled"/>
         <text name="setting_ec_section" text="Everything Constructable"/>

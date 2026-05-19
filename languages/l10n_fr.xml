@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <translationContributors/>
+    <texts>
+        <text name="ec_constructionSite" text="Chantier de construction"/>
+        <text name="ec_action_viewConstruction" text="Voir la construction"/>
+        <text name="ec_phase" text="Phase %d sur %d"/>
+        <text name="ec_mode_automatic" text="Automatique"/>
+        <text name="ec_mode_paused" text="En pause"/>
+        <text name="ec_deposit" text="Acompte"/>
+        <text name="ec_labourCost" text="Main-d'œuvre (par phase)"/>
+        <text name="ec_phaseCosts" text="Coûts de phase"/>
+        <text name="ec_materialSaved" text="Économies de matériaux"/>
+        <text name="ec_totalPaid" text="Total payé"/>
+        <text name="ec_totalRemaining" text="Total restant"/>
+        <text name="ec_materialsSupplyable" text="Matériaux livrables"/>
+        <text name="ec_materialsSupplyHint" text="Pour fournir des matériaux, apportez-les à la clôture."/>
+        <text name="ec_allMaterialsSupplied" text="Tous les matériaux ont été fournis."/>
+        <text name="ec_resourcesDelivered" text="Livré"/>
+        <text name="ec_progress" text="Progression"/>
+        <text name="ec_cancel" text="Annuler le projet"/>
+        <text name="ec_cancelConfirm" text="Annuler ce projet de construction ? Vous recevrez un remboursement de %d%% du montant payé jusqu'à présent."/>
+        <text name="ec_cancelled" text="Projet de construction annulé. Remboursement : %s"/>
+        <text name="ec_completed" text="Construction terminée : %s"/>
+        <text name="ec_phaseAdvanced" text="Phase de construction %d terminée pour %s"/>
+        <text name="ec_paused" text="Construction en pause (fonds insuffisants)"/>
+        <text name="ec_switchMode" text="Changer de mode"/>
+        <text name="ec_pauseProject" text="METTRE EN PAUSE"/>
+        <text name="ec_continueProject" text="REPRENDRE LE PROJET"/>
+        <text name="ec_modeChanged" text="Mode de construction changé en : %s"/>
+        <text name="ec_close" text="Fermer"/>
+        <text name="ec_buildingName" text="Bâtiment"/>
+        <text name="ec_monthsRemaining" text="Mois restants"/>
+        <text name="ec_status_active" text="Actif"/>
+        <text name="ec_status_paused" text="En pause"/>
+        <text name="ec_setting_disabled" text="Désactivé"/>
+        <text name="ec_setting_enabled" text="Activé"/>
+        <text name="setting_ec_section" text="Everything Constructable"/>
+        <text name="setting_ec_constructionEnabled" text="Projets de construction"/>
+        <text name="setting_ec_constructionEnabled_tooltip" text="Lorsque activé, placer des bâtiments crée un projet de construction en plusieurs phases. Lorsque désactivé, les bâtiments sont placés instantanément comme dans le jeu de base."/>
+        <text name="setting_ec_labourFraction" text="Fraction du coût de main-d'œuvre"/>
+        <text name="setting_ec_labourFraction_tooltip" text="Pourcentage du coût total du bâtiment alloué à la main-d'œuvre. L'acompte est déduit de ce montant, et le reste est payé au cours des phases de construction. Des valeurs plus élevées signifient moins de matériaux nécessaires mais plus d'argent dépensé directement."/>
+        <text name="setting_ec_materialSupplyBonus" text="Bonus de fourniture de matériaux"/>
+        <text name="setting_ec_materialSupplyBonus_tooltip" text="Bonus appliqué lorsque vous fournissez les matériaux vous-même. Un bonus plus élevé signifie que moins de matériaux sont nécessaires pour couvrir le coût des matériaux."/>
+        <text name="ec_cannotDeleteFence" text="Les clôtures de chantier ne peuvent pas être retirées tant qu'un projet est actif."/>
+        <text name="permission_ec_ecSettings" text="Modifier les paramètres de construction"/>
+    </texts>
+</l10n>
