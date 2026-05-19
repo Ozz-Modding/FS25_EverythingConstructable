@@ -17,7 +17,21 @@ When you place a building:
 
 **Wait for Resources** — Deliver materials (wood beams, planks, cement, bricks, roof plates, etc.) to the construction site to advance each phase. No monthly charges in this mode.
 
-Switch between modes at any time by approaching the site on foot and opening the construction dialog.
+## Interacting with Construction Sites
+
+Walk up to the construction fence on foot and press **R** to open the construction dialog. From here you can:
+
+- View progress and costs
+- Switch between Automatic and Wait for Resources modes
+- Pause or cancel the project
+
+## Supplying Materials
+
+In **Wait for Resources** mode, you can deliver materials directly to reduce costs:
+
+1. Load materials (wood beams, planks, cement, bricks, roof plates, etc.) onto a trailer or vehicle
+2. Drive up to the construction fence and unload — the site will accept any required materials automatically
+3. Supplied materials count toward the phase cost with a bonus discount
 
 ## Settings
 
