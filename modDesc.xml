@@ -59,6 +59,7 @@ Fully supports multiplayer.
         <storeItem xmlFilename="assets/fence/fence07.xml"/>
         <storeItem xmlFilename="assets/fence/sign01.xml"/>
         <storeItem xmlFilename="assets/fence/sign02.xml"/>
+        <storeItem xmlFilename="assets/sitesafety/sitesafety.xml"/>
     </storeItems>
     <multiplayer supported="true"/>
     <l10n filenamePrefix="languages/l10n" />

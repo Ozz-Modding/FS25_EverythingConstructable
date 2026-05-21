@@ -89,9 +89,11 @@ function ECFenceBuilder.buildFence(project)
     if existingFence ~= nil then
         if ECFenceBuilder.adoptExistingSegments(existingFence, project, corners) then
             ECFenceBuilder.lockFence(existingFence)
+            ECFenceBuilder.placeFenceSigns(project)
             return
         end
         ECFenceBuilder.addSegmentsToFence(existingFence, project, corners)
+        ECFenceBuilder.placeFenceSigns(project)
     else
         ECFenceBuilder.createSingleton(storeItem, project, corners)
     end
@@ -233,10 +235,88 @@ function ECFenceBuilder.createSingleton(storeItem, project, corners)
         local existingFence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(storeItem.xmlFilename)
         if existingFence ~= nil then
             ECFenceBuilder.addSegmentsToFence(existingFence, project, corners)
+            ECFenceBuilder.placeFenceSigns(project)
         else
             print("EverythingConstructable: Fence singleton created but not found in system")
         end
     end, nil, {})
+end
+
+function ECFenceBuilder.placeFenceSigns(project)
+    if project == nil or project.fenceCorners == nil then
+        return
+    end
+
+    ECFenceBuilder.removeFenceSigns(project)
+
+    local i3dPath = ECSiteDecorator.modDir .. ECConfig.FENCE_SIGN_I3D
+    local height = ECConfig.FENCE_SIGN_HEIGHT
+    local interval = ECConfig.FENCE_SIGN_PANEL_INTERVAL
+    local panelLength = ECFenceBuilder.getPanelLength(ECConfig.FENCE_SEGMENT_ID)
+    local corners = project.fenceCorners
+    local nodes = {}
+
+    for i = 1, 4 do
+        local nextI = (i % 4) + 1
+        local x1, z1 = corners[i][1], corners[i][2]
+        local x2, z2 = corners[nextI][1], corners[nextI][2]
+
+        local dx = x2 - x1
+        local dz = z2 - z1
+        local dist = math.sqrt(dx * dx + dz * dz)
+        local numPanels = math.max(1, math.floor(dist / panelLength + 0.5))
+
+        local faceRotY = math.atan2(dx, dz)
+
+        for p = 0, numPanels - 1 do
+            if p % interval == 0 then
+                local t = (p + 0.5) / numPanels
+                local wx = x1 + dx * t
+                local wz = z1 + dz * t
+                local wy = getTerrainHeightAtWorldPos(g_terrainNode, wx, 0, wz) + height
+
+                local node = ECFenceBuilder.placeSignNode(i3dPath, wx, wy, wz, faceRotY)
+                if node ~= nil then
+                    table.insert(nodes, node)
+                end
+            end
+        end
+    end
+
+    project.fenceSignNodes = nodes
+end
+
+function ECFenceBuilder.placeSignNode(i3dPath, wx, wy, wz, rotY)
+    local i3dRoot, sharedLoadRequestId = g_i3DManager:loadSharedI3DFile(i3dPath, false, false)
+    if i3dRoot == nil or i3dRoot == 0 then
+        return nil
+    end
+
+    local node = createTransformGroup("ecFenceSign")
+    link(getRootNode(), node)
+
+    local clone = clone(i3dRoot, false, false, false)
+    link(node, clone)
+
+    setWorldTranslation(node, wx, wy, wz)
+    setWorldRotation(node, 0, rotY, 0)
+
+    g_i3DManager:releaseSharedI3DFile(sharedLoadRequestId)
+    return node
+end
+
+function ECFenceBuilder.removeFenceSigns(project)
+    if project == nil or project.fenceSignNodes == nil then
+        return
+    end
+
+    for _, node in ipairs(project.fenceSignNodes) do
+        if node ~= nil and entityExists(node) then
+            delete(node)
+        end
+    end
+
+    project.fenceSignNodes = nil
 end
 
 function ECFenceBuilder.buildInnerFence(project)
@@ -478,6 +558,7 @@ function ECFenceBuilder.removeFence(project)
         return
     end
 
+    ECFenceBuilder.removeFenceSigns(project)
     ECFenceBuilder.removeInnerFence(project)
     ECFenceBuilder.removePastureFence(project)
 
