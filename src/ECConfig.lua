@@ -55,7 +55,7 @@ ECConfig.SITE_DECORATIONS = {
     { i3d = "data/maps/mapEU/textures/props/boots.i3d", max = 1 },
     { i3d = "data/maps/mapEU/textures/props/cementMixer01.i3d", max = 1 },
     { i3d = "data/maps/mapEU/textures/props/lockedContainer01.i3d", max = 1 },
-    { i3d = "data/maps/mapEU/textures/props/sawhorse.i3d", max = 1 },
+    { i3d = "data/maps/mapEU/textures/props/sawhorse.i3d", max = 1, width = 3, depth = 2 },
     { i3d = "data/maps/mapEU/textures/props/stepStool.i3d", max = 1 },
     { i3d = "data/maps/mapEU/textures/props/wheelBarrow.i3d", max = 1 },
     { i3d = "data/maps/mapEU/textures/props/workBench01.i3d", max = 1 },
