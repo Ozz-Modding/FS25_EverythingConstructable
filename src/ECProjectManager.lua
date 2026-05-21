@@ -22,6 +22,7 @@ function ECProjectManager:delete()
 
     for _, project in pairs(self.projects) do
         self:cleanupProjectResources(project)
+        ECSiteVehicles.removeVehicles(project)
     end
     self.projects = {}
 end
@@ -144,6 +145,7 @@ function ECProjectManager:completeProject(project)
 
     self:cleanupProjectResources(project)
 
+    ECSiteVehicles.removeVehicles(project)
     ECSiteDecorator.removeDecorations(project)
     ECFenceBuilder.removeFence(project)
 
@@ -171,6 +173,7 @@ function ECProjectManager:cancelProject(projectId)
     end
 
     self:cleanupProjectResources(project)
+    ECSiteVehicles.removeVehicles(project)
     ECSiteDecorator.removeDecorations(project)
     ECFenceBuilder.removeFence(project)
 
@@ -309,6 +312,22 @@ function ECProjectManager:writeInitialClientState(streamId, connection)
         project:writeStream(streamId)
     end
     streamWriteInt32(streamId, self.nextProjectId)
+
+    local vehicleObjectIds = {}
+    for _, project in ipairs(activeProjects) do
+        if project.siteVehicles ~= nil then
+            for _, vehicle in ipairs(project.siteVehicles) do
+                local objectId = NetworkUtil.getObjectId(vehicle)
+                if objectId ~= nil then
+                    table.insert(vehicleObjectIds, objectId)
+                end
+            end
+        end
+    end
+    streamWriteInt32(streamId, #vehicleObjectIds)
+    for _, objectId in ipairs(vehicleObjectIds) do
+        streamWriteInt32(streamId, objectId)
+    end
 end
 
 function ECProjectManager:readInitialClientState(streamId, connection)
@@ -321,4 +340,17 @@ function ECProjectManager:readInitialClientState(streamId, connection)
         end
     end
     self.nextProjectId = streamReadInt32(streamId)
+
+    local numVehicles = streamReadInt32(streamId)
+    for _ = 1, numVehicles do
+        local objectId = streamReadInt32(streamId)
+        local vehicle = NetworkUtil.getObject(objectId)
+        if vehicle ~= nil then
+            if not ECSiteVehicles.applyRestrictions(vehicle) then
+                table.insert(ECSiteVehicles.pendingRestrictions, vehicle)
+            end
+        else
+            table.insert(ECSiteVehicles.pendingObjectIds, objectId)
+        end
+    end
 end

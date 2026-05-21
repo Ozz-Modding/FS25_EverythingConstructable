@@ -73,6 +73,11 @@ ECConfig.SITE_DECORATIONS = {
     { i3d = "assets/fence/sign02.i3d", modLocal = true, max = 1, width = 4, depth = 3 },
 }
 
+ECConfig.SITE_VEHICLES = {
+    { xmlFilename = "data/vehicles/jungheinrich/efgS50S/efgS50S.xml" },
+    { xmlFilename = "data/vehicles/jcb/series547/series547.xml" }
+}
+
 function ECConfig.getMonthsForPrice(price)
     for _, threshold in ipairs(ECConfig.DURATION_THRESHOLDS) do
         if price <= threshold.maxPrice then

@@ -188,6 +188,10 @@ function EverythingConstructable:consoleGroundTypes()
     return "Done"
 end
 
+function EverythingConstructable:update(dt)
+    ECSiteVehicles.update(dt)
+end
+
 FSBaseMission.onStartMission = Utils.appendedFunction(FSBaseMission.onStartMission, function(...)
     EverythingConstructable:onStartMission()
 end)

@@ -62,14 +62,16 @@ function ECSiteDecorator.decorate(project)
         return
     end
 
-    if #ECConfig.SITE_DECORATIONS == 0 then
-        return
-    end
-
     ECSiteDecorator.removeDecorations(project)
 
     local area = ECSiteDecorator.getPlacementArea(project)
     if area == nil then
+        return
+    end
+
+    ECSiteVehicles.spawnVehicles(project)
+
+    if #ECConfig.SITE_DECORATIONS == 0 then
         return
     end
 
@@ -157,11 +159,16 @@ function ECSiteDecorator.fillArea(area, project)
         return {}
     end
 
+    local vehicleGrid, vGridW, vGridH = ECSiteVehicles.getOccupiedGrid(project)
     local grid = {}
     for r = 1, gridH do
         grid[r] = {}
         for c = 1, gridW do
-            grid[r][c] = false
+            if vehicleGrid ~= nil and vGridW == gridW and vGridH == gridH and vehicleGrid[r] ~= nil then
+                grid[r][c] = vehicleGrid[r][c] or false
+            else
+                grid[r][c] = false
+            end
         end
     end
 
