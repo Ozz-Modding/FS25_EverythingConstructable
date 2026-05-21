@@ -4,6 +4,7 @@ local ECPalletCollector_mt = Class(ECPalletCollector)
 ECPalletCollector.TRIGGER_I3D = g_currentModDirectory .. "assets/palletTrigger.i3d"
 
 ECPalletCollector.TILE_SIZE = 1
+ECPalletCollector.TILE_HEIGHT = 2
 
 function ECPalletCollector.new(project)
     local self = setmetatable({}, ECPalletCollector_mt)
@@ -30,13 +31,26 @@ function ECPalletCollector:createTrigger()
     -- First place the known-working single trigger at center+5 height
     self:placeTriggerAt(cx, pos[2] + 5, cz, rotY)
 
-    -- Then try placing a border at ground level
+    -- Then try placing a border at ground level, tight to the fence
     local tileSize = ECPalletCollector.TILE_SIZE
-    local halfX = (fp.sizeX + 2) * 0.5
-    local halfZ = (fp.sizeZ + 2) * 0.5
+    local halfX, halfZ
 
-    local tilesX = math.ceil((fp.sizeX + 2) / tileSize)
-    local tilesZ = math.ceil((fp.sizeZ + 2) / tileSize)
+    if self.project.fenceCorners ~= nil then
+        local c1 = self.project.fenceCorners[1]
+        local c3 = self.project.fenceCorners[3]
+        local dx = (c3[1] - c1[1]) * sideX + (c3[2] - c1[2]) * sideZ
+        local dz = (c3[1] - c1[1]) * dirX + (c3[2] - c1[2]) * dirZ
+        halfX = math.abs(dx) * 0.5 + tileSize
+        halfZ = math.abs(dz) * 0.5 + tileSize
+    else
+        halfX = (fp.sizeX + 2) * 0.5
+        halfZ = (fp.sizeZ + 2) * 0.5
+    end
+
+    local tilesX = math.ceil((halfX * 2) / tileSize)
+    local tilesZ = math.ceil((halfZ * 2) / tileSize)
+
+    local tileHeight = ECPalletCollector.TILE_HEIGHT
 
     for tx = 0, tilesX - 1 do
         for tz = 0, tilesZ - 1 do
@@ -47,7 +61,9 @@ function ECPalletCollector:createTrigger()
                 local worldX = cx + sideX * localX + dirX * localZ
                 local worldZ = cz + sideZ * localX + dirZ * localZ
 
-                self:placeTriggerAt(worldX, cy, worldZ, rotY)
+                for row = 0, tileHeight - 1 do
+                    self:placeTriggerAt(worldX, cy + row, worldZ, rotY)
+                end
             end
         end
     end
