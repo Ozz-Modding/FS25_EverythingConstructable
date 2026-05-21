@@ -6,8 +6,8 @@ ECConfig.DURATION_THRESHOLDS = {
     { maxPrice = 100000, months = 3 },
     { maxPrice = 250000, months = 4 },
     { maxPrice = 500000, months = 6 },
-    { maxPrice = 1000000, months = 9 },
-    { maxPrice = math.huge, months = 12 },
+    { maxPrice = 1000000, months = 7 },
+    { maxPrice = math.huge, months = 8 },
 }
 
 ECConfig.DEPOSIT_FRACTION = 0.10
