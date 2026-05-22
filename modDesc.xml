@@ -45,6 +45,7 @@ Fully supports multiplayer.
         <sourceFile filename="src/extensions/BuyPlaceableDataExtension.lua"/>
         <sourceFile filename="src/extensions/BuyPlaceableEventExtension.lua"/>
         <sourceFile filename="src/extensions/HusbandryFenceExtension.lua"/>
+        <sourceFile filename="src/extensions/ConstructionBrushExtension.lua"/>
         <sourceFile filename="src/gui/ECConstructionDialog.lua"/>
         <sourceFile filename="src/EverythingConstructable.lua"/>
     </extraSourceFiles>

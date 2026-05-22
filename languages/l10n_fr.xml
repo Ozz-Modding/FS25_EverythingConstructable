@@ -44,5 +44,8 @@
         <text name="setting_ec_materialSupplyBonus_tooltip" text="Bonus appliqué lorsque vous fournissez les matériaux vous-même. Un bonus plus élevé signifie que moins de matériaux sont nécessaires pour couvrir le coût des matériaux."/>
         <text name="ec_cannotDeleteFence" text="Les clôtures de chantier ne peuvent pas être retirées tant qu'un projet est actif."/>
         <text name="permission_ec_ecSettings" text="Modifier les paramètres de construction"/>
+        <text name="ec_brush_initial" text="acompte"/>
+        <text name="ec_brush_duration" text="Durée :"/>
+        <text name="ec_brush_months" text="%d mois"/>
     </texts>
 </l10n>

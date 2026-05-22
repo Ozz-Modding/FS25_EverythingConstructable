@@ -179,7 +179,7 @@ function ECConfig.shouldApplyConstruction(storeItem, placeable)
     end
 
     local price = storeItem.price or 0
-    if price < ECConfig.MIN_PRICE_FOR_CONSTRUCTION then
+    if price <= ECConfig.MIN_PRICE_FOR_CONSTRUCTION then
         return false
     end
 

@@ -44,5 +44,8 @@
         <text name="setting_ec_materialSupplyBonus_tooltip" text="Bonus applied when you supply materials yourself. A higher bonus means fewer materials are required to cover the material cost."/>
         <text name="ec_cannotDeleteFence" text="Construction fences cannot be removed while a project is active."/>
         <text name="permission_ec_ecSettings" text="Change Construction Settings"/>
+        <text name="ec_brush_initial" text="initial"/>
+        <text name="ec_brush_duration" text="Duration:"/>
+        <text name="ec_brush_months" text="%d months"/>
     </texts>
 </l10n>

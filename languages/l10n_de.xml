@@ -44,5 +44,8 @@
         <text name="setting_ec_materialSupplyBonus_tooltip" text="Bonus, der angewendet wird, wenn Sie Materialien selbst liefern. Ein höherer Bonus bedeutet, dass weniger Materialien benötigt werden, um die Materialkosten zu decken."/>
         <text name="ec_cannotDeleteFence" text="Bauzäune können nicht entfernt werden, solange ein Projekt aktiv ist."/>
         <text name="permission_ec_ecSettings" text="Baueinstellungen ändern"/>
+        <text name="ec_brush_initial" text="Anzahlung"/>
+        <text name="ec_brush_duration" text="Dauer:"/>
+        <text name="ec_brush_months" text="%d Monate"/>
     </texts>
 </l10n>
