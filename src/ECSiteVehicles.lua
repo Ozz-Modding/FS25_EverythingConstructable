@@ -208,7 +208,7 @@ function ECSiteVehicles.removeVehicles(project)
 
     for _, vehicle in ipairs(project.siteVehicles) do
         if vehicle ~= nil then
-            g_currentMission:removeVehicle(vehicle)
+            vehicle:delete()
         end
     end
 
