@@ -735,23 +735,64 @@ function ECFenceBuilder.removePastureFence(project)
         return
     end
 
-    if project.pastureFenceSegments == nil or project.pastureFencePlaceable == nil then
+    if project.pastureFenceSegments ~= nil and project.pastureFencePlaceable ~= nil then
+        local fence = project.pastureFencePlaceable
+        if fence.spec_newFence ~= nil then
+            local fenceObj = fence:getFence()
+            if fenceObj ~= nil then
+                for i = #project.pastureFenceSegments, 1, -1 do
+                    fenceObj:removeSegment(project.pastureFenceSegments[i])
+                    project.pastureFenceSegments[i]:delete()
+                end
+            end
+        end
+        project.pastureFenceSegments = nil
+        project.pastureFencePlaceable = nil
         return
     end
 
-    local fence = project.pastureFencePlaceable
-    if fence.spec_newFence ~= nil then
-        local fenceObj = fence:getFence()
-        if fenceObj ~= nil then
-            for i = #project.pastureFenceSegments, 1, -1 do
-                fenceObj:removeSegment(project.pastureFenceSegments[i])
-                project.pastureFenceSegments[i]:delete()
+    if project.husbandryFenceData == nil then
+        return
+    end
+
+    local storeItem = ECFenceBuilder.getFenceStoreItem()
+    if storeItem == nil then
+        return
+    end
+
+    local fence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(storeItem.xmlFilename)
+    if fence == nil or fence.spec_newFence == nil then
+        return
+    end
+
+    local fenceObj = fence:getFence()
+    if fenceObj == nil then
+        return
+    end
+
+    local panelLength = ECFenceBuilder.getPanelLength(ECConfig.FENCE_PASTURE_SEGMENT_ID)
+    local pieces = ECFenceBuilder.subdivideFenceData(project.husbandryFenceData, panelLength)
+
+    local toRemove = {}
+    for _, segment in ipairs(fenceObj:getSegments()) do
+        local sx, _, sz = segment:getStartPos()
+        local ex, _, ez = segment:getEndPos()
+        for _, piece in ipairs(pieces) do
+            local matchForward = math.abs(sx - piece.sx) < 0.5 and math.abs(sz - piece.sz) < 0.5 and
+                                 math.abs(ex - piece.ex) < 0.5 and math.abs(ez - piece.ez) < 0.5
+            local matchReverse = math.abs(sx - piece.ex) < 0.5 and math.abs(sz - piece.ez) < 0.5 and
+                                 math.abs(ex - piece.sx) < 0.5 and math.abs(ez - piece.sz) < 0.5
+            if matchForward or matchReverse then
+                table.insert(toRemove, segment)
+                break
             end
         end
     end
 
-    project.pastureFenceSegments = nil
-    project.pastureFencePlaceable = nil
+    for i = #toRemove, 1, -1 do
+        fenceObj:removeSegment(toRemove[i])
+        toRemove[i]:delete()
+    end
 end
 
 function ECFenceBuilder.subdivideFenceData(fenceData, panelLength)

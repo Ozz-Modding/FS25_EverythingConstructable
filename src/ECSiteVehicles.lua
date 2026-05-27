@@ -6,6 +6,10 @@ ECSiteVehicles.retryTimer = 0
 ECSiteVehicles.RETRY_INTERVAL = 200
 
 function ECSiteVehicles.spawnVehicles(project)
+    if not g_currentMission:getIsServer() then
+        return
+    end
+
     if project == nil or project.footprint == nil then
         return
     end

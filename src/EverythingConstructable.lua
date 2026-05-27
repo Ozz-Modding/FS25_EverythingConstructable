@@ -22,19 +22,20 @@ function EverythingConstructable:loadMap()
 end
 
 function EverythingConstructable:onStartMission()
-    if not g_currentMission:getIsServer() then
-        return
-    end
+    local isServer = g_currentMission:getIsServer()
 
     for _, project in pairs(g_currentMission.ecProjectManager.projects) do
         if not project.completed then
-            ECFenceBuilder.buildFence(project)
-            ECFenceBuilder.buildPastureFence(project)
-            if project.currentPhaseIndex >= 2 then
-                ECFenceBuilder.buildInnerFence(project)
+            if isServer then
+                ECFenceBuilder.buildFence(project)
+                ECFenceBuilder.buildPastureFence(project)
+                if project.currentPhaseIndex >= 2 then
+                    ECFenceBuilder.buildInnerFence(project)
+                end
+                g_currentMission.ecProjectManager:setupClientProject(project)
             end
+            ECFenceBuilder.placeFenceSigns(project)
             ECSiteDecorator.decorate(project)
-            g_currentMission.ecProjectManager:setupClientProject(project)
         end
     end
 end
@@ -190,6 +191,7 @@ end
 
 function EverythingConstructable:update(dt)
     ECSiteVehicles.update(dt)
+    g_currentMission.ecProjectManager:update(dt)
 end
 
 FSBaseMission.onStartMission = Utils.appendedFunction(FSBaseMission.onStartMission, function(...)

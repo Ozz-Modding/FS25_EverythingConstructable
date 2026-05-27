@@ -6,6 +6,7 @@ function ECProjectManager.new()
     self.projects = {}
     self.nextProjectId = 1
     self.isServer = false
+    self.pendingDecorations = {}
     return self
 end
 
@@ -14,6 +15,20 @@ function ECProjectManager:init()
 
     if self.isServer then
         g_messageCenter:subscribe(MessageType.PERIOD_CHANGED, self.onPeriodChanged, self)
+    end
+end
+
+function ECProjectManager:update(dt)
+    if #self.pendingDecorations > 0 then
+        self.pendingDecorationTimer = (self.pendingDecorationTimer or 0) + dt
+        if self.pendingDecorationTimer >= 2000 then
+            for _, project in ipairs(self.pendingDecorations) do
+                ECFenceBuilder.placeFenceSigns(project)
+                ECSiteDecorator.decorate(project)
+            end
+            self.pendingDecorations = {}
+            self.pendingDecorationTimer = 0
+        end
     end
 end
 
@@ -227,6 +242,8 @@ function ECProjectManager:onProjectCreatedOnClient(project)
     if project.id >= self.nextProjectId then
         self.nextProjectId = project.id + 1
     end
+
+    table.insert(self.pendingDecorations, project)
     self:setupClientProject(project)
 end
 
@@ -245,6 +262,11 @@ function ECProjectManager:onPhaseAdvancedOnClient(projectId, newPhaseIndex, tota
     project.currentPhaseIndex = newPhaseIndex
     project.totalPaid = totalPaid
     project:trimMaterials()
+
+    if newPhaseIndex >= 2 and project.innerFenceSegments == nil then
+        ECFenceBuilder.buildInnerFence(project)
+    end
+    table.insert(self.pendingDecorations, project)
 end
 
 function ECProjectManager:onProjectCompletedOnClient(projectId)
@@ -254,6 +276,19 @@ function ECProjectManager:onProjectCompletedOnClient(projectId)
     end
 
     project.completed = true
+    ECSiteDecorator.removeDecorations(project)
+    ECFenceBuilder.removeFenceSigns(project)
+    ECFenceBuilder.removeInnerFence(project)
+    ECFenceBuilder.removePastureFence(project)
+
+    local storeItem = ECFenceBuilder.getFenceStoreItem()
+    if storeItem ~= nil then
+        local fence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(storeItem.xmlFilename)
+        if fence ~= nil then
+            ECFenceBuilder.removeSegmentsByCorners(fence, project)
+        end
+    end
+
     self:cleanupProjectResources(project)
 end
 
@@ -264,6 +299,19 @@ function ECProjectManager:onProjectCancelledOnClient(projectId, refundAmount)
     end
 
     project.completed = true
+    ECSiteDecorator.removeDecorations(project)
+    ECFenceBuilder.removeFenceSigns(project)
+    ECFenceBuilder.removeInnerFence(project)
+    ECFenceBuilder.removePastureFence(project)
+
+    local storeItem = ECFenceBuilder.getFenceStoreItem()
+    if storeItem ~= nil then
+        local fence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(storeItem.xmlFilename)
+        if fence ~= nil then
+            ECFenceBuilder.removeSegmentsByCorners(fence, project)
+        end
+    end
+
     self:cleanupProjectResources(project)
 end
 

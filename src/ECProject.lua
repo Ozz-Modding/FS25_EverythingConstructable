@@ -399,6 +399,24 @@ function ECProject:writeStream(streamId)
             streamWriteBool(streamId, seg.isReversed or false)
         end
     end
+
+    local hasFenceCorners = self.fenceCorners ~= nil
+    streamWriteBool(streamId, hasFenceCorners)
+    if hasFenceCorners then
+        for i = 1, 4 do
+            streamWriteFloat32(streamId, self.fenceCorners[i][1])
+            streamWriteFloat32(streamId, self.fenceCorners[i][2])
+        end
+    end
+
+    local hasInnerCorners = self.innerFenceCorners ~= nil
+    streamWriteBool(streamId, hasInnerCorners)
+    if hasInnerCorners then
+        for i = 1, 4 do
+            streamWriteFloat32(streamId, self.innerFenceCorners[i][1])
+            streamWriteFloat32(streamId, self.innerFenceCorners[i][2])
+        end
+    end
 end
 
 function ECProject.readStream(streamId)
@@ -485,6 +503,20 @@ function ECProject.readStream(streamId)
             if seg.templateId == "" then
                 seg.templateId = nil
             end
+        end
+    end
+
+    if streamReadBool(streamId) then
+        project.fenceCorners = {}
+        for i = 1, 4 do
+            project.fenceCorners[i] = {streamReadFloat32(streamId), streamReadFloat32(streamId)}
+        end
+    end
+
+    if streamReadBool(streamId) then
+        project.innerFenceCorners = {}
+        for i = 1, 4 do
+            project.innerFenceCorners[i] = {streamReadFloat32(streamId), streamReadFloat32(streamId)}
         end
     end
 
