@@ -31,12 +31,16 @@ Review the supplyable materials in the construction dialog. Simply bring the mat
 
 ## Settings
 
-- **Construction Enabled** — Enable or disable the construction system
+- **Construction Enabled** — Enable or disable the construction system. Won't impact existing sites, the setting only impacts new placements.
 - **Labour Fraction** — Percentage of building cost paid as monthly labour (25%–75%), the remainder is the material budget
 - **Material Supply Bonus** — Discount on required materials when using resource delivery mode (0%–10%)
 
 ## Included Placeables
 
-The mod includes a set of free construction fences (7 styles) and construction signs (2 styles) that can be placed independently via the fences and decoration menu.
+The mod includes a set of free construction fences and construction signs that can be placed independently via the fences and decoration menu.
+
+## Credits
+
+Huge thanks to Mr Dexx again for his help getting signs and fences ingame. Scroft for supplying sounds, and Mid Life Simster for breaking things in his inimitable way.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M41K5NPV)
