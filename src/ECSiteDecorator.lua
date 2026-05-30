@@ -70,6 +70,7 @@ function ECSiteDecorator.decorate(project)
     end
 
     ECSiteVehicles.spawnVehicles(project)
+    ECSiteDecorator.startSound(project, area)
 
     if #ECConfig.SITE_DECORATIONS == 0 then
         return
@@ -357,8 +358,58 @@ function ECSiteDecorator.placeDecoration(i3dPath, wx, wy, wz, rotY)
     return node
 end
 
+function ECSiteDecorator.startSound(project, area)
+    ECSiteDecorator.stopSound(project)
+
+    local soundFile = ECSiteDecorator.modDir .. ECConfig.SITE_SOUND_FILE
+    local wy = getTerrainHeightAtWorldPos(g_terrainNode, area.cx, 0, area.cz)
+
+    local soundNode = createTransformGroup("ecSiteSound")
+    link(getRootNode(), soundNode)
+    setTranslation(soundNode, area.cx, wy + 1, area.cz)
+
+    local innerRadius = math.max(area.halfX * 2, area.halfZ * 2) + ECConfig.SITE_SOUND_INNER_RADIUS_PADDING
+    local outerRadius = innerRadius + ECConfig.SITE_SOUND_OUTER_RADIUS_PADDING
+    local audioSource = createAudioSource("ec_construction_bg", soundFile, outerRadius, innerRadius, ECConfig.SITE_SOUND_VOLUME, 0)
+    link(soundNode, audioSource)
+
+    local sample = getAudioSourceSample(audioSource)
+    playSample(sample, 0, ECConfig.SITE_SOUND_VOLUME)
+
+    project.soundNode = soundNode
+    project.soundAudioSource = audioSource
+    project.soundSample = sample
+end
+
+function ECSiteDecorator.stopSound(project)
+    if project == nil then
+        return
+    end
+
+    if project.soundSample ~= nil then
+        stopSample(project.soundSample, 0, 0)
+        project.soundSample = nil
+    end
+
+    if project.soundAudioSource ~= nil and entityExists(project.soundAudioSource) then
+        delete(project.soundAudioSource)
+        project.soundAudioSource = nil
+    end
+
+    if project.soundNode ~= nil and entityExists(project.soundNode) then
+        delete(project.soundNode)
+        project.soundNode = nil
+    end
+end
+
 function ECSiteDecorator.removeDecorations(project)
-    if project == nil or project.decorationNodes == nil then
+    if project == nil then
+        return
+    end
+
+    ECSiteDecorator.stopSound(project)
+
+    if project.decorationNodes == nil then
         return
     end
 

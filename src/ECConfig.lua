@@ -77,6 +77,11 @@ ECConfig.SITE_DECORATIONS = {
     { i3d = "assets/fence/sign02.i3d", modLocal = true, max = 1, width = 4, depth = 3 },
 }
 
+ECConfig.SITE_SOUND_FILE = "assets/sounds/background.ogg"
+ECConfig.SITE_SOUND_INNER_RADIUS_PADDING = 4
+ECConfig.SITE_SOUND_OUTER_RADIUS_PADDING = 20
+ECConfig.SITE_SOUND_VOLUME = 0.8
+
 ECConfig.SITE_VEHICLES = {
     { xmlFilename = "data/vehicles/jungheinrich/efgS50S/efgS50S.xml" },
     { xmlFilename = "data/vehicles/jcb/series547/series547.xml" }
