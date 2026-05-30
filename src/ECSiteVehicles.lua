@@ -91,6 +91,7 @@ function ECSiteVehicles.spawnVehicles(project)
     data:setIgnoreShopOffset(true)
     data:setPropertyState(VehiclePropertyState.OWNED)
     data:setOwnerFarmId(0)
+    data:setIsSaved(false)
 
     data:load(ECSiteVehicles.onVehicleLoaded, ECSiteVehicles, { project = project })
 end

@@ -78,13 +78,13 @@ ECConfig.SITE_DECORATIONS = {
 }
 
 ECConfig.EASTER_EGG_SOUND_DIR = "assets/sounds/easter_eggs/"
-ECConfig.EASTER_EGG_CHANCE = 0.75
+ECConfig.EASTER_EGG_CHANCE = 0.15
 ECConfig.EASTER_EGG_COOLDOWN = 5000
 
 ECConfig.SITE_SOUND_FILE = "assets/sounds/background.ogg"
 ECConfig.SITE_SOUND_INNER_RADIUS_PADDING = 4
 ECConfig.SITE_SOUND_OUTER_RADIUS_PADDING = 20
-ECConfig.SITE_SOUND_VOLUME = 0.8
+ECConfig.SITE_SOUND_VOLUME = 0.2
 
 ECConfig.SITE_VEHICLES = {
     { xmlFilename = "data/vehicles/jungheinrich/efgS50S/efgS50S.xml" },
