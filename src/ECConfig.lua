@@ -77,6 +77,10 @@ ECConfig.SITE_DECORATIONS = {
     { i3d = "assets/fence/sign02.i3d", modLocal = true, max = 1, width = 4, depth = 3 },
 }
 
+ECConfig.EASTER_EGG_SOUND_DIR = "assets/sounds/easter_eggs/"
+ECConfig.EASTER_EGG_CHANCE = 0.75
+ECConfig.EASTER_EGG_COOLDOWN = 5000
+
 ECConfig.SITE_SOUND_FILE = "assets/sounds/background.ogg"
 ECConfig.SITE_SOUND_INNER_RADIUS_PADDING = 4
 ECConfig.SITE_SOUND_OUTER_RADIUS_PADDING = 20

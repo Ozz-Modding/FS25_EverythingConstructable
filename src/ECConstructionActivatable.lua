@@ -20,7 +20,14 @@ function ECConstructionActivatable:getIsActivatable()
     end
 
     local px, _, pz = getWorldTranslation(g_localPlayer.rootNode)
-    return ECConstructionActivatable.isPointInFootprint(self.project, px, pz, ECConfig.ACTIVATABLE_BUFFER)
+    local inRange = ECConstructionActivatable.isPointInFootprint(self.project, px, pz, ECConfig.ACTIVATABLE_BUFFER)
+
+    if inRange and not self.wasInRange then
+        ECPalletCollector.tryPlayEasterEgg(self.project)
+    end
+    self.wasInRange = inRange
+
+    return inRange
 end
 
 function ECConstructionActivatable:getDistance(x, y, z)

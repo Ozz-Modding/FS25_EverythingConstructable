@@ -2,9 +2,14 @@ ECPalletCollector = {}
 local ECPalletCollector_mt = Class(ECPalletCollector)
 
 ECPalletCollector.TRIGGER_I3D = g_currentModDirectory .. "assets/palletTrigger.i3d"
+ECPalletCollector.MOD_DIR = g_currentModDirectory
 
 ECPalletCollector.TILE_SIZE = 1
 ECPalletCollector.TILE_HEIGHT = 2
+
+ECPalletCollector.easterEggSounds = nil
+ECPalletCollector.lastEasterEggTime = 0
+ECPalletCollector.lastEasterEggAudioSource = nil
 
 function ECPalletCollector.new(project)
     local self = setmetatable({}, ECPalletCollector_mt)
@@ -180,4 +185,53 @@ function ECPalletCollector:getNeededAmount(fillTypeIndex)
         end
     end
     return 0
+end
+
+function ECPalletCollector.loadEasterEggSounds()
+    if ECPalletCollector.easterEggSounds ~= nil then
+        return
+    end
+
+    ECPalletCollector.easterEggSounds = {}
+    local dir = ECPalletCollector.MOD_DIR .. ECConfig.EASTER_EGG_SOUND_DIR
+    local files = Files.new(dir)
+
+    for _, file in ipairs(files.files) do
+        if file.filename:find("%.ogg$") then
+            table.insert(ECPalletCollector.easterEggSounds, dir .. file.filename)
+        end
+    end
+end
+
+function ECPalletCollector.tryPlayEasterEgg(project)
+    local now = g_time
+    if now - ECPalletCollector.lastEasterEggTime < ECConfig.EASTER_EGG_COOLDOWN then
+        return
+    end
+
+    if math.random() > ECConfig.EASTER_EGG_CHANCE then
+        return
+    end
+
+    ECPalletCollector.loadEasterEggSounds()
+
+    local sounds = ECPalletCollector.easterEggSounds
+    if sounds == nil or #sounds == 0 then
+        return
+    end
+
+    if ECPalletCollector.lastEasterEggAudioSource ~= nil and entityExists(ECPalletCollector.lastEasterEggAudioSource) then
+        delete(ECPalletCollector.lastEasterEggAudioSource)
+    end
+
+    local soundFile = sounds[math.random(1, #sounds)]
+    local pos = project.position
+
+    local audioSource = createAudioSource("ec_easter_egg", soundFile, ECConfig.SITE_SOUND_OUTER_RADIUS_PADDING + 10, 10, 1.0, 1)
+    link(getRootNode(), audioSource)
+    setTranslation(audioSource, pos[1], pos[2] + 1, pos[3])
+    playSample(getAudioSourceSample(audioSource), 1, 1.0, 0, 0, 0)
+
+    ECPalletCollector.lastEasterEggAudioSource = audioSource
+    ECPalletCollector.lastEasterEggTime = now
 end

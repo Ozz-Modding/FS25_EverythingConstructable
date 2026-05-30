@@ -374,7 +374,7 @@ function ECSiteDecorator.startSound(project, area)
     link(soundNode, audioSource)
 
     local sample = getAudioSourceSample(audioSource)
-    playSample(sample, 0, ECConfig.SITE_SOUND_VOLUME)
+    playSample(sample, 0, ECConfig.SITE_SOUND_VOLUME, 0, 0, 0)
 
     project.soundNode = soundNode
     project.soundAudioSource = audioSource
