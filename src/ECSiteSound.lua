@@ -11,12 +11,11 @@ function ECSiteSound.load()
     end
 
     ECSiteSound.sources = {}
-    local dir = ECSiteSound.modDir .. ECConfig.EASTER_EGG_SOUND_DIR
-    local files = Files.new(dir)
 
-    for _, file in ipairs(files.files) do
-        if file.filename:find("%.ogg$") then
-            local audioSource = createAudioSource("ec_ee_" .. file.filename, dir .. file.filename, 30, 5, 1.0, 1)
+    for _, file in ipairs(ECConfig.EASTER_EGG_SOUNDS) do
+        local path = ECSiteSound.modDir .. file
+        local audioSource = createAudioSource("ec_ee_" .. file, path, 30, 5, 1.0, 1)
+        if audioSource ~= nil and audioSource ~= 0 then
             link(getRootNode(), audioSource)
             table.insert(ECSiteSound.sources, {
                 node = audioSource,

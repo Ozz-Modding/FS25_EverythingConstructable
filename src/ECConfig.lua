@@ -77,8 +77,19 @@ ECConfig.SITE_DECORATIONS = {
     { i3d = "assets/fence/sign02.i3d", modLocal = true, max = 1, width = 4, depth = 3 },
 }
 
-ECConfig.EASTER_EGG_SOUND_DIR = "assets/sounds/easter_eggs/"
-ECConfig.EASTER_EGG_CHANCE = 0.50
+ECConfig.EASTER_EGG_SOUNDS = {
+    "assets/sounds/easter_eggs/George1.ogg",
+    "assets/sounds/easter_eggs/George2.ogg",
+    "assets/sounds/easter_eggs/George3.ogg",
+    "assets/sounds/easter_eggs/George4.ogg",
+    "assets/sounds/easter_eggs/George5.ogg",
+    "assets/sounds/easter_eggs/George6.ogg",
+    "assets/sounds/easter_eggs/George7.ogg",
+    "assets/sounds/easter_eggs/Ross 1.ogg",
+    "assets/sounds/easter_eggs/Ross 2.ogg",
+    "assets/sounds/easter_eggs/Ross3.ogg",
+}
+ECConfig.EASTER_EGG_CHANCE = 0.15
 ECConfig.EASTER_EGG_COOLDOWN = 5000
 
 ECConfig.SITE_SOUND_FILE = "assets/sounds/background.ogg"
