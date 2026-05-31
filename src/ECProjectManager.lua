@@ -52,6 +52,8 @@ function ECProjectManager:cleanupProjectResources(project)
         project.palletCollector:delete()
         project.palletCollector = nil
     end
+
+    ECSiteSound.deleteAll()
 end
 
 function ECProjectManager:createProject(farmId, storeItemXml, position, rotation, configurations, configurationData, totalPrice, displacementCosts, footprint)

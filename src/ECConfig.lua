@@ -78,7 +78,7 @@ ECConfig.SITE_DECORATIONS = {
 }
 
 ECConfig.EASTER_EGG_SOUND_DIR = "assets/sounds/easter_eggs/"
-ECConfig.EASTER_EGG_CHANCE = 0.15
+ECConfig.EASTER_EGG_CHANCE = 0.50
 ECConfig.EASTER_EGG_COOLDOWN = 5000
 
 ECConfig.SITE_SOUND_FILE = "assets/sounds/background.ogg"

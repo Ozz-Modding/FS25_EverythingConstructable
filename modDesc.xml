@@ -29,6 +29,7 @@ Fully supports multiplayer.
         <sourceFile filename="src/ECFenceBuilder.lua"/>
         <sourceFile filename="src/ECBuildingPlacer.lua"/>
         <sourceFile filename="src/ECTerrainPainter.lua"/>
+        <sourceFile filename="src/ECSiteSound.lua"/>
         <sourceFile filename="src/ECConstructionActivatable.lua"/>
         <sourceFile filename="src/ECPalletCollector.lua"/>
         <sourceFile filename="src/events/ECSiteVehicleEvent.lua"/>

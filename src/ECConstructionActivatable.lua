@@ -10,12 +10,23 @@ end
 
 function ECConstructionActivatable:getIsActivatable()
     if self.project == nil or self.project.completed then
+        self.wasInRange = false
         return false
     end
     if g_localPlayer == nil or g_localPlayer.rootNode == nil then
+        self.wasInRange = false
         return false
     end
+    if g_gui:getIsGuiVisible() then
+        if not self.wasGuiOpen then
+            ECSiteSound.deleteAll()
+            self.wasGuiOpen = true
+        end
+        return false
+    end
+    self.wasGuiOpen = false
     if g_localPlayer:getCurrentVehicle() ~= nil then
+        self.wasInRange = false
         return false
     end
 
@@ -23,7 +34,7 @@ function ECConstructionActivatable:getIsActivatable()
     local inRange = ECConstructionActivatable.isPointInFootprint(self.project, px, pz, ECConfig.ACTIVATABLE_BUFFER)
 
     if inRange and not self.wasInRange then
-        ECPalletCollector.tryPlayEasterEgg(self.project)
+        ECSiteSound.tryPlay()
     end
     self.wasInRange = inRange
 
