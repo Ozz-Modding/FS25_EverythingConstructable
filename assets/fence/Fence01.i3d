@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<i3D name="fence01.i3d" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+<i3D name="Fence01.i3d" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
   <Asset>
-    <Export program="GIANTS Editor 64bit" version="10.0.11"/>
+    <Export program="GIANTS Editor 64bit" version="10.0.12"/>
   </Asset>
 
   <Files>
+    <File fileId="4" filename="$data/shaders/placeableShader.xml"/>
+    <File fileId="3" filename="$data/shared/detailLibrary/metallic/zincGalvanized_specular.dds"/>
+    <File fileId="9" filename="$data/shared/detailLibrary/nonMetallic/fabric/fabric1_specular.dds"/>
     <File fileId="13" filename="textures/fabric.001_fabric.001_BaseColor.png"/>
     <File fileId="14" filename="textures/fabric.001_fabric.001_Normal.png"/>
     <File fileId="7" filename="textures/fabric.002_BaseColor.png"/>
@@ -33,9 +36,6 @@
     <File fileId="33" filename="textures/sign.002_Roughness.dds"/>
     <File fileId="25" filename="textures/sign.003_BaseColor.png"/>
     <File fileId="26" filename="textures/sign.003_Normal.png"/>
-    <File fileId="4" filename="$data/shaders/placeableShader.xml"/>
-    <File fileId="3" filename="$data/shared/detailLibrary/metallic/zincGalvanized_specular.dds"/>
-    <File fileId="9" filename="$data/shared/detailLibrary/nonMetallic/fabric/fabric1_specular.dds"/>
   </Files>
 
 
@@ -115,7 +115,7 @@
   </Materials>
 
 
-  <Shapes externalShapesFile="fence01.i3d.shapes">
+  <Shapes externalShapesFile="Fence01.i3d.shapes">
   </Shapes>
 
   <Scene>
