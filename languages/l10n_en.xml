@@ -47,5 +47,19 @@
         <text name="ec_brush_initial" text="initial"/>
         <text name="ec_brush_duration" text="Duration:"/>
         <text name="ec_brush_months" text="%d months"/>
+        <text name="setting_ec_resourceWeight_BOARDS" text="Boards Budget Share"/>
+        <text name="setting_ec_resourceWeight_BOARDS_tooltip" text="How much of the material budget is covered by Boards. Higher values mean more of the total cost is covered by Boards. Set to 0 to exclude. If all are 0, the budget is split equally."/>
+        <text name="setting_ec_resourceWeight_PLANKS" text="Planks Budget Share"/>
+        <text name="setting_ec_resourceWeight_PLANKS_tooltip" text="How much of the material budget is covered by Planks. Higher values mean more of the total cost is covered by Planks. Set to 0 to exclude. If all are 0, the budget is split equally."/>
+        <text name="setting_ec_resourceWeight_WOODBEAM" text="Wood Beam Budget Share"/>
+        <text name="setting_ec_resourceWeight_WOODBEAM_tooltip" text="How much of the material budget is covered by Wood Beams. Higher values mean more of the total cost is covered by Wood Beams. Set to 0 to exclude. If all are 0, the budget is split equally."/>
+        <text name="setting_ec_resourceWeight_CEMENT" text="Cement Budget Share"/>
+        <text name="setting_ec_resourceWeight_CEMENT_tooltip" text="How much of the material budget is covered by Cement. Higher values mean more of the total cost is covered by Cement. Set to 0 to exclude. If all are 0, the budget is split equally."/>
+        <text name="setting_ec_resourceWeight_PREFABWALL" text="Prefab Wall Budget Share"/>
+        <text name="setting_ec_resourceWeight_PREFABWALL_tooltip" text="How much of the material budget is covered by Prefab Walls. Higher values mean more of the total cost is covered by Prefab Walls. Set to 0 to exclude. If all are 0, the budget is split equally."/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS" text="Cement Bricks Budget Share"/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="How much of the material budget is covered by Cement Bricks. Higher values mean more of the total cost is covered by Cement Bricks. Set to 0 to exclude. If all are 0, the budget is split equally."/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES" text="Roof Plates Budget Share"/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="How much of the material budget is covered by Roof Plates. Higher values mean more of the total cost is covered by Roof Plates. Set to 0 to exclude. If all are 0, the budget is split equally."/>
     </texts>
 </l10n>

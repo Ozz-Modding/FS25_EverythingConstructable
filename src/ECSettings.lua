@@ -5,6 +5,13 @@ ECSettings.menuItems = {
     'constructionEnabled',
     'labourFraction',
     'materialSupplyBonus',
+    'resourceWeight_BOARDS',
+    'resourceWeight_PLANKS',
+    'resourceWeight_WOODBEAM',
+    'resourceWeight_CEMENT',
+    'resourceWeight_PREFABWALL',
+    'resourceWeight_CEMENTBRICKS',
+    'resourceWeight_ROOFPLATES',
 }
 
 ECSettings.multiplayerPermissions = {
@@ -43,10 +50,76 @@ ECSettings.SETTINGS.labourFraction = {
     ['strings'] = { "25%", "30%", "35%", "40%", "45%", "50%", "55%", "60%", "65%", "70%", "75%" }
 }
 
+local WEIGHT_VALUES = { 0, 1, 2, 3, 4, 5 }
+local WEIGHT_STRINGS = { "0", "1", "2", "3", "4", "5" }
+
+ECSettings.SETTINGS.resourceWeight_BOARDS = {
+    ['default'] = 6, -- 5
+    ['serverOnly'] = true,
+    ['permission'] = 'ecSettings',
+    ['values'] = WEIGHT_VALUES,
+    ['strings'] = WEIGHT_STRINGS,
+}
+
+ECSettings.SETTINGS.resourceWeight_PLANKS = {
+    ['default'] = 5, -- 4
+    ['serverOnly'] = true,
+    ['permission'] = 'ecSettings',
+    ['values'] = WEIGHT_VALUES,
+    ['strings'] = WEIGHT_STRINGS,
+}
+
+ECSettings.SETTINGS.resourceWeight_WOODBEAM = {
+    ['default'] = 4, -- 3
+    ['serverOnly'] = true,
+    ['permission'] = 'ecSettings',
+    ['values'] = WEIGHT_VALUES,
+    ['strings'] = WEIGHT_STRINGS,
+}
+
+ECSettings.SETTINGS.resourceWeight_CEMENT = {
+    ['default'] = 3, -- 2
+    ['serverOnly'] = true,
+    ['permission'] = 'ecSettings',
+    ['values'] = WEIGHT_VALUES,
+    ['strings'] = WEIGHT_STRINGS,
+}
+
+ECSettings.SETTINGS.resourceWeight_PREFABWALL = {
+    ['default'] = 2, -- 1
+    ['serverOnly'] = true,
+    ['permission'] = 'ecSettings',
+    ['values'] = WEIGHT_VALUES,
+    ['strings'] = WEIGHT_STRINGS,
+}
+
+ECSettings.SETTINGS.resourceWeight_CEMENTBRICKS = {
+    ['default'] = 2, -- 1
+    ['serverOnly'] = true,
+    ['permission'] = 'ecSettings',
+    ['values'] = WEIGHT_VALUES,
+    ['strings'] = WEIGHT_STRINGS,
+}
+
+ECSettings.SETTINGS.resourceWeight_ROOFPLATES = {
+    ['default'] = 2, -- 1
+    ['serverOnly'] = true,
+    ['permission'] = 'ecSettings',
+    ['values'] = WEIGHT_VALUES,
+    ['strings'] = WEIGHT_STRINGS,
+}
+
 ECSettings.current = {
     constructionEnabled = true,
     labourFraction = 0.50,
     materialSupplyBonus = 0.02,
+    resourceWeight_BOARDS = 5,
+    resourceWeight_PLANKS = 4,
+    resourceWeight_WOODBEAM = 3,
+    resourceWeight_CEMENT = 2,
+    resourceWeight_PREFABWALL = 1,
+    resourceWeight_CEMENTBRICKS = 1,
+    resourceWeight_ROOFPLATES = 1,
 }
 
 function ECSettings.getValue(id)

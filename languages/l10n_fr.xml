@@ -47,5 +47,19 @@
         <text name="ec_brush_initial" text="acompte"/>
         <text name="ec_brush_duration" text="Durée :"/>
         <text name="ec_brush_months" text="%d mois"/>
+        <text name="setting_ec_resourceWeight_BOARDS" text="Part budgétaire des planches"/>
+        <text name="setting_ec_resourceWeight_BOARDS_tooltip" text="Quelle part du budget matériaux est couverte par planches. Une valeur plus élevée signifie qu'une plus grande partie du coût total est couverte par planches. Mettre à 0 pour exclure. Si tout est à 0, le budget est réparti équitablement."/>
+        <text name="setting_ec_resourceWeight_PLANKS" text="Part budgétaire des lames"/>
+        <text name="setting_ec_resourceWeight_PLANKS_tooltip" text="Quelle part du budget matériaux est couverte par lames. Une valeur plus élevée signifie qu'une plus grande partie du coût total est couverte par lames. Mettre à 0 pour exclure. Si tout est à 0, le budget est réparti équitablement."/>
+        <text name="setting_ec_resourceWeight_WOODBEAM" text="Part budgétaire des poutres en bois"/>
+        <text name="setting_ec_resourceWeight_WOODBEAM_tooltip" text="Quelle part du budget matériaux est couverte par poutres en bois. Une valeur plus élevée signifie qu'une plus grande partie du coût total est couverte par poutres. Mettre à 0 pour exclure. Si tout est à 0, le budget est réparti équitablement."/>
+        <text name="setting_ec_resourceWeight_CEMENT" text="Part budgétaire du ciment"/>
+        <text name="setting_ec_resourceWeight_CEMENT_tooltip" text="Quelle part du budget matériaux est couverte par ciment. Une valeur plus élevée signifie qu'une plus grande partie du coût total est couverte par ciment. Mettre à 0 pour exclure. Si tout est à 0, le budget est réparti équitablement."/>
+        <text name="setting_ec_resourceWeight_PREFABWALL" text="Part budgétaire des murs préfabriqués"/>
+        <text name="setting_ec_resourceWeight_PREFABWALL_tooltip" text="Quelle part du budget matériaux est couverte par murs préfabriqués. Une valeur plus élevée signifie qu'une plus grande partie du coût total est couverte par murs préfabriqués. Mettre à 0 pour exclure. Si tout est à 0, le budget est réparti équitablement."/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS" text="Part budgétaire des briques en ciment"/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Quelle part du budget matériaux est couverte par briques en ciment. Une valeur plus élevée signifie qu'une plus grande partie du coût total est couverte par briques. Mettre à 0 pour exclure. Si tout est à 0, le budget est réparti équitablement."/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES" text="Part budgétaire des plaques de toit"/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Quelle part du budget matériaux est couverte par plaques de toit. Une valeur plus élevée signifie qu'une plus grande partie du coût total est couverte par plaques de toit. Mettre à 0 pour exclure. Si tout est à 0, le budget est réparti équitablement."/>
     </texts>
 </l10n>

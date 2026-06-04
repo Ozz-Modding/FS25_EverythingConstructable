@@ -47,5 +47,19 @@
         <text name="ec_brush_initial" text="Anzahlung"/>
         <text name="ec_brush_duration" text="Dauer:"/>
         <text name="ec_brush_months" text="%d Monate"/>
+        <text name="setting_ec_resourceWeight_BOARDS" text="Budgetanteil Bretter"/>
+        <text name="setting_ec_resourceWeight_BOARDS_tooltip" text="Wie viel des Materialbudgets durch Bretter gedeckt wird. Höhere Werte bedeuten, dass mehr der Gesamtkosten durch Brettern gedeckt wird. Auf 0 setzen zum Ausschließen. Wenn alle 0 sind, wird das Budget gleichmäßig aufgeteilt."/>
+        <text name="setting_ec_resourceWeight_PLANKS" text="Budgetanteil Dielen"/>
+        <text name="setting_ec_resourceWeight_PLANKS_tooltip" text="Wie viel des Materialbudgets durch Dielen gedeckt wird. Höhere Werte bedeuten, dass mehr der Gesamtkosten durch Dielen gedeckt wird. Auf 0 setzen zum Ausschließen. Wenn alle 0 sind, wird das Budget gleichmäßig aufgeteilt."/>
+        <text name="setting_ec_resourceWeight_WOODBEAM" text="Budgetanteil Holzbalken"/>
+        <text name="setting_ec_resourceWeight_WOODBEAM_tooltip" text="Wie viel des Materialbudgets durch Holzbalken gedeckt wird. Höhere Werte bedeuten, dass mehr der Gesamtkosten durch Holzbalken gedeckt wird. Auf 0 setzen zum Ausschließen. Wenn alle 0 sind, wird das Budget gleichmäßig aufgeteilt."/>
+        <text name="setting_ec_resourceWeight_CEMENT" text="Budgetanteil Zement"/>
+        <text name="setting_ec_resourceWeight_CEMENT_tooltip" text="Wie viel des Materialbudgets durch Zement gedeckt wird. Höhere Werte bedeuten, dass mehr der Gesamtkosten durch Zement gedeckt wird. Auf 0 setzen zum Ausschließen. Wenn alle 0 sind, wird das Budget gleichmäßig aufgeteilt."/>
+        <text name="setting_ec_resourceWeight_PREFABWALL" text="Budgetanteil Fertigwand"/>
+        <text name="setting_ec_resourceWeight_PREFABWALL_tooltip" text="Wie viel des Materialbudgets durch Fertigwände gedeckt wird. Höhere Werte bedeuten, dass mehr der Gesamtkosten durch Fertigwänden gedeckt wird. Auf 0 setzen zum Ausschließen. Wenn alle 0 sind, wird das Budget gleichmäßig aufgeteilt."/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS" text="Budgetanteil Ziegelsteine"/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Wie viel des Materialbudgets durch Ziegelsteine gedeckt wird. Höhere Werte bedeuten, dass mehr der Gesamtkosten durch Ziegelsteinen gedeckt wird. Auf 0 setzen zum Ausschließen. Wenn alle 0 sind, wird das Budget gleichmäßig aufgeteilt."/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES" text="Budgetanteil Dachplatten"/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Wie viel des Materialbudgets durch Dachplatten gedeckt wird. Höhere Werte bedeuten, dass mehr der Gesamtkosten durch Dachplatten gedeckt wird. Auf 0 setzen zum Ausschließen. Wenn alle 0 sind, wird das Budget gleichmäßig aufgeteilt."/>
     </texts>
 </l10n>

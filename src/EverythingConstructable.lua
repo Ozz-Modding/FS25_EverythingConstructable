@@ -76,6 +76,14 @@ function EverythingConstructable:loadFromXMLFile()
         ECSettings.current.constructionEnabled = constructionEnabled
     end
 
+    for _, fillTypeName in ipairs(ECConfig.RESOURCE_FILL_TYPES) do
+        local key = "resourceWeight_" .. fillTypeName
+        local v = getXMLInt(xmlFile, "EverythingConstructable.settings#" .. key)
+        if v ~= nil then
+            ECSettings.current[key] = math.max(0, math.min(5, v))
+        end
+    end
+
     g_currentMission.ecProjectManager:loadFromXMLFile(xmlFile)
     delete(xmlFile)
 end
@@ -92,6 +100,11 @@ function EverythingConstructable:saveToXmlFile()
     end
 
     setXMLBool(xmlFile, "EverythingConstructable.settings#constructionEnabled", ECSettings.current.constructionEnabled)
+
+    for _, fillTypeName in ipairs(ECConfig.RESOURCE_FILL_TYPES) do
+        local key = "resourceWeight_" .. fillTypeName
+        setXMLInt(xmlFile, "EverythingConstructable.settings#" .. key, ECSettings.current[key])
+    end
 
     g_currentMission.ecProjectManager:saveToXMLFile(xmlFile)
     saveXMLFile(xmlFile)

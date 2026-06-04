@@ -18,6 +18,14 @@ You can disable and enable this process at will. For construction projects, you 
 You can pause a project if you want to wait and supply materials. You must always pay for labour, but can configure the portion of the total cost for labour vs materials.
 
 Fully supports multiplayer.
+
+Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
+
+Changelog:
+
+1.0.0.1:
+- Added settings to allow players to customize proportions for resources supplied to construction sites.
+
 ]]></en>
     <de><![CDATA[Alles Baubar
 
@@ -28,6 +36,14 @@ Sie können diesen Prozess jederzeit deaktivieren und wieder aktivieren. Bei Bau
 Sie können ein Projekt pausieren, wenn Sie warten und Materialien anliefern möchten. Arbeitskosten müssen immer bezahlt werden, aber der Anteil der Gesamtkosten für Arbeit im Vergleich zu Materialien ist konfigurierbar.
 
 Unterstützt Multiplayer vollständig.
+
+Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
+
+Änderungsprotokoll:
+
+1.0.0.1:
+- Einstellungen hinzugefügt, damit Spieler die Anteile für die gelieferten Ressourcen an Baustellen anpassen können.
+
 ]]></de>
     <fr><![CDATA[Tout Constructible
 
@@ -38,6 +54,14 @@ Vous pouvez désactiver et réactiver ce processus à tout moment. Pour les proj
 Vous pouvez mettre un projet en pause si vous souhaitez attendre et fournir des matériaux. Les coûts de main-d'œuvre doivent toujours être payés, mais la part du coût total entre main-d'œuvre et matériaux est configurable.
 
 Prise en charge complète du multijoueur.
+
+Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
+
+Journal des modifications:
+
+1.0.0.1:
+- Ajout de paramètres pour permettre aux joueurs de personnaliser les proportions des ressources fournies aux chantiers.
+
 ]]></fr>
     </description>
     <extraSourceFiles>

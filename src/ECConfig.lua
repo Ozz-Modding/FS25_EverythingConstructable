@@ -12,14 +12,9 @@ ECConfig.DURATION_THRESHOLDS = {
 
 ECConfig.DEPOSIT_FRACTION = 0.10
 
-ECConfig.RESOURCE_WEIGHTS = {
-    { fillType = "BOARDS", weight = 5 },
-    { fillType = "PLANKS", weight = 4 },
-    { fillType = "WOODBEAM", weight = 3 },
-    { fillType = "CEMENT", weight = 2 },
-    { fillType = "PREFABWALL", weight = 1 },
-    { fillType = "CEMENTBRICKS", weight = 1 },
-    { fillType = "ROOFPLATES", weight = 1 },
+-- Ordered list of fill types used for material generation; weights come from ECSettings
+ECConfig.RESOURCE_FILL_TYPES = {
+    "BOARDS", "PLANKS", "WOODBEAM", "CEMENT", "PREFABWALL", "CEMENTBRICKS", "ROOFPLATES",
 }
 
 ECConfig.DEFAULT_MODE = "automatic"
@@ -137,18 +132,29 @@ function ECConfig.generateMaterialList(materialBudget)
     local validResources = {}
     local totalWeight = 0
 
-    for _, entry in ipairs(ECConfig.RESOURCE_WEIGHTS) do
-        local fillTypeIndex = g_fillTypeManager:getFillTypeIndexByName(entry.fillType)
+    local rawWeights = {}
+    local allZero = true
+    for _, fillTypeName in ipairs(ECConfig.RESOURCE_FILL_TYPES) do
+        local w = ECSettings.getValue("resourceWeight_" .. fillTypeName) or 0
+        rawWeights[fillTypeName] = w
+        if w > 0 then allZero = false end
+    end
+
+    for _, fillTypeName in ipairs(ECConfig.RESOURCE_FILL_TYPES) do
+        local fillTypeIndex = g_fillTypeManager:getFillTypeIndexByName(fillTypeName)
         if fillTypeIndex ~= nil then
             local fillType = g_fillTypeManager:getFillTypeByIndex(fillTypeIndex)
             if fillType ~= nil and (fillType.pricePerLiter or 0) > 0 then
-                table.insert(validResources, {
-                    fillTypeIndex = fillTypeIndex,
-                    fillTypeName = entry.fillType,
-                    weight = entry.weight,
-                    pricePerLiter = fillType.pricePerLiter,
-                })
-                totalWeight = totalWeight + entry.weight
+                local w = allZero and 1 or rawWeights[fillTypeName]
+                if w > 0 then
+                    table.insert(validResources, {
+                        fillTypeIndex = fillTypeIndex,
+                        fillTypeName = fillTypeName,
+                        weight = w,
+                        pricePerLiter = fillType.pricePerLiter,
+                    })
+                    totalWeight = totalWeight + w
+                end
             end
         end
     end
