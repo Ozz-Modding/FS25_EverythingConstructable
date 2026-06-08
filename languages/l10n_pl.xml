@@ -22,7 +22,7 @@
         <text name="ec_cancelConfirm" text="Anulować ten projekt budowy? Otrzymasz %d%% zwrotu kwoty zapłaconej do tej pory."/>
         <text name="ec_cancelled" text="Projekt budowy anulowany. Zwrot: %s"/>
         <text name="ec_completed" text="Budowa zakończona: %s"/>
-        <text name="ec_phaseAdvanced" text="Dla %s zakończono etap %d"/>
+        <text name="ec_phaseAdvanced" text="Etap budowy %d zakończony dla %s"/>
         <text name="ec_paused" text="Budowa wstrzymana (niewystarczające środki)"/>
         <text name="ec_switchMode" text="Przełącz tryb"/>
         <text name="ec_pauseProject" text="WSTRZYMAJ PROJEKT"/>
@@ -48,18 +48,18 @@
         <text name="ec_brush_duration" text="Czas trwania:"/>
         <text name="ec_brush_months" text="%d mies."/>
         <text name="setting_ec_resourceWeight_BOARDS" text="Udział deski w budżecie"/>
-        <text name="setting_ec_resourceWeight_BOARDS_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez Boards. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez Boards. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
+        <text name="setting_ec_resourceWeight_BOARDS_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez Deski. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez Deski. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
         <text name="setting_ec_resourceWeight_PLANKS" text="Udział długich desek w budżecie"/>
-        <text name="setting_ec_resourceWeight_PLANKS_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez długie deski. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez długie deski. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
+        <text name="setting_ec_resourceWeight_PLANKS_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez Deski długie. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez Deski długie. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
         <text name="setting_ec_resourceWeight_WOODBEAM" text="Udział drewnianych belek w budżecie"/>
-        <text name="setting_ec_resourceWeight_WOODBEAM_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez drewniane belki. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez drewniane belki. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
-        <text name="setting_ec_resourceWeight_CEMENT" text="Udział cemntu w budżecie"/>
-        <text name="setting_ec_resourceWeight_CEMENT_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez cement. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez cement. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
+        <text name="setting_ec_resourceWeight_WOODBEAM_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez Belki drewniane. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez Belki drewniane. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
+        <text name="setting_ec_resourceWeight_CEMENT" text="Udział cementu w budżecie"/>
+        <text name="setting_ec_resourceWeight_CEMENT_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez Cement. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez Cement. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
         <text name="setting_ec_resourceWeight_PREFABWALL" text="Udział prefabrykowanych ścian w budżecie"/>
-        <text name="setting_ec_resourceWeight_PREFABWALL_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez prefabrykowane ściany. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez prefabrykowane ściany. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
+        <text name="setting_ec_resourceWeight_PREFABWALL_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez Ściany prefabrykowane. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez Ściany prefabrykowane. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
         <text name="setting_ec_resourceWeight_CEMENTBRICKS" text="Udział cegieł w budżecie"/>
-        <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez cegły. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez cegły. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez Cegły betonowe. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez Cegły betonowe. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
         <text name="setting_ec_resourceWeight_ROOFPLATES" text="Udział dachówek w budżecie"/>
-        <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez dachówki. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez dachówki. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez Płyty dachowe. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez Płyty dachowe. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
     </texts>
 </l10n>

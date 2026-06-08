@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <translationContributors/>
+    <texts>
+        <text name="ec_constructionSite" text="Cantiere edile"/>
+        <text name="ec_action_viewConstruction" text="Visualizza cantiere"/>
+        <text name="ec_phase" text="Fase %d di %d"/>
+        <text name="ec_mode_automatic" text="Automatico"/>
+        <text name="ec_mode_paused" text="In pausa"/>
+        <text name="ec_deposit" text="Acconto"/>
+        <text name="ec_labourCost" text="Manodopera (per fase)"/>
+        <text name="ec_phaseCosts" text="Costi di fase"/>
+        <text name="ec_materialSaved" text="Risparmio materiali"/>
+        <text name="ec_totalPaid" text="Totale pagato"/>
+        <text name="ec_totalRemaining" text="Totale rimanente"/>
+        <text name="ec_materialsSupplyable" text="Materiali fornibili"/>
+        <text name="ec_materialsSupplyHint" text="Per fornire i materiali, portali al recinto del cantiere."/>
+        <text name="ec_allMaterialsSupplied" text="Tutti i materiali sono stati forniti."/>
+        <text name="ec_resourcesDelivered" text="Consegnati"/>
+        <text name="ec_progress" text="Avanzamento"/>
+        <text name="ec_cancel" text="Annulla progetto"/>
+        <text name="ec_cancelConfirm" text="Annullare questo progetto di costruzione? Riceverai un rimborso del %d%% dell&apos;importo pagato finora."/>
+        <text name="ec_cancelled" text="Progetto di costruzione annullato. Rimborso: %s"/>
+        <text name="ec_completed" text="Costruzione completata: %s"/>
+        <text name="ec_phaseAdvanced" text="Fase di costruzione %d completata per %s"/>
+        <text name="ec_paused" text="Costruzione in pausa (fondi insufficienti)"/>
+        <text name="ec_switchMode" text="Cambia modalità"/>
+        <text name="ec_pauseProject" text="METTI IN PAUSA"/>
+        <text name="ec_continueProject" text="RIPRENDI PROGETTO"/>
+        <text name="ec_modeChanged" text="Modalità di costruzione cambiata in: %s"/>
+        <text name="ec_close" text="Chiudi"/>
+        <text name="ec_buildingName" text="Edificio"/>
+        <text name="ec_monthsRemaining" text="Mesi rimanenti"/>
+        <text name="ec_status_active" text="Attivo"/>
+        <text name="ec_status_paused" text="In pausa"/>
+        <text name="ec_setting_disabled" text="Disattivato"/>
+        <text name="ec_setting_enabled" text="Attivato"/>
+        <text name="setting_ec_section" text="Everything Constructable"/>
+        <text name="setting_ec_constructionEnabled" text="Progetti di costruzione"/>
+        <text name="setting_ec_constructionEnabled_tooltip" text="Se attivato, posizionare un edificio avvia un progetto di costruzione a più fasi. Se disattivato, gli edifici vengono piazzati istantaneamente come nel gioco base."/>
+        <text name="setting_ec_labourFraction" text="Quota costo manodopera"/>
+        <text name="setting_ec_labourFraction_tooltip" text="Percentuale del costo totale dell&apos;edificio destinata alla manodopera. L&apos;acconto viene detratto da questo importo e il resto viene pagato nelle fasi di costruzione. Valori più alti richiedono meno materiali ma comportano una maggiore spesa diretta in denaro."/>
+        <text name="setting_ec_materialSupplyBonus" text="Bonus fornitura materiali"/>
+        <text name="setting_ec_materialSupplyBonus_tooltip" text="Bonus applicato quando fornisci i materiali di persona. Un bonus più alto significa che servono meno materiali per coprire il costo dei materiali."/>
+        <text name="ec_cannotDeleteFence" text="I recinti del cantiere non possono essere rimossi mentre un progetto è attivo."/>
+        <text name="permission_ec_ecSettings" text="Modifica impostazioni di costruzione"/>
+        <text name="ec_brush_initial" text="iniziale"/>
+        <text name="ec_brush_duration" text="Durata:"/>
+        <text name="ec_brush_months" text="%d mesi"/>
+        <text name="setting_ec_resourceWeight_BOARDS" text="Quota budget assi"/>
+        <text name="setting_ec_resourceWeight_BOARDS_tooltip" text="Quanto del budget materiali è coperto dagli Assi. Valori più alti significano che una maggiore parte del costo totale è coperta dagli Assi. Imposta 0 per escludere. Se tutti sono 0, il budget è diviso equamente."/>
+        <text name="setting_ec_resourceWeight_PLANKS" text="Quota budget tavole"/>
+        <text name="setting_ec_resourceWeight_PLANKS_tooltip" text="Quanto del budget materiali è coperto dalle Tavole. Valori più alti significano che una maggiore parte del costo totale è coperta dalle Tavole. Imposta 0 per escludere. Se tutti sono 0, il budget è diviso equamente."/>
+        <text name="setting_ec_resourceWeight_WOODBEAM" text="Quota budget travi in legno"/>
+        <text name="setting_ec_resourceWeight_WOODBEAM_tooltip" text="Quanto del budget materiali è coperto dalle Travi in legno. Valori più alti significano che una maggiore parte del costo totale è coperta dalle Travi in legno. Imposta 0 per escludere. Se tutti sono 0, il budget è diviso equamente."/>
+        <text name="setting_ec_resourceWeight_CEMENT" text="Quota budget cemento"/>
+        <text name="setting_ec_resourceWeight_CEMENT_tooltip" text="Quanto del budget materiali è coperto dal Cemento. Valori più alti significano che una maggiore parte del costo totale è coperta dal Cemento. Imposta 0 per escludere. Se tutti sono 0, il budget è diviso equamente."/>
+        <text name="setting_ec_resourceWeight_PREFABWALL" text="Quota budget pannelli prefabbricati"/>
+        <text name="setting_ec_resourceWeight_PREFABWALL_tooltip" text="Quanto del budget materiali è coperto dai Pannelli prefabbricati. Valori più alti significano che una maggiore parte del costo totale è coperta dai Pannelli prefabbricati. Imposta 0 per escludere. Se tutti sono 0, il budget è diviso equamente."/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS" text="Quota budget mattoni in cemento"/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Quanto del budget materiali è coperto dai Mattoni in cemento. Valori più alti significano che una maggiore parte del costo totale è coperta dai Mattoni in cemento. Imposta 0 per escludere. Se tutti sono 0, il budget è diviso equamente."/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES" text="Quota budget tegole"/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Quanto del budget materiali è coperto dalle Tegole. Valori più alti significano che una maggiore parte del costo totale è coperta dalle Tegole. Imposta 0 per escludere. Se tutti sono 0, il budget è diviso equamente."/>
+    </texts>
+</l10n>

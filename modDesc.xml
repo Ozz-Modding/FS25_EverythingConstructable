@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="109">
     <author>Ozz</author>
-    <version>1.0.0.1</version>
+    <version>1.0.0.2</version>
     <iconFilename>icon_EverythingConstructable.dds</iconFilename>
     <title>
         <en>Everything Constructable</en>
@@ -22,6 +22,10 @@ Fully supports multiplayer.
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
 Changelog:
+
+1.0.0.2 [WIP]:
+- Italian translation added thanks to FirenzeIT.
+- Polish translation added thanks to KITT3000.
 
 1.0.0.1:
 - Added settings to allow players to customize proportions for resources supplied to construction sites.
