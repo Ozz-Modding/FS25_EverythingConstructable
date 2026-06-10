@@ -641,6 +641,144 @@ function ECFenceBuilder.removeSegmentsByCorners(fence, project, corners)
     print(string.format("EverythingConstructable: removeFence - removed %d segments by corner matching for project %d", #toRemove, project.id))
 end
 
+-- Callback table reused for overlapBox tests. "self" is the table itself (overlapBox passes it as first arg).
+local _shrinkOverlapResult = {}
+function _shrinkOverlapResult:overlapCallback(hitObjectId)
+    if hitObjectId ~= g_terrainNode then
+        self.hit = true
+        return false
+    end
+    return true
+end
+
+local _SHRINK_COLLISION_MASK = CollisionFlag.STATIC_OBJECT + CollisionFlag.BUILDING
+
+-- Tests whether a single wall slab overlaps a static/building object.
+-- wallCx/Cz: world-space centre of the slab
+-- slabHalfParallel: half-extent along the wall face
+-- slabHalfPerp: half-depth into the site (typically half a panel length)
+-- rotY: fence rotation
+local function _wallHasCollision(wallCx, wallCy, wallCz, slabHalfParallel, slabHalfPerp, rotY)
+    _shrinkOverlapResult.hit = false
+    overlapBox(
+        wallCx, wallCy, wallCz,
+        0, rotY, 0,
+        slabHalfParallel, 2.0, slabHalfPerp,
+        "overlapCallback", _shrinkOverlapResult,
+        _SHRINK_COLLISION_MASK,
+        true, true, true, true
+    )
+    return _shrinkOverlapResult.hit
+end
+
+-- Shrinks footprint.sizeX/Z and footprint.centerX/Z (in fence local space) so that the outer
+-- fence walls clear nearby buildings.  Works per-wall: only the colliding sides step inward.
+-- footprint is mutated in place; position and rotation are the world-space values.
+function ECFenceBuilder.shrinkFootprintToAvoidCollisions(footprint, position, rotation)
+    if footprint == nil or footprint.sizeX == nil then
+        return
+    end
+
+    local panelLength = ECFenceBuilder.getPanelLength(ECConfig.FENCE_SEGMENT_ID)
+    local maxSteps    = ECConfig.FENCE_SHRINK_MAX_STEPS or 3
+    local slabDepth   = panelLength * 0.5
+
+    local rotY = footprint.rotY or 0
+    local dirX, dirZ  = MathUtil.getDirectionFromYRotation(rotY)
+    local sideX, _, sideZ = MathUtil.crossProduct(0, 1, 0, dirX, 0, dirZ)
+
+    -- World-space fence centre (same math as calculateCorners)
+    local wcx = position[1] + dirX * (footprint.centerZ or 0) + sideX * (footprint.centerX or 0)
+    local wcz = position[3] + dirZ * (footprint.centerZ or 0) + sideZ * (footprint.centerX or 0)
+    local wcy = getTerrainHeightAtWorldPos(g_terrainNode, wcx, 0, wcz) + 2.0
+
+    -- Per-side distances from the fence centre (always positive, in fence-local units).
+    -- posZ/negZ: forward/backward walls; posX/negX: right/left walls.
+    local halfX = ECFenceBuilder.snapToPanel(footprint.sizeX * 0.5, panelLength)
+    local halfZ = ECFenceBuilder.snapToPanel(footprint.sizeZ * 0.5, panelLength)
+
+    local walls = { posZ = halfZ, negZ = halfZ, posX = halfX, negX = halfX }
+
+    -- minHalf is the smallest allowed half-extent for any wall.
+    -- panelLength * 0.5 means the fence can shrink to 1 panel per axis total.
+    local minHalf = panelLength * 0.5
+
+    for _ = 1, maxSteps do
+        local anyChanged = false
+
+        -- Slab centres must track asymmetric shrinking: if posX ~= negX the front/back wall
+        -- centres are no longer at wcx,wcz — they're offset by (posX-negX)/2 in local X.
+        -- Likewise, left/right wall centres shift by (posZ-negZ)/2 in local Z.
+        local xSpanHalf  = (walls.posX + walls.negX) * 0.5
+        local xCtrShift  = (walls.posX - walls.negX) * 0.5  -- local X shift for Z-axis walls
+
+        -- Front wall (+Z): thin slab in Z, spans current X extent, centre at wcx + xShift + dir*posZ
+        if walls.posZ > minHalf then
+            local wx = wcx + dirX * walls.posZ + sideX * xCtrShift
+            local wz = wcz + dirZ * walls.posZ + sideZ * xCtrShift
+            if _wallHasCollision(wx, wcy, wz, xSpanHalf, slabDepth, rotY) then
+                walls.posZ = math.max(minHalf, ECFenceBuilder.snapToPanel(walls.posZ - panelLength, panelLength))
+                anyChanged = true
+            end
+        end
+
+        -- Back wall (-Z)
+        if walls.negZ > minHalf then
+            local wx = wcx - dirX * walls.negZ + sideX * xCtrShift
+            local wz = wcz - dirZ * walls.negZ + sideZ * xCtrShift
+            if _wallHasCollision(wx, wcy, wz, xSpanHalf, slabDepth, rotY) then
+                walls.negZ = math.max(minHalf, ECFenceBuilder.snapToPanel(walls.negZ - panelLength, panelLength))
+                anyChanged = true
+            end
+        end
+
+        -- Z walls may have just been updated; recalculate span for the side walls.
+        local zSpanHalf  = (walls.posZ + walls.negZ) * 0.5
+        local zCtrShift  = (walls.posZ - walls.negZ) * 0.5  -- local Z shift for X-axis walls
+
+        -- Right wall (+X): thin slab in X, spans current Z extent
+        if walls.posX > minHalf then
+            local wx = wcx + sideX * walls.posX + dirX * zCtrShift
+            local wz = wcz + sideZ * walls.posX + dirZ * zCtrShift
+            if _wallHasCollision(wx, wcy, wz, slabDepth, zSpanHalf, rotY) then
+                walls.posX = math.max(minHalf, ECFenceBuilder.snapToPanel(walls.posX - panelLength, panelLength))
+                anyChanged = true
+            end
+        end
+
+        -- Left wall (-X)
+        if walls.negX > minHalf then
+            local wx = wcx - sideX * walls.negX + dirX * zCtrShift
+            local wz = wcz - sideZ * walls.negX + dirZ * zCtrShift
+            if _wallHasCollision(wx, wcy, wz, slabDepth, zSpanHalf, rotY) then
+                walls.negX = math.max(minHalf, ECFenceBuilder.snapToPanel(walls.negX - panelLength, panelLength))
+                anyChanged = true
+            end
+        end
+
+        if not anyChanged then
+            break
+        end
+    end
+
+    -- Rebuild footprint from the (possibly asymmetric) per-wall distances.
+    local newHalfX    = (walls.posX + walls.negX) * 0.5
+    local newHalfZ    = (walls.posZ + walls.negZ) * 0.5
+    local localShiftX = (walls.posX - walls.negX) * 0.5
+    local localShiftZ = (walls.posZ - walls.negZ) * 0.5
+
+    if newHalfX ~= halfX or newHalfZ ~= halfZ or localShiftX ~= 0 or localShiftZ ~= 0 then
+        footprint.sizeX   = newHalfX * 2
+        footprint.sizeZ   = newHalfZ * 2
+        footprint.centerX = (footprint.centerX or 0) + localShiftX
+        footprint.centerZ = (footprint.centerZ or 0) + localShiftZ
+        print(string.format(
+            "EverythingConstructable: fence shrunk to sizeX=%.1f sizeZ=%.1f (shiftX=%.1f shiftZ=%.1f)",
+            footprint.sizeX, footprint.sizeZ, localShiftX, localShiftZ
+        ))
+    end
+end
+
 function ECFenceBuilder.calculateCorners(project)
     local pos = project.position
     local fp = project.footprint

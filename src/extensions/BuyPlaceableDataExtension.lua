@@ -53,6 +53,8 @@ BuyPlaceableData.onBought = Utils.overwrittenFunction(BuyPlaceableData.onBought,
 
     placeable:delete()
 
+    ECFenceBuilder.shrinkFootprintToAvoidCollisions(footprint, position, rotation)
+
     local manager = g_currentMission.ecProjectManager
     if manager ~= nil and g_currentMission:getIsServer() then
         local project = manager:createProject(
