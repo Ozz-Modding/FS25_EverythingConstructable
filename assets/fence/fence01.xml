@@ -24,7 +24,7 @@
     </storeData>
 
     <base>
-        <filename>assets/fence/fence01.i3d</filename>
+        <filename>assets/fence/Fence01.i3d</filename>
     </base>
 
     <placement useRandomYRotation="false" useManualYRotation="true">

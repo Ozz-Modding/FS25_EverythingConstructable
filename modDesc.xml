@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="109">
     <author>Ozz</author>
-    <version>1.0.0.2</version>
+    <version>1.0.0.0</version>
     <iconFilename>icon_EverythingConstructable.dds</iconFilename>
     <title>
         <en>Everything Constructable</en>
@@ -21,15 +21,6 @@ Fully supports multiplayer.
 
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
-Changelog:
-
-1.0.0.2 [WIP]:
-- Italian translation added thanks to FirenzeIT.
-- Polish translation added thanks to KITT3000.
-
-1.0.0.1:
-- Added settings to allow players to customize proportions for resources supplied to construction sites.
-
 ]]></en>
     <de><![CDATA[Alles Baubar
 
@@ -43,11 +34,6 @@ Unterstützt Multiplayer vollständig.
 
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
-Änderungsprotokoll:
-
-1.0.0.1:
-- Einstellungen hinzugefügt, damit Spieler die Anteile für die gelieferten Ressourcen an Baustellen anpassen können.
-
 ]]></de>
     <fr><![CDATA[Tout Constructible
 
@@ -60,11 +46,6 @@ Vous pouvez mettre un projet en pause si vous souhaitez attendre et fournir des 
 Prise en charge complète du multijoueur.
 
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
-
-Journal des modifications:
-
-1.0.0.1:
-- Ajout de paramètres pour permettre aux joueurs de personnaliser les proportions des ressources fournies aux chantiers.
 
 ]]></fr>
     </description>

@@ -169,10 +169,12 @@ function ECProject:saveToXML(xmlFile, key)
         setXMLFloat(xmlFile, key .. ".footprint#rotY", self.footprint.rotY or 0)
     end
 
+    local configIndex = 0
     for ci, config in pairs(self.configurations) do
-        local configKey = string.format("%s.configurations.config(%d)", key, ci - 1)
-        setXMLString(configKey .. "#name", ci)
-        setXMLInt(configKey .. "#value", config)
+        local configKey = string.format("%s.configurations.config(%d)", key, configIndex)
+        setXMLString(xmlFile, configKey .. "#name", ci)
+        setXMLInt(xmlFile, configKey .. "#value", config)
+        configIndex = configIndex + 1
     end
 
     for pi, phase in ipairs(self.phases) do
