@@ -10,6 +10,24 @@ ECConfig.DURATION_THRESHOLDS = {
     { maxPrice = math.huge, months = 8 },
 }
 
+ECConfig.PLACEABLE_EXEMPTIONS = {
+    "data/placeables/brandless/animalHusbandries/chickenBarnSmall/chickenBarnSmall.xml",
+    "data/placeables/brandless/animalHusbandries/sheepBarnSmall/sheepBarnSmall.xml",
+    "data/placeables/brandless/animalHusbandries/pigBarnSmall/pigBarnSmall.xml",
+    "data/placeables/brandless/animalHusbandries/horseBarnSmall/horseBarnSmall.xml",
+    "data/placeables/brandless/animalHusbandries/cowBarnSmall/cowBarnSmall.xml",
+    { modName = "FS25_FencelessPastures", path = "xml/caprines00.xml" },
+    { modName = "FS25_FencelessPastures", path = "xml/caprines01.xml" },
+    { modName = "FS25_FencelessPastures", path = "xml/chicken01.xml" },
+    { modName = "FS25_FencelessPastures", path = "xml/cow00.xml" },
+    { modName = "FS25_FencelessPastures", path = "xml/cow01.xml" },
+    { modName = "FS25_FencelessPastures", path = "xml/grass.xml" },
+    { modName = "FS25_FencelessPastures", path = "xml/horse00.xml" },
+    { modName = "FS25_FencelessPastures", path = "xml/horse01.xml" },
+    { modName = "FS25_FencelessPastures", path = "xml/pig00.xml" },
+    { modName = "FS25_FencelessPastures", path = "xml/pig01.xml" },
+}
+
 ECConfig.DEPOSIT_FRACTION = 0.10
 
 -- Ordered list of fill types used for material generation; weights come from ECSettings
@@ -217,6 +235,25 @@ function ECConfig.shouldApplyConstruction(storeItem, placeable)
 
     if placeable ~= nil and placeable.spec_fence ~= nil then
         return false
+    end
+
+    local xmlFilename = storeItem.xmlFilename
+    if xmlFilename ~= nil then
+        for _, exemption in ipairs(ECConfig.PLACEABLE_EXEMPTIONS) do
+            local resolved
+            if type(exemption) == "string" then
+                resolved = exemption
+            elseif exemption.resolved ~= nil then
+                resolved = exemption.resolved
+            else
+                local mod = g_modManager:getModByName(exemption.modName)
+                resolved = mod ~= nil and (mod.modDir .. exemption.path) or ""
+                exemption.resolved = resolved
+            end
+            if xmlFilename == resolved then
+                return false
+            end
+        end
     end
 
     return true
