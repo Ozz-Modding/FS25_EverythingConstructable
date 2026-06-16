@@ -66,11 +66,17 @@ function ECBuildingPlacer.restoreHusbandryFence(project, placeable)
         spec.previewSegments = {}
     end
 
-    for _, segData in ipairs(project.husbandryFenceData) do
+    print(string.format("EC DEBUG restoreHusbandryFence: restoring %d segments", #project.husbandryFenceData))
+    for i, segData in ipairs(project.husbandryFenceData) do
         local templateId = segData.templateId
+        local fallback = false
         if templateId == nil then
             templateId = spec.fenceSegmentsData[1] and spec.fenceSegmentsData[1].segmentId
+            fallback = true
         end
+        print(string.format("EC DEBUG restoreHusbandryFence[%d]: templateId=%s fallback=%s customizable=%s default=%s reversed=%s",
+            i, tostring(templateId), tostring(fallback),
+            tostring(segData.isCustomizable), tostring(segData.isDefaultSegment), tostring(segData.isReversed)))
         if templateId ~= nil then
             local segment = spec.fence:createNewSegment(templateId)
             if segment ~= nil then
@@ -83,6 +89,8 @@ function ECBuildingPlacer.restoreHusbandryFence(project, placeable)
                 segment.husbandryFenceIsDefaultSegment = segData.isDefaultSegment
                 segment:updateMeshes(true, false)
                 segment:finalize()
+            else
+                print(string.format("EC DEBUG restoreHusbandryFence[%d]: createNewSegment returned nil for templateId=%s", i, tostring(templateId)))
             end
         end
     end

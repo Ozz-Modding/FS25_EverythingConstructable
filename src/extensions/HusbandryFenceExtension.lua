@@ -95,18 +95,27 @@ function HusbandryFenceExtension.saveFenceData(pending, placeable)
         return
     end
     pending.fenceSegments = {}
-    for _, segment in ipairs(spec.fence:getSegments()) do
+    for i, segment in ipairs(spec.fence:getSegments()) do
         local sx, sy, sz = segment:getStartPos()
         local ex, ey, ez = segment:getEndPos()
+        local segId = segment:getId()
+        local templateId = segment.templateId
+        print(string.format("EC DEBUG saveFenceData[%d]: id=%s templateId=%s customizable=%s default=%s reversed=%s start=(%.1f,%.1f,%.1f) end=(%.1f,%.1f,%.1f)",
+            i, tostring(segId), tostring(templateId),
+            tostring(segment.husbandryFenceIsCustomizable),
+            tostring(segment.husbandryFenceIsDefaultSegment),
+            tostring(segment.isReversed),
+            sx, sz, sy, ex, ez, ey))
         table.insert(pending.fenceSegments, {
             startPos = {sx, sy, sz},
             endPos = {ex, ey, ez},
             isCustomizable = segment.husbandryFenceIsCustomizable or false,
             isDefaultSegment = segment.husbandryFenceIsDefaultSegment or false,
-            templateId = segment.templateId,
+            templateId = segId,
             isReversed = segment.isReversed,
         })
     end
+    print(string.format("EC DEBUG saveFenceData: saved %d segments total", #pending.fenceSegments))
 end
 
 function HusbandryFenceExtension.convertToProject(pending)

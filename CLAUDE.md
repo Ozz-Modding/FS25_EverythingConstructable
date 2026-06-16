@@ -33,4 +33,4 @@ FS25 mod that turns instant building placement into multi-phase construction pro
 ## Reference
 
 - UsedEquipmentYards (`C:\Users\steve\Documents\My FS 25 Mods\FS25_UsedEquipmentYards`) — reference for vehicle spawning, restriction patterns, MP sync
-- Game source: decompiled Lua in Reference/FS25_Lua
+- Game source: decompiled Lua in C:\Users\steve\Documents\My FS 25 Mods\Reference\FS25_Lua

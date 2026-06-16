@@ -17,7 +17,7 @@ You can disable and enable this process at will. For construction projects, you 
 
 You can pause a project if you want to wait and supply materials. You must always pay for labour, but can configure the portion of the total cost for labour vs materials.
 
-Fully supports multiplayer.
+Fully supports multiplayer. Excludes base game simple pastures and those in FS25_FencelessPastures.
 
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
@@ -30,7 +30,7 @@ Sie können diesen Prozess jederzeit deaktivieren und wieder aktivieren. Bei Bau
 
 Sie können ein Projekt pausieren, wenn Sie warten und Materialien anliefern möchten. Arbeitskosten müssen immer bezahlt werden, aber der Anteil der Gesamtkosten für Arbeit im Vergleich zu Materialien ist konfigurierbar.
 
-Unterstützt Multiplayer vollständig.
+Unterstützt Multiplayer vollständig. Schließt die Basis-Spiel-einfachen Weiden und diejenigen in FS25_FencelessPastures aus.
 
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
@@ -43,7 +43,7 @@ Vous pouvez désactiver et réactiver ce processus à tout moment. Pour les proj
 
 Vous pouvez mettre un projet en pause si vous souhaitez attendre et fournir des matériaux. Les coûts de main-d'œuvre doivent toujours être payés, mais la part du coût total entre main-d'œuvre et matériaux est configurable.
 
-Prise en charge complète du multijoueur.
+Prise en charge complète du multijoueur. Exclut les pâturages simples du jeu de base et ceux de FS25_FencelessPastures.
 
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 

@@ -11,21 +11,21 @@ ECConfig.DURATION_THRESHOLDS = {
 }
 
 ECConfig.PLACEABLE_EXEMPTIONS = {
-    "data/placeables/brandless/animalHusbandries/chickenBarnSmall/chickenBarnSmall.xml",
-    "data/placeables/brandless/animalHusbandries/sheepBarnSmall/sheepBarnSmall.xml",
-    "data/placeables/brandless/animalHusbandries/pigBarnSmall/pigBarnSmall.xml",
-    "data/placeables/brandless/animalHusbandries/horseBarnSmall/horseBarnSmall.xml",
-    "data/placeables/brandless/animalHusbandries/cowBarnSmall/cowBarnSmall.xml",
-    { modName = "FS25_FencelessPastures", path = "xml/caprines00.xml" },
-    { modName = "FS25_FencelessPastures", path = "xml/caprines01.xml" },
-    { modName = "FS25_FencelessPastures", path = "xml/chicken01.xml" },
-    { modName = "FS25_FencelessPastures", path = "xml/cow00.xml" },
-    { modName = "FS25_FencelessPastures", path = "xml/cow01.xml" },
-    { modName = "FS25_FencelessPastures", path = "xml/grass.xml" },
-    { modName = "FS25_FencelessPastures", path = "xml/horse00.xml" },
-    { modName = "FS25_FencelessPastures", path = "xml/horse01.xml" },
-    { modName = "FS25_FencelessPastures", path = "xml/pig00.xml" },
-    { modName = "FS25_FencelessPastures", path = "xml/pig01.xml" },
+    -- "data/placeables/brandless/animalHusbandries/chickenBarnSmall/chickenBarnSmall.xml",
+    -- "data/placeables/brandless/animalHusbandries/sheepBarnSmall/sheepBarnSmall.xml",
+    -- "data/placeables/brandless/animalHusbandries/pigBarnSmall/pigBarnSmall.xml",
+    -- "data/placeables/brandless/animalHusbandries/horseBarnSmall/horseBarnSmall.xml",
+    -- "data/placeables/brandless/animalHusbandries/cowBarnSmall/cowBarnSmall.xml",
+    -- { modName = "FS25_FencelessPastures", path = "xml/caprines00.xml" },
+    -- { modName = "FS25_FencelessPastures", path = "xml/caprines01.xml" },
+    -- { modName = "FS25_FencelessPastures", path = "xml/chicken01.xml" },
+    -- { modName = "FS25_FencelessPastures", path = "xml/cow00.xml" },
+    -- { modName = "FS25_FencelessPastures", path = "xml/cow01.xml" },
+    -- { modName = "FS25_FencelessPastures", path = "xml/grass.xml" },
+    -- { modName = "FS25_FencelessPastures", path = "xml/horse00.xml" },
+    -- { modName = "FS25_FencelessPastures", path = "xml/horse01.xml" },
+    -- { modName = "FS25_FencelessPastures", path = "xml/pig00.xml" },
+    -- { modName = "FS25_FencelessPastures", path = "xml/pig01.xml" },
 }
 
 ECConfig.DEPOSIT_FRACTION = 0.10

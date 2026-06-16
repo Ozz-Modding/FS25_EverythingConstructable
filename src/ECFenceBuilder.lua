@@ -696,10 +696,16 @@ function ECFenceBuilder.buildPastureFence(project)
 
     local panelLength = ECFenceBuilder.getPanelLength(ECConfig.FENCE_PASTURE_SEGMENT_ID)
     local pieces = ECFenceBuilder.subdivideFenceData(project.husbandryFenceData, panelLength)
+    print(string.format("EC DEBUG buildPastureFence: templateId=%s panelLength=%.3f, %d source segments -> %d pieces",
+        tostring(templateId), panelLength, #project.husbandryFenceData, #pieces))
 
     local segments = {}
-    for _, piece in ipairs(pieces) do
-        if not ECFenceBuilder.segmentInsideSite(piece.sx, piece.sz, piece.ex, piece.ez, siteCorners) then
+    for pi, piece in ipairs(pieces) do
+        local pdx = piece.ex - piece.sx
+        local pdz = piece.ez - piece.sz
+        local plen = math.sqrt(pdx * pdx + pdz * pdz)
+        local insideSite = ECFenceBuilder.segmentInsideSite(piece.sx, piece.sz, piece.ex, piece.ez, siteCorners)
+        if not insideSite then
             local segment = fenceObj:createNewSegment(templateId)
             if segment ~= nil then
                 local sy = getTerrainHeightAtWorldPos(g_terrainNode, piece.sx, 0, piece.sz)
@@ -717,12 +723,22 @@ function ECFenceBuilder.buildPastureFence(project)
                     segment:setCollisionAreaDirty()
                     segment.notYetFinalized = nil
                     table.insert(segments, segment)
+                    local renderedLen = math.sqrt((segment.actualEndX - segment.startPosX)^2 + (segment.actualEndZ - segment.startPosZ)^2)
+                    print(string.format("EC DEBUG piece[%d]: req start=(%.2f,%.2f) end=(%.2f,%.2f) reqLen=%.2f renderedLen=%.2f KEPT",
+                        pi, piece.sx, piece.sz, piece.ex, piece.ez, plen, renderedLen))
                 else
                     segment:delete()
+                    print(string.format("EC DEBUG piece[%d]: start=(%.2f,%.2f) end=(%.2f,%.2f) len=%.2f DROPPED (actualEndX nil)",
+                        pi, piece.sx, piece.sz, piece.ex, piece.ez, plen))
                 end
+            else
+                print(string.format("EC DEBUG piece[%d]: len=%.2f DROPPED (createNewSegment nil)", pi, plen))
             end
+        else
+            print(string.format("EC DEBUG piece[%d]: len=%.2f SKIPPED (inside site)", pi, plen))
         end
     end
+    print(string.format("EC DEBUG buildPastureFence: placed %d segments total", #segments))
 
     if #segments > 0 then
         project.pastureFencePlaceable = fence
@@ -804,17 +820,21 @@ function ECFenceBuilder.subdivideFenceData(fenceData, panelLength)
         local dz = ez - sz
         local dist = math.sqrt(dx * dx + dz * dz)
 
-        if dist <= panelLength * 1.05 then
-            table.insert(pieces, {sx = sx, sz = sz, ex = ex, ez = ez})
+        if dist < 0.1 then
+            -- too short to render anything, skip
         else
-            local numPanels = math.max(1, math.floor(dist / panelLength + 0.5))
-            local stepX = dx / numPanels
-            local stepZ = dz / numPanels
+            -- Step in whole panel-length pieces. Each piece is exactly panelLength
+            -- so the fence renderer always draws a full panel (it draws nothing for
+            -- pieces shorter than ~panelLength * (2 - maxScale)). Use ceil so the
+            -- run slightly overshoots the segment end rather than leaving a gap.
+            local ux = dx / dist
+            local uz = dz / dist
+            local numPanels = math.max(1, math.ceil(dist / panelLength - 0.05))
             for i = 0, numPanels - 1 do
-                local px = sx + stepX * i
-                local pz = sz + stepZ * i
-                local qx = sx + stepX * (i + 1)
-                local qz = sz + stepZ * (i + 1)
+                local px = sx + ux * panelLength * i
+                local pz = sz + uz * panelLength * i
+                local qx = sx + ux * panelLength * (i + 1)
+                local qz = sz + uz * panelLength * (i + 1)
                 table.insert(pieces, {sx = px, sz = pz, ex = qx, ez = qz})
             end
         end
