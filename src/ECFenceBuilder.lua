@@ -696,16 +696,10 @@ function ECFenceBuilder.buildPastureFence(project)
 
     local panelLength = ECFenceBuilder.getPanelLength(ECConfig.FENCE_PASTURE_SEGMENT_ID)
     local pieces = ECFenceBuilder.subdivideFenceData(project.husbandryFenceData, panelLength)
-    print(string.format("EC DEBUG buildPastureFence: templateId=%s panelLength=%.3f, %d source segments -> %d pieces",
-        tostring(templateId), panelLength, #project.husbandryFenceData, #pieces))
 
     local segments = {}
-    for pi, piece in ipairs(pieces) do
-        local pdx = piece.ex - piece.sx
-        local pdz = piece.ez - piece.sz
-        local plen = math.sqrt(pdx * pdx + pdz * pdz)
-        local insideSite = ECFenceBuilder.segmentInsideSite(piece.sx, piece.sz, piece.ex, piece.ez, siteCorners)
-        if not insideSite then
+    for _, piece in ipairs(pieces) do
+        if not ECFenceBuilder.segmentInsideSite(piece.sx, piece.sz, piece.ex, piece.ez, siteCorners) then
             local segment = fenceObj:createNewSegment(templateId)
             if segment ~= nil then
                 local sy = getTerrainHeightAtWorldPos(g_terrainNode, piece.sx, 0, piece.sz)
@@ -723,22 +717,12 @@ function ECFenceBuilder.buildPastureFence(project)
                     segment:setCollisionAreaDirty()
                     segment.notYetFinalized = nil
                     table.insert(segments, segment)
-                    local renderedLen = math.sqrt((segment.actualEndX - segment.startPosX)^2 + (segment.actualEndZ - segment.startPosZ)^2)
-                    print(string.format("EC DEBUG piece[%d]: req start=(%.2f,%.2f) end=(%.2f,%.2f) reqLen=%.2f renderedLen=%.2f KEPT",
-                        pi, piece.sx, piece.sz, piece.ex, piece.ez, plen, renderedLen))
                 else
                     segment:delete()
-                    print(string.format("EC DEBUG piece[%d]: start=(%.2f,%.2f) end=(%.2f,%.2f) len=%.2f DROPPED (actualEndX nil)",
-                        pi, piece.sx, piece.sz, piece.ex, piece.ez, plen))
                 end
-            else
-                print(string.format("EC DEBUG piece[%d]: len=%.2f DROPPED (createNewSegment nil)", pi, plen))
             end
-        else
-            print(string.format("EC DEBUG piece[%d]: len=%.2f SKIPPED (inside site)", pi, plen))
         end
     end
-    print(string.format("EC DEBUG buildPastureFence: placed %d segments total", #segments))
 
     if #segments > 0 then
         project.pastureFencePlaceable = fence
