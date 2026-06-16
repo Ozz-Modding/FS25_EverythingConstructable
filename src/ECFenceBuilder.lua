@@ -825,11 +825,13 @@ function ECFenceBuilder.subdivideFenceData(fenceData, panelLength)
         else
             -- Step in whole panel-length pieces. Each piece is exactly panelLength
             -- so the fence renderer always draws a full panel (it draws nothing for
-            -- pieces shorter than ~panelLength * (2 - maxScale)). Use ceil so the
-            -- run slightly overshoots the segment end rather than leaving a gap.
+            -- pieces shorter than ~panelLength * (2 - maxScale)). Round the panel
+            -- count so the run ends within half a panel of the true endpoint --
+            -- this keeps overshoot small at sharp corners instead of overlapping
+            -- a full panel into the next segment.
             local ux = dx / dist
             local uz = dz / dist
-            local numPanels = math.max(1, math.ceil(dist / panelLength - 0.05))
+            local numPanels = math.max(1, math.floor(dist / panelLength + 0.5))
             for i = 0, numPanels - 1 do
                 local px = sx + ux * panelLength * i
                 local pz = sz + uz * panelLength * i
