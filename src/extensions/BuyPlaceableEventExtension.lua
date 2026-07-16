@@ -6,7 +6,8 @@ BuyPlaceableEvent.run = Utils.overwrittenFunction(BuyPlaceableEvent.run, functio
         return
     end
 
-    if self.buyData == nil or not self.buyData:isValid() then
+    local buyData = self.placeableBuyData
+    if buyData == nil or not buyData:isValid() then
         superFunc(self, connection)
         return
     end
@@ -16,25 +17,25 @@ BuyPlaceableEvent.run = Utils.overwrittenFunction(BuyPlaceableEvent.run, functio
         return
     end
 
-    if not ECConfig.shouldApplyConstruction(self.buyData.storeItem, nil) then
+    if not ECConfig.shouldApplyConstruction(buyData.storeItem, nil) then
         superFunc(self, connection)
         return
     end
 
-    local depositAmount = ECConfig.getDepositAmount(self.buyData.price)
-    local displacementCosts = self.buyData.displacementCosts or 0
+    local depositAmount = ECConfig.getDepositAmount(buyData.price)
+    local displacementCosts = buyData.displacementCosts or 0
     local requiredMoney = depositAmount + displacementCosts
 
-    local farm = g_farmManager:getFarmById(self.buyData.ownerFarmId)
+    local farm = g_farmManager:getFarmById(buyData.ownerFarmId)
     if farm == nil then
         superFunc(self, connection)
         return
     end
 
-    if not self.buyData.isFreeOfCharge and farm.money < requiredMoney then
-        superFunc(self, connection)
+    if not buyData.isFreeOfCharge and farm.money < requiredMoney then
+        connection:sendEvent(BuyPlaceableEvent.newServerToClient(BuyPlaceableEvent.STATE_NOT_ENOUGH_MONEY, buyData))
         return
     end
 
-    self.buyData:buy(self.onPlaceableBoughtCallback, self, {connection})
+    buyData:buy(self.onPlaceableBoughtCallback, self, {["connection"] = connection})
 end)

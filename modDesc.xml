@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="109">
+<modDesc descVersion="110">
     <author>Ozz</author>
-    <version>1.0.0.0</version>
+    <version>1.0.0.1</version>
     <iconFilename>icon_EverythingConstructable.dds</iconFilename>
     <title>
         <en>Everything Constructable</en>
@@ -21,6 +21,11 @@ Fully supports multiplayer. Excludes base game simple pastures and those in FS25
 
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
+Changelog:
+
+1.0.0.1:
+- Fix a bug where you couldn't place a building site if you didn't have the full project cost.
+
 ]]></en>
     <de><![CDATA[Alles Baubar
 
@@ -34,6 +39,11 @@ Unterstützt Multiplayer vollständig. Schließt die Basis-Spiel-einfachen Weide
 
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
+Änderungsliste:
+
+1.0.0.1:
+- Behebung eines Fehlers, bei dem ein Bauprojekt nicht platziert werden konnte, wenn das Guthaben nicht für die vollen Projektkosten ausreichte.
+
 ]]></de>
     <fr><![CDATA[Tout Constructible
 
@@ -46,6 +56,11 @@ Vous pouvez mettre un projet en pause si vous souhaitez attendre et fournir des 
 Prise en charge complète du multijoueur. Exclut les pâturages simples du jeu de base et ceux de FS25_FencelessPastures.
 
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
+
+Journal des modifications:
+
+1.0.0.1:
+- Correction d'un bug empêchant la pose d'un chantier lorsque le solde ne couvrait pas le coût total du projet.
 
 ]]></fr>
     </description>
