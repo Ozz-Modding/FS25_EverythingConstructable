@@ -146,7 +146,7 @@ function EverythingConstructable:consoleFinishPhase(projectId)
         return "Project completed: " .. project:getStoreItemName()
     else
         project.currentPhaseIndex = project.currentPhaseIndex + 1
-        if project.currentPhaseIndex >= 2 and project.innerFenceSegments == nil then
+        if project.currentPhaseIndex >= 2 and project.innerFencePanelNodes == nil then
             ECFenceBuilder.buildInnerFence(project)
         end
         ECSiteDecorator.decorate(project)
