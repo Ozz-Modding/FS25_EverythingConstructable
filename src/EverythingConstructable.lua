@@ -21,8 +21,55 @@ function EverythingConstructable:loadMap()
     end
 end
 
+function EverythingConstructable:migrateLegacyFencePlaceable()
+    local fenceXml = EverythingConstructable.dir .. "assets/fence/ec_fence.xml"
+    local storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
+    if storeItem == nil then return end
+
+    local oldFence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(storeItem.xmlFilename)
+    if oldFence == nil or oldFence.spec_newFence == nil then return end
+
+    local fenceObj = oldFence:getFence()
+    if fenceObj == nil then return end
+
+    local toRemove = {}
+    for _, project in pairs(g_currentMission.ecProjectManager.projects) do
+        if not project.completed then
+            local corners = ECFenceBuilder.calculateCorners(project)
+            if corners ~= nil then
+                for _, segment in ipairs(fenceObj:getSegments()) do
+                    if not table.hasElement(toRemove, segment) then
+                        local sx, _, sz = segment:getStartPos()
+                        local ex, _, ez = segment:getEndPos()
+                        for i = 1, 4 do
+                            local nextI = (i % 4) + 1
+                            local cx1, cz1 = corners[i][1], corners[i][2]
+                            local cx2, cz2 = corners[nextI][1], corners[nextI][2]
+                            local matchFwd = math.abs(sx-cx1)<0.5 and math.abs(sz-cz1)<0.5 and math.abs(ex-cx2)<0.5 and math.abs(ez-cz2)<0.5
+                            local matchRev = math.abs(sx-cx2)<0.5 and math.abs(sz-cz2)<0.5 and math.abs(ex-cx1)<0.5 and math.abs(ez-cz1)<0.5
+                            if matchFwd or matchRev then
+                                table.insert(toRemove, segment)
+                                break
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    for i = #toRemove, 1, -1 do
+        fenceObj:removeSegment(toRemove[i])
+        toRemove[i]:delete()
+    end
+end
+
 function EverythingConstructable:onStartMission()
     local isServer = g_currentMission:getIsServer()
+
+    if isServer then
+        self:migrateLegacyFencePlaceable()
+    end
 
     for _, project in pairs(g_currentMission.ecProjectManager.projects) do
         if not project.completed then

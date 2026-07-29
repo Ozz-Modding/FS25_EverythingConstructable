@@ -369,6 +369,12 @@ function ECProjectManager:readInitialClientState(streamId, connection)
         local project = ECProject.readStream(streamId)
         if project ~= nil then
             self.projects[project.id] = project
+            ECFenceBuilder.buildFence(project)
+            if project.currentPhaseIndex >= 2 then
+                ECFenceBuilder.buildInnerFence(project)
+            end
+            ECFenceBuilder.buildPastureFence(project)
+            table.insert(self.pendingDecorations, project)
             self:setupClientProject(project)
         end
     end
