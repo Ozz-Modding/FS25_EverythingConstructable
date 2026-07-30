@@ -21,6 +21,7 @@ function EverythingConstructable:loadMap()
     end
 end
 
+-- TODO: remove this function down the road after a few months
 function EverythingConstructable:migrateLegacyFencePlaceable()
     local fenceXml = EverythingConstructable.dir .. "assets/fence/ec_fence.xml"
     local storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
@@ -32,25 +33,33 @@ function EverythingConstructable:migrateLegacyFencePlaceable()
     local fenceObj = oldFence:getFence()
     if fenceObj == nil then return end
 
+    local function matchesEdge(sx, sz, ex, ez, corners)
+        for i = 1, 4 do
+            local nextI = (i % 4) + 1
+            local cx1, cz1 = corners[i][1], corners[i][2]
+            local cx2, cz2 = corners[nextI][1], corners[nextI][2]
+            local matchFwd = math.abs(sx-cx1)<0.5 and math.abs(sz-cz1)<0.5 and math.abs(ex-cx2)<0.5 and math.abs(ez-cz2)<0.5
+            local matchRev = math.abs(sx-cx2)<0.5 and math.abs(sz-cz2)<0.5 and math.abs(ex-cx1)<0.5 and math.abs(ez-cz1)<0.5
+            if matchFwd or matchRev then
+                return true
+            end
+        end
+        return false
+    end
+
     local toRemove = {}
     for _, project in pairs(g_currentMission.ecProjectManager.projects) do
         if not project.completed then
-            local corners = ECFenceBuilder.calculateCorners(project)
-            if corners ~= nil then
+            local outerCorners = ECFenceBuilder.calculateCorners(project)
+            local innerCorners = ECFenceBuilder.calculateInnerCorners(project)
+            if outerCorners ~= nil or innerCorners ~= nil then
                 for _, segment in ipairs(fenceObj:getSegments()) do
                     if not table.hasElement(toRemove, segment) then
                         local sx, _, sz = segment:getStartPos()
                         local ex, _, ez = segment:getEndPos()
-                        for i = 1, 4 do
-                            local nextI = (i % 4) + 1
-                            local cx1, cz1 = corners[i][1], corners[i][2]
-                            local cx2, cz2 = corners[nextI][1], corners[nextI][2]
-                            local matchFwd = math.abs(sx-cx1)<0.5 and math.abs(sz-cz1)<0.5 and math.abs(ex-cx2)<0.5 and math.abs(ez-cz2)<0.5
-                            local matchRev = math.abs(sx-cx2)<0.5 and math.abs(sz-cz2)<0.5 and math.abs(ex-cx1)<0.5 and math.abs(ez-cz1)<0.5
-                            if matchFwd or matchRev then
-                                table.insert(toRemove, segment)
-                                break
-                            end
+                        if (outerCorners ~= nil and matchesEdge(sx, sz, ex, ez, outerCorners))
+                            or (innerCorners ~= nil and matchesEdge(sx, sz, ex, ez, innerCorners)) then
+                            table.insert(toRemove, segment)
                         end
                     end
                 end
