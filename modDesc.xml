@@ -25,6 +25,7 @@ Changelog:
 
 1.0.0.2:
 - Reworked construction site fences to use direct i3d placement, resolving multiplayer sync errors that caused missing fences and stream errors when placing sites.
+- Add CZ translation file thanks to tomyasx.
 
 1.0.0.1:
 - Fix a bug where you couldn't place a building site if you didn't have the full project cost.

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <translationContributors/>
+    <texts>
+        <text name="ec_constructionSite" text="Staveniště"/>
+        <text name="ec_action_viewConstruction" text="Zobrazit stavbu"/>
+        <text name="ec_phase" text="Fáza %d z %d"/>
+        <text name="ec_mode_automatic" text="Automaticky"/>
+        <text name="ec_mode_paused" text="Pozastaveno"/>
+        <text name="ec_deposit" text="Záloha"/>
+        <text name="ec_labourCost" text="Práce (za fázi)"/>
+        <text name="ec_phaseCosts" text="Náklady fáze"/>
+        <text name="ec_materialSaved" text="Úspora materiálu"/>
+        <text name="ec_totalPaid" text="Celkem zaplaceno"/>
+        <text name="ec_totalRemaining" text="Celkem zbývá"/>
+        <text name="ec_materialsSupplyable" text="Dodavatelné materiály"/>
+        <text name="ec_materialsSupplyHint" text="Materiály dodáš tak, že je přivezeš ke stavebnímu plotu."/>
+        <text name="ec_allMaterialsSupplied" text="Všechny materiály byly dodány."/>
+        <text name="ec_resourcesDelivered" text="Dodáno"/>
+        <text name="ec_progress" text="Postup"/>
+        <text name="ec_cancel" text="Zrušit projekt"/>
+        <text name="ec_cancelConfirm" text="Zrušit tento stavební projekt? Dostaneš zpět %d%% ze sumy zaplacené doteď."/>
+        <text name="ec_cancelled" text="Stavební projekt zrušen. Vrácená suma: %s"/>
+        <text name="ec_completed" text="Stavba dokončena: %s"/>
+        <text name="ec_phaseAdvanced" text="Stavební fáze %d dokončena pro %s"/>
+        <text name="ec_paused" text="Stavba pozastavena (nedostatek peněz)"/>
+        <text name="ec_switchMode" text="Změnit režim"/>
+        <text name="ec_pauseProject" text="POZASTAVIT PROJEKT"/>
+        <text name="ec_continueProject" text="POKRAČOVAT V PROJEKTU"/>
+        <text name="ec_modeChanged" text="Režim stavby změněn na: %s"/>
+        <text name="ec_close" text="Zavřít"/>
+        <text name="ec_buildingName" text="Budova"/>
+        <text name="ec_monthsRemaining" text="Zbývající měsíce"/>
+        <text name="ec_status_active" text="Aktivní"/>
+        <text name="ec_status_paused" text="Pozastavené"/>
+        <text name="ec_setting_disabled" text="Vypnuto"/>
+        <text name="ec_setting_enabled" text="Zapnuto"/>
+        <text name="setting_ec_section" text="Všechno postavitelné"/>
+        <text name="setting_ec_constructionEnabled" text="Stavební projekty"/>
+        <text name="setting_ec_constructionEnabled_tooltip" text="Když je zapnuto, umístění budovy vytvoří vícefázový stavební projekt. Když je vypnuto, budovy se umísťují okamžitě jako v základní hře."/>
+        <text name="setting_ec_labourFraction" text="Podíl ceny práce"/>
+        <text name="setting_ec_labourFraction_tooltip" text="Procento celkové ceny budovy určené na práci. Záloha se odečte z této sumy a zbytek se platí během stavebních fází. Vyšší hodnota znamená méně potřebného materiálu, ale více přímých peněžních nákladů."/>
+        <text name="setting_ec_materialSupplyBonus" text="Bonus za dodání materiálu"/>
+        <text name="setting_ec_materialSupplyBonus_tooltip" text="Bonus při dodání materiálů vlastními silami. Vyšší bonus znamená, že na pokrytí ceny materiálu je potřeba méně materiálu."/>
+        <text name="ec_cannotDeleteFence" text="Stavební ploty nelze odstranit, dokud je projekt aktivní."/>
+        <text name="permission_ec_ecSettings" text="Měnit nastavení stavby"/>
+        <text name="ec_brush_initial" text="počáteční"/>
+        <text name="ec_brush_duration" text="Trvání:"/>
+        <text name="ec_brush_months" text="%d měsíců"/>
+        <text name="setting_ec_resourceWeight_BOARDS" text="Podíl rozpočtu: dlouhá prkna"/>
+        <text name="setting_ec_resourceWeight_BOARDS_tooltip" text="Kolik materiálového rozpočtu pokrývají dlouhá prkna. Vyšší hodnota znamená větší podíl celkové ceny v dlouhých prknech. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_PLANKS" text="Podíl rozpočtu: prkna"/>
+        <text name="setting_ec_resourceWeight_PLANKS_tooltip" text="Kolik materiálového rozpočtu pokrývají prkna. Vyšší hodnota znamená větší podíl celkové ceny v prknech. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_WOODBEAM" text="Podíl rozpočtu: dřevěné trámy"/>
+        <text name="setting_ec_resourceWeight_WOODBEAM_tooltip" text="Kolik materiálového rozpočtu pokrývají dřevěné trámy. Vyšší hodnota znamená větší podíl celkové ceny v trámech. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_CEMENT" text="Podíl rozpočtu: cement"/>
+        <text name="setting_ec_resourceWeight_CEMENT_tooltip" text="Kolik materiálového rozpočtu pokrývá cement. Vyšší hodnota znamená větší podíl celkové ceny v cementu. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_PREFABWALL" text="Podíl rozpočtu: prefabrikované stěny"/>
+        <text name="setting_ec_resourceWeight_PREFABWALL_tooltip" text="Kolik materiálového rozpočtu pokrývají prefabrikované stěny. Vyšší hodnota znamená větší podíl celkové ceny v prefabrikátech. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS" text="Podíl rozpočtu: cementové cihly"/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Kolik materiálového rozpočtu pokrývají cementové cihly. Vyšší hodnota znamená větší podíl celkové ceny v cementových cihlách. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES" text="Podíl rozpočtu: střešní krytina"/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Kolik materiálového rozpočtu pokrývá střešní krytina. Vyšší hodnota znamená větší podíl celkové ceny ve střešní krytině. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_WATER" text="Podíl rozpočtu: voda"/>
+        <text name="setting_ec_resourceWeight_WATER_tooltip" text="Kolik materiálového rozpočtu pokrývá voda. Vyšší hodnota znamená větší podíl celkové ceny ve vodě. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_CONSTRUCTIONGRAVEL" text="Podíl rozpočtu: stavební štěrk"/>
+        <text name="setting_ec_resourceWeight_CONSTRUCTIONGRAVEL_tooltip" text="Kolik materiálového rozpočtu pokrývá stavební štěrk. Vyšší hodnota znamená větší podíl celkové ceny ve stavebním štěrku. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_GRAVEL" text="Podíl rozpočtu: štěrk"/>
+        <text name="setting_ec_resourceWeight_GRAVEL_tooltip" text="Kolik materiálového rozpočtu pokrývá štěrk. Vyšší hodnota znamená větší podíl celkové ceny ve štěrku. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_STONE" text="Podíl rozpočtu: kameny"/>
+        <text name="setting_ec_resourceWeight_STONE_tooltip" text="Kolik materiálového rozpočtu pokrývají kameny. Vyšší hodnota znamená větší podíl celkové ceny v kamenech. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_resourceWeight_CRUSHEDSTONE" text="Podíl rozpočtu: drcené kameny"/>
+        <text name="setting_ec_resourceWeight_CRUSHEDSTONE_tooltip" text="Kolik materiálového rozpočtu pokrývají drcené kameny. Vyšší hodnota znamená větší podíl celkové ceny v drcených kamenech. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="ec_fillType_BOARDS" text="Dlouhá prkna"/>
+        <text name="ec_fillType_PLANKS" text="Prkna"/>
+        <text name="ec_fillType_ROOFPLATES" text="Střešní krytina"/>
+        <text name="ec_fillType_WATER" text="Voda"/>
+        <text name="ec_fillType_CONSTRUCTIONGRAVEL" text="Stavební štěrk"/>
+        <text name="ec_fillType_GRAVEL" text="Štěrk"/>
+        <text name="ec_fillType_CRUSHEDSTONE" text="Drcené kameny"/>
+        <text name="ec_fillType_STONE" text="Kameny"/>
+    </texts>
+</l10n>
