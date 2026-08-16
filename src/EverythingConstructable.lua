@@ -22,54 +22,23 @@ function EverythingConstructable:loadMap()
 end
 
 -- TODO: remove this function down the road after a few months
+-- Pre-1.0.0.3 built the outer, inner and pasture site fences as segments on a hidden
+-- `ec_fence` newFence placeable. Those segments are persisted with the map, the pasture
+-- ones were re-created on every load (so duplicates piled up and completion only removed
+-- the last set), and `ec_fence` has showInStore=false so it never reaches the construction
+-- brush. Anything still on that placeable is therefore mod-created leftovers with no way
+-- for the player to remove it -- drop the whole placeable.
 function EverythingConstructable:migrateLegacyFencePlaceable()
     local fenceXml = EverythingConstructable.dir .. "assets/fence/ec_fence.xml"
     local storeItem = g_storeManager:getItemByXMLFilename(fenceXml)
     if storeItem == nil then return end
 
-    local oldFence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(storeItem.xmlFilename)
-    if oldFence == nil or oldFence.spec_newFence == nil then return end
-
-    local fenceObj = oldFence:getFence()
-    if fenceObj == nil then return end
-
-    local function matchesEdge(sx, sz, ex, ez, corners)
-        for i = 1, 4 do
-            local nextI = (i % 4) + 1
-            local cx1, cz1 = corners[i][1], corners[i][2]
-            local cx2, cz2 = corners[nextI][1], corners[nextI][2]
-            local matchFwd = math.abs(sx-cx1)<0.5 and math.abs(sz-cz1)<0.5 and math.abs(ex-cx2)<0.5 and math.abs(ez-cz2)<0.5
-            local matchRev = math.abs(sx-cx2)<0.5 and math.abs(sz-cz2)<0.5 and math.abs(ex-cx1)<0.5 and math.abs(ez-cz1)<0.5
-            if matchFwd or matchRev then
-                return true
-            end
+    for _ = 1, 16 do
+        local oldFence = g_currentMission.placeableSystem:getExistingPlaceableByXMLFilename(storeItem.xmlFilename)
+        if oldFence == nil then
+            return
         end
-        return false
-    end
-
-    local toRemove = {}
-    for _, project in pairs(g_currentMission.ecProjectManager.projects) do
-        if not project.completed then
-            local outerCorners = ECFenceBuilder.calculateCorners(project)
-            local innerCorners = ECFenceBuilder.calculateInnerCorners(project)
-            if outerCorners ~= nil or innerCorners ~= nil then
-                for _, segment in ipairs(fenceObj:getSegments()) do
-                    if not table.hasElement(toRemove, segment) then
-                        local sx, _, sz = segment:getStartPos()
-                        local ex, _, ez = segment:getEndPos()
-                        if (outerCorners ~= nil and matchesEdge(sx, sz, ex, ez, outerCorners))
-                            or (innerCorners ~= nil and matchesEdge(sx, sz, ex, ez, innerCorners)) then
-                            table.insert(toRemove, segment)
-                        end
-                    end
-                end
-            end
-        end
-    end
-
-    for i = #toRemove, 1, -1 do
-        fenceObj:removeSegment(toRemove[i])
-        toRemove[i]:delete()
+        oldFence:delete()
     end
 end
 

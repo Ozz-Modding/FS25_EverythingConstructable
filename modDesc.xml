@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="111">
     <author>Ozz</author>
-    <version>1.0.0.2</version>
+    <version>1.0.0.3</version>
     <iconFilename>icon_EverythingConstructable.dds</iconFilename>
     <title>
         <en>Everything Constructable</en>
@@ -22,6 +22,9 @@ Fully supports multiplayer. Excludes base game simple pastures and those in FS25
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
 Changelog:
+
+1.0.0.3:
+- Fix an issue with temporary husbandry fences left over from earlier version of the mod.
 
 1.0.0.2:
 - Reworked construction site fences to use direct i3d placement, resolving multiplayer sync errors that caused missing fences and stream errors when placing sites.
@@ -45,6 +48,9 @@ Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
 Änderungsliste:
 
+1.0.0.3:
+- Behebung eines Problems mit temporären Tierhaltungs-Zäunen, die von einer früheren Version des Mods übrig geblieben sind.
+
 1.0.0.2:
 - Baustellen-Zäune wurden auf direkte i3d-Platzierung umgestellt, wodurch Multiplayer-Synchronisationsfehler behoben wurden, die zu fehlenden Zäunen und Stream-Fehlern beim Platzieren von Baustellen führten.
 
@@ -65,6 +71,9 @@ Prise en charge complète du multijoueur. Exclut les pâturages simples du jeu d
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
 Journal des modifications:
+
+1.0.0.3:
+- Correction d'un problème avec les clôtures d'élevage temporaires laissées par une version antérieure du mod.
 
 1.0.0.2:
 - Les clôtures de chantier ont été refactorisées pour utiliser un placement direct en i3d, corrigeant des erreurs de synchronisation multijoueur qui causaient des clôtures manquantes et des erreurs de flux lors de la pose de chantiers.
