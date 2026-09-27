@@ -61,5 +61,7 @@
         <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="How much of the material budget is covered by Cement Bricks. Higher values mean more of the total cost is covered by Cement Bricks. Set to 0 to exclude. If all are 0, the budget is split equally."/>
         <text name="setting_ec_resourceWeight_ROOFPLATES" text="Roof Plates Budget Share"/>
         <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="How much of the material budget is covered by Roof Plates. Higher values mean more of the total cost is covered by Roof Plates. Set to 0 to exclude. If all are 0, the budget is split equally."/>
+        <text name="setting_ec_easterEggSounds" text="Site Easter Egg Sounds"/>
+        <text name="setting_ec_easterEggSounds_tooltip" text="Plays the occasional voice line when you walk near a construction site. Background construction noise is not affected. This is a personal setting and only applies to you."/>
     </texts>
 </l10n>

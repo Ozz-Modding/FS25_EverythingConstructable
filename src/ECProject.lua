@@ -90,8 +90,7 @@ function ECProject:trimMaterials()
     for _, mat in ipairs(self.materials) do
         local remaining = mat.amount - mat.delivered
         if remaining > 0 then
-            local fillType = g_fillTypeManager:getFillTypeByIndex(mat.fillTypeIndex)
-            local pricePerUnit = (fillType ~= nil) and (fillType.pricePerLiter or 0) or 0
+            local pricePerUnit = ECConfig.getMaterialUnitValue(mat.fillTypeIndex)
             if pricePerUnit > 0 then
                 local maxAffordable = math.floor(remainingBudget / pricePerUnit)
                 local cap = mat.delivered + math.min(remaining, maxAffordable)

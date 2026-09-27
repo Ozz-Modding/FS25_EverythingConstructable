@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <translationContributors>Myiamoto86</translationContributors>
+    <texts>
+        <text name="ec_constructionSite" text="Canteiro de Obras"/>
+        <text name="ec_action_viewConstruction" text="Ver Construção"/>
+        <text name="ec_phase" text="Fase %d de %d"/>
+        <text name="ec_mode_automatic" text="Automático"/>
+        <text name="ec_mode_paused" text="Pausado"/>
+        <text name="ec_deposit" text="Depósito"/>
+        <text name="ec_labourCost" text="Mão de obra (por fase)"/>
+        <text name="ec_phaseCosts" text="Custos da Fase"/>
+        <text name="ec_materialSaved" text="Economia de Material"/>
+        <text name="ec_totalPaid" text="Total Pago"/>
+        <text name="ec_totalRemaining" text="Total Restante"/>
+        <text name="ec_materialsSupplyable" text="Materiais Fornecíveis"/>
+        <text name="ec_materialsSupplyHint" text="Para fornecer materiais, leve-os até a cerca."/>
+        <text name="ec_allMaterialsSupplied" text="Todos os materiais foram fornecidos."/>
+        <text name="ec_resourcesDelivered" text="Entregue"/>
+        <text name="ec_progress" text="Progresso"/>
+        <text name="ec_cancel" text="Cancelar Projeto"/>
+        <text name="ec_cancelConfirm" text="Cancelar este projeto de construção? Você receberá um reembolso de %d%% do valor pago até o momento."/>
+        <text name="ec_cancelled" text="Projeto de construção cancelado. Reembolso: %s"/>
+        <text name="ec_completed" text="Construção concluída: %s"/>
+        <text name="ec_phaseAdvanced" text="Fase %d da construção concluída por %s"/>
+        <text name="ec_paused" text="Construção pausada (fundos insuficientes)"/>
+        <text name="ec_switchMode" text="Alternar Modo"/>
+        <text name="ec_pauseProject" text="PAUSAR PROJETO"/>
+        <text name="ec_continueProject" text="CONTINUAR PROJETO"/>
+        <text name="ec_modeChanged" text="Modo de construção alterado para: %s"/>
+        <text name="ec_close" text="Fechar"/>
+        <text name="ec_buildingName" text="Edifício"/>
+        <text name="ec_monthsRemaining" text="Meses Restantes"/>
+        <text name="ec_status_active" text="Ativo"/>
+        <text name="ec_status_paused" text="Pausado"/>
+        <text name="ec_setting_disabled" text="Desativado"/>
+        <text name="ec_setting_enabled" text="Ativado"/>
+        <text name="setting_ec_section" text="Tudo construível"/>
+        <text name="setting_ec_constructionEnabled" text="Projetos de Construção"/>
+        <text name="setting_ec_constructionEnabled_tooltip" text="Quando ativado, colocar edifícios cria um projeto de construção em várias fases. Quando desativado, os edifícios são colocados instantaneamente como no jogo base."/>
+        <text name="setting_ec_labourFraction" text="Fração de Custo de Mão de Obra"/>
+        <text name="setting_ec_labourFraction_tooltip" text="Percentual do custo total do edifício destinado à mão de obra. O depósito é deduzido deste valor, e o restante é pago ao longo das fases de construção. Valores mais altos significam que menos material é necessário, mas mais dinheiro é gasto diretamente."/>
+        <text name="setting_ec_materialSupplyBonus" text="Bônus de Fornecimento de Material"/>
+        <text name="setting_ec_materialSupplyBonus_tooltip" text="Bônus aplicado quando você fornece os materiais por conta própria. Um bônus mais alto significa que menos materiais são necessários para cobrir o custo do material."/>
+        <text name="ec_cannotDeleteFence" text="Cercas de construção não podem ser removidas enquanto um projeto está ativo."/>
+        <text name="permission_ec_ecSettings" text="Alterar Configurações de Construção"/>
+        <text name="ec_brush_initial" text="inicial"/>
+        <text name="ec_brush_duration" text="Duração:"/>
+        <text name="ec_brush_months" text="%d meses"/>
+        <text name="setting_ec_resourceWeight_BOARDS" text="Participação de Tábuas no Orçamento"/>
+        <text name="setting_ec_resourceWeight_BOARDS_tooltip" text="Quanto do orçamento de material é coberto por Tábuas. Valores mais altos significam que uma parcela maior do custo total é coberta por Tábuas. Defina como 0 para excluir. Se todos forem 0, o orçamento será dividido igualmente."/>
+        <text name="setting_ec_resourceWeight_PLANKS" text="Participação de Pranchas no Orçamento"/>
+        <text name="setting_ec_resourceWeight_PLANKS_tooltip" text="Quanto do orçamento de material é coberto por Pranchas. Valores mais altos significam que uma parcela maior do custo total é coberta por Pranchas. Defina como 0 para excluir. Se todos forem 0, o orçamento será dividido igualmente."/>
+        <text name="setting_ec_resourceWeight_WOODBEAM" text="Participação de Vigas de Madeira no Orçamento"/>
+        <text name="setting_ec_resourceWeight_WOODBEAM_tooltip" text="Quanto do orçamento de material é coberto por Vigas de Madeira. Valores mais altos significam que uma parcela maior do custo total é coberta por Vigas de Madeira. Defina como 0 para excluir. Se todos forem 0, o orçamento será dividido igualmente."/>
+        <text name="setting_ec_resourceWeight_CEMENT" text="Participação de Cimento no Orçamento"/>
+        <text name="setting_ec_resourceWeight_CEMENT_tooltip" text="Quanto do orçamento de material é coberto por Cimento. Valores mais altos significam que uma parcela maior do custo total é coberta por Cimento. Defina como 0 para excluir. Se todos forem 0, o orçamento será dividido igualmente."/>
+        <text name="setting_ec_resourceWeight_PREFABWALL" text="Participação de Paredes Pré-fabricadas no Orçamento"/>
+        <text name="setting_ec_resourceWeight_PREFABWALL_tooltip" text="Quanto do orçamento de material é coberto por Paredes Pré-fabricadas. Valores mais altos significam que uma parcela maior do custo total é coberta por Paredes Pré-fabricadas. Defina como 0 para excluir. Se todos forem 0, o orçamento será dividido igualmente."/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS" text="Participação de Tijolos de Cimento no Orçamento"/>
+        <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Quanto do orçamento de material é coberto por Tijolos de Cimento. Valores mais altos significam que uma parcela maior do custo total é coberta por Tijolos de Cimento. Defina como 0 para excluir. Se todos forem 0, o orçamento será dividido igualmente."/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES" text="Participação de Chapas de Telhado no Orçamento"/>
+        <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Quanto do orçamento de material é coberto por Chapas de Telhado. Valores mais altos significam que uma parcela maior do custo total é coberta por Chapas de Telhado. Defina como 0 para excluir. Se todos forem 0, o orçamento será dividido igualmente."/>
+        <text name="setting_ec_easterEggSounds" text="Sons Easter Egg do Canteiro"/>
+        <text name="setting_ec_easterEggSounds_tooltip" text="Reproduz ocasionalmente falas quando você caminha perto de um canteiro de obras. O ruído de fundo da construção não é afetado. Esta é uma configuração pessoal e se aplica apenas a você."/>
+    </texts>
+</l10n>

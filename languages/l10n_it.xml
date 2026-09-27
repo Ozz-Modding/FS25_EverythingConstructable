@@ -61,5 +61,7 @@
         <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Quanto del budget materiali è coperto dai Mattoni in cemento. Valori più alti significano che una maggiore parte del costo totale è coperta dai Mattoni in cemento. Imposta 0 per escludere. Se tutti sono 0, il budget è diviso equamente."/>
         <text name="setting_ec_resourceWeight_ROOFPLATES" text="Quota budget tegole"/>
         <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Quanto del budget materiali è coperto dalle Tegole. Valori più alti significano che una maggiore parte del costo totale è coperta dalle Tegole. Imposta 0 per escludere. Se tutti sono 0, il budget è diviso equamente."/>
+        <text name="setting_ec_easterEggSounds" text="Suoni easter egg del cantiere"/>
+        <text name="setting_ec_easterEggSounds_tooltip" text="Riproduce occasionalmente delle battute quando ti avvicini a un cantiere. I rumori di sottofondo del cantiere non vengono influenzati. Questa impostazione è personale e vale solo per te."/>
     </texts>
 </l10n>

@@ -12,7 +12,10 @@ ECSettings.menuItems = {
     'resourceWeight_PREFABWALL',
     'resourceWeight_CEMENTBRICKS',
     'resourceWeight_ROOFPLATES',
+    'easterEggSounds',
 }
+
+ECSettings.LOCAL_SETTINGS_FILE = "modSettings/EverythingConstructable.xml"
 
 ECSettings.multiplayerPermissions = {
     'ecSettings'
@@ -27,6 +30,17 @@ ECSettings.SETTINGS.constructionEnabled = {
     ['default'] = 2,
     ['serverOnly'] = true,
     ['permission'] = 'ecSettings',
+    ['values'] = { false, true },
+    ['strings'] = {
+        g_i18n:getText("ec_setting_disabled"),
+        g_i18n:getText("ec_setting_enabled")
+    }
+}
+
+-- Per-player preference: not synced, saved to the player's modSettings folder
+ECSettings.SETTINGS.easterEggSounds = {
+    ['default'] = 2,
+    ['localOnly'] = true,
     ['values'] = { false, true },
     ['strings'] = {
         g_i18n:getText("ec_setting_disabled"),
@@ -120,10 +134,43 @@ ECSettings.current = {
     resourceWeight_PREFABWALL = 1,
     resourceWeight_CEMENTBRICKS = 1,
     resourceWeight_ROOFPLATES = 1,
+    easterEggSounds = true,
 }
 
 function ECSettings.getValue(id)
     return ECSettings.current[id]
+end
+
+function ECSettings.loadLocalSettings()
+    local filePath = getUserProfileAppPath() .. ECSettings.LOCAL_SETTINGS_FILE
+    if not fileExists(filePath) then
+        return
+    end
+
+    local xmlFile = loadXMLFile("EverythingConstructableLocal", filePath)
+    if xmlFile == 0 then
+        return
+    end
+
+    local easterEggSounds = getXMLBool(xmlFile, "EverythingConstructable.settings#easterEggSounds")
+    if easterEggSounds ~= nil then
+        ECSettings.current.easterEggSounds = easterEggSounds
+    end
+
+    delete(xmlFile)
+end
+
+function ECSettings.saveLocalSettings()
+    createFolder(getUserProfileAppPath() .. "modSettings")
+    local filePath = getUserProfileAppPath() .. ECSettings.LOCAL_SETTINGS_FILE
+    local xmlFile = createXMLFile("EverythingConstructableLocal", filePath, "EverythingConstructable")
+    if xmlFile == 0 then
+        return
+    end
+
+    setXMLBool(xmlFile, "EverythingConstructable.settings#easterEggSounds", ECSettings.current.easterEggSounds)
+    saveXMLFile(xmlFile)
+    delete(xmlFile)
 end
 
 function ECSettings.getStateIndex(id, value)
@@ -158,6 +205,14 @@ function ECSettingsControls.onMenuOptionChanged(self, state, menuOption)
 
     if value ~= nil then
         ECSettings.current[id] = value
+    end
+
+    if setting[id].localOnly then
+        if id == 'easterEggSounds' and not value then
+            ECSiteSound.stopAll()
+        end
+        ECSettings.saveLocalSettings()
+        return
     end
 
     g_client:getServerConnection():sendEvent(ECSettingsEvent.new())
@@ -274,7 +329,9 @@ function ECSettings.addSettingsToMenu()
             local menuOption = ECSettings.CONTROLS[id]
             menuOption:setState(ECSettings.getStateIndex(id))
 
-            if ECSettings.SETTINGS[id].serverOnly and g_server == nil then
+            if ECSettings.SETTINGS[id].localOnly then
+                menuOption:setDisabled(false)
+            elseif ECSettings.SETTINGS[id].serverOnly and g_server == nil then
                 menuOption:setDisabled(not isAdmin)
             else
                 local permission = ECSettings.SETTINGS[id].permission

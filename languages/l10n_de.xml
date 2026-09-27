@@ -61,5 +61,7 @@
         <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Wie viel des Materialbudgets durch Ziegelsteine gedeckt wird. Höhere Werte bedeuten, dass mehr der Gesamtkosten durch Ziegelsteinen gedeckt wird. Auf 0 setzen zum Ausschließen. Wenn alle 0 sind, wird das Budget gleichmäßig aufgeteilt."/>
         <text name="setting_ec_resourceWeight_ROOFPLATES" text="Budgetanteil Dachplatten"/>
         <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Wie viel des Materialbudgets durch Dachplatten gedeckt wird. Höhere Werte bedeuten, dass mehr der Gesamtkosten durch Dachplatten gedeckt wird. Auf 0 setzen zum Ausschließen. Wenn alle 0 sind, wird das Budget gleichmäßig aufgeteilt."/>
+        <text name="setting_ec_easterEggSounds" text="Easter-Egg-Sounds an Baustellen"/>
+        <text name="setting_ec_easterEggSounds_tooltip" text="Spielt gelegentlich Sprachclips ab, wenn du dich einer Baustelle näherst. Die Hintergrundgeräusche der Baustelle sind davon nicht betroffen. Diese Einstellung gilt nur für dich."/>
     </texts>
 </l10n>

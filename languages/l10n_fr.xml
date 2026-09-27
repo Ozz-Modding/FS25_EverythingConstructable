@@ -61,5 +61,7 @@
         <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Quelle part du budget matériaux est couverte par briques en ciment. Une valeur plus élevée signifie qu'une plus grande partie du coût total est couverte par briques. Mettre à 0 pour exclure. Si tout est à 0, le budget est réparti équitablement."/>
         <text name="setting_ec_resourceWeight_ROOFPLATES" text="Part budgétaire des plaques de toit"/>
         <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Quelle part du budget matériaux est couverte par plaques de toit. Une valeur plus élevée signifie qu'une plus grande partie du coût total est couverte par plaques de toit. Mettre à 0 pour exclure. Si tout est à 0, le budget est réparti équitablement."/>
+        <text name="setting_ec_easterEggSounds" text="Sons easter egg du chantier"/>
+        <text name="setting_ec_easterEggSounds_tooltip" text="Joue occasionnellement des répliques lorsque vous approchez d'un chantier. Les bruits de fond du chantier ne sont pas affectés. Ce réglage est personnel et ne s'applique qu'à vous."/>
     </texts>
 </l10n>

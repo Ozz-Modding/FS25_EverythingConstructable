@@ -226,10 +226,7 @@ function ECProjectManager:deliverResource(projectId, fillTypeIndex, amount)
                 mat.delivered = mat.delivered + toDeliver
                 delivered = toDeliver
 
-                local fillType = g_fillTypeManager:getFillTypeByIndex(fillTypeIndex)
-                if fillType ~= nil then
-                    project.materialSuppliedValue = project.materialSuppliedValue + (toDeliver * (fillType.pricePerLiter or 0))
-                end
+                project.materialSuppliedValue = project.materialSuppliedValue + (toDeliver * ECConfig.getMaterialUnitValue(fillTypeIndex))
             end
             break
         end

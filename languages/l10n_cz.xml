@@ -61,6 +61,8 @@
         <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Kolik materiálového rozpočtu pokrývají cementové cihly. Vyšší hodnota znamená větší podíl celkové ceny v cementových cihlách. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
         <text name="setting_ec_resourceWeight_ROOFPLATES" text="Podíl rozpočtu: střešní krytina"/>
         <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Kolik materiálového rozpočtu pokrývá střešní krytina. Vyšší hodnota znamená větší podíl celkové ceny ve střešní krytině. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
+        <text name="setting_ec_easterEggSounds" text="Easter egg zvuky na staveništi"/>
+        <text name="setting_ec_easterEggSounds_tooltip" text="Občas přehraje hlasovou hlášku, když se přiblížíš ke staveništi. Zvuky pozadí staveniště nejsou ovlivněny. Toto nastavení je osobní a platí jen pro tebe."/>
         <text name="setting_ec_resourceWeight_WATER" text="Podíl rozpočtu: voda"/>
         <text name="setting_ec_resourceWeight_WATER_tooltip" text="Kolik materiálového rozpočtu pokrývá voda. Vyšší hodnota znamená větší podíl celkové ceny ve vodě. Nastav 0 pro vyloučení. Pokud jsou všechny hodnoty 0, rozpočet se rozdělí rovnoměrně."/>
         <text name="setting_ec_resourceWeight_CONSTRUCTIONGRAVEL" text="Podíl rozpočtu: stavební štěrk"/>

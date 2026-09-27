@@ -61,5 +61,7 @@
         <text name="setting_ec_resourceWeight_CEMENTBRICKS_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez Cegły betonowe. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez Cegły betonowe. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
         <text name="setting_ec_resourceWeight_ROOFPLATES" text="Udział dachówek w budżecie"/>
         <text name="setting_ec_resourceWeight_ROOFPLATES_tooltip" text="Jaka część budżetu na materiały jest pokrywana przez Płyty dachowe. Wyższe wartości oznaczają, że większa część całkowitego kosztu jest pokrywana przez Płyty dachowe. Ustaw na 0, aby wykluczyć. Jeśli wszystkie wartości wynoszą 0, budżet jest dzielony równo."/>
+        <text name="setting_ec_easterEggSounds" text="Dźwięki easter egg na budowie"/>
+        <text name="setting_ec_easterEggSounds_tooltip" text="Od czasu do czasu odtwarza kwestie głosowe, gdy podchodzisz do placu budowy. Nie wpływa na dźwięki tła budowy. To ustawienie osobiste i dotyczy tylko Ciebie."/>
     </texts>
 </l10n>

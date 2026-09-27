@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="111">
+<modDesc descVersion="113">
     <author>Ozz</author>
-    <version>1.0.0.3</version>
+    <version>1.0.0.4</version>
     <iconFilename>icon_EverythingConstructable.dds</iconFilename>
     <title>
         <en>Everything Constructable</en>
@@ -22,6 +22,12 @@ Fully supports multiplayer. Excludes base game simple pastures and those in FS25
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
 Changelog:
+
+1.0.0.4 [WIP]:
+- Material cost savings now respect the players Economic Difficulty. Previously, the prices reflected Hard Difficulty.
+- Added a per-player setting to turn off the construction site easter egg sounds.
+- Fix Labour Cost Fraction and Material Supply Bonus settings resetting to default when a savegame is loaded.
+- Added Brazilian Portuguese translation (thanks Myiamoto86).
 
 1.0.0.3:
 - Fix an issue with temporary husbandry fences left over from earlier version of the mod.

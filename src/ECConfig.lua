@@ -139,6 +139,14 @@ function ECConfig.getMaterialPerPhase(totalPrice, numPhases)
     return math.floor(ECConfig.getMaterialBudget(totalPrice) / numPhases)
 end
 
+function ECConfig.getMaterialUnitValue(fillTypeIndex)
+    local fillType = g_fillTypeManager:getFillTypeByIndex(fillTypeIndex)
+    if fillType == nil then
+        return 0
+    end
+    return (fillType.pricePerLiter or 0) * EconomyManager.getPriceMultiplier()
+end
+
 function ECConfig.generateMaterialList(materialBudget)
     local validResources = {}
     local totalWeight = 0
@@ -162,7 +170,7 @@ function ECConfig.generateMaterialList(materialBudget)
                         fillTypeIndex = fillTypeIndex,
                         fillTypeName = fillTypeName,
                         weight = w,
-                        pricePerLiter = fillType.pricePerLiter,
+                        pricePerLiter = ECConfig.getMaterialUnitValue(fillTypeIndex),
                     })
                     totalWeight = totalWeight + w
                 end

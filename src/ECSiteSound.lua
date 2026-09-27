@@ -50,6 +50,10 @@ function ECSiteSound.deleteAll()
 end
 
 function ECSiteSound.tryPlay()
+    if not ECSettings.getValue('easterEggSounds') then
+        return
+    end
+
     local now = g_time
     if now - ECSiteSound.lastPlayTime < ECConfig.EASTER_EGG_COOLDOWN then
         return

@@ -10,6 +10,7 @@ function EverythingConstructable:loadMap()
 
     g_gui:loadProfiles(EverythingConstructable.dir .. "src/gui/guiProfiles.xml")
     ECConstructionDialog.register()
+    ECSettings.loadLocalSettings()
     ECSettings.addSettingsToMenu()
 
     self:loadFromXMLFile()
@@ -101,6 +102,13 @@ function EverythingConstructable:loadFromXMLFile()
         ECSettings.current.constructionEnabled = constructionEnabled
     end
 
+    for _, key in ipairs({ "labourFraction", "materialSupplyBonus" }) do
+        local v = getXMLFloat(xmlFile, "EverythingConstructable.settings#" .. key)
+        if v ~= nil then
+            ECSettings.current[key] = ECSettings.SETTINGS[key].values[ECSettings.getStateIndex(key, v)]
+        end
+    end
+
     for _, fillTypeName in ipairs(ECConfig.RESOURCE_FILL_TYPES) do
         local key = "resourceWeight_" .. fillTypeName
         local v = getXMLInt(xmlFile, "EverythingConstructable.settings#" .. key)
@@ -125,6 +133,8 @@ function EverythingConstructable:saveToXmlFile()
     end
 
     setXMLBool(xmlFile, "EverythingConstructable.settings#constructionEnabled", ECSettings.current.constructionEnabled)
+    setXMLFloat(xmlFile, "EverythingConstructable.settings#labourFraction", ECSettings.current.labourFraction)
+    setXMLFloat(xmlFile, "EverythingConstructable.settings#materialSupplyBonus", ECSettings.current.materialSupplyBonus)
 
     for _, fillTypeName in ipairs(ECConfig.RESOURCE_FILL_TYPES) do
         local key = "resourceWeight_" .. fillTypeName
