@@ -39,6 +39,13 @@ Review the supplyable materials in the construction dialog. Simply bring the mat
 
 The mod includes a set of free construction fences and construction signs that can be placed independently via the fences and decoration menu.
 
+## Support
+
+- **Bugs and feature requests** — [GitHub Issues](https://github.com/sprkem/FS25_EverythingConstructable/issues)
+- **Anything else** — [Discord](https://discord.gg/9pVhkV9KRQ)
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request — only translation PRs are accepted.
+
 ## Credits
 
 Huge thanks to Mr Dexx again for his help getting signs and fences ingame. Scroft for supplying sounds, and Mid Life Simster for breaking things in his inimitable way.
