@@ -152,18 +152,38 @@ function ECSiteVehicles:onVehicleLoaded(loadedVehicles, loadState, args)
     end
 end
 
+local function denyPlayerControl()
+    return false, nil
+end
+
+-- Mirrors the preconditions of Drivable:registerPlayerVehicleControlAllowedFunction
+-- so it can't error, then verifies the registration actually took effect
+-- (the base game silently no-ops when the object id isn't assigned yet).
 function ECSiteVehicles.applyRestrictions(vehicle)
-    if vehicle.spec_drivable == nil then
+    if vehicle == nil or vehicle.isDeleted then
         return false
     end
 
-    local ok = pcall(vehicle.registerPlayerVehicleControlAllowedFunction,
-        vehicle, vehicle, function() return false, nil end)
-    if not ok then
+    local spec = vehicle.spec_drivable
+    if spec == nil or type(spec.playerControlAllowedFunctions) ~= "table" then
         return false
     end
 
-    if vehicle.setIsTabbable ~= nil then
+    if type(vehicle.registerPlayerVehicleControlAllowedFunction) ~= "function" then
+        return false
+    end
+
+    local objectId = NetworkUtil.getObjectId(vehicle)
+    if objectId == nil then
+        return false
+    end
+
+    vehicle:registerPlayerVehicleControlAllowedFunction(vehicle, denyPlayerControl)
+    if spec.playerControlAllowedFunctions[objectId] == nil then
+        return false
+    end
+
+    if type(vehicle.setIsTabbable) == "function" then
         vehicle:setIsTabbable(false)
     end
 

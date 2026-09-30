@@ -23,11 +23,12 @@ Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
 Changelog:
 
-1.0.0.4 [WIP]:
+1.0.0.4:
 - Material cost savings now respect the players Economic Difficulty. Previously, the prices reflected Hard Difficulty.
 - Added a per-player setting to turn off the construction site easter egg sounds.
 - Fix Labour Cost Fraction and Material Supply Bonus settings resetting to default when a savegame is loaded.
 - Added Brazilian Portuguese translation (thanks Myiamoto86).
+- Remove pcall usage.
 
 1.0.0.3:
 - Fix an issue with temporary husbandry fences left over from earlier version of the mod.
@@ -54,6 +55,12 @@ Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
 Änderungsliste:
 
+1.0.0.4:
+- Materialkosteneinsparungen berücksichtigen jetzt den wirtschaftlichen Schwierigkeitsgrad des Spielers. Zuvor entsprachen die Preise dem Schwierigkeitsgrad Schwer.
+- Neue spielerbezogene Einstellung zum Deaktivieren der Easter-Egg-Geräusche auf Baustellen.
+- Behebung eines Fehlers, bei dem die Einstellungen „Arbeitskostenanteil“ und „Materiallieferungsbonus“ beim Laden eines Spielstands auf die Standardwerte zurückgesetzt wurden.
+- Brasilianisch-portugiesische Übersetzung hinzugefügt (danke an Myiamoto86).
+
 1.0.0.3:
 - Behebung eines Problems mit temporären Tierhaltungs-Zäunen, die von einer früheren Version des Mods übrig geblieben sind.
 
@@ -77,6 +84,12 @@ Prise en charge complète du multijoueur. Exclut les pâturages simples du jeu d
 Github: https://github.com/Ozz-Modding/FS25_EverythingConstructable
 
 Journal des modifications:
+
+1.0.0.4:
+- Les économies sur le coût des matériaux respectent désormais la difficulté économique du joueur. Auparavant, les prix correspondaient à la difficulté Difficile.
+- Ajout d'un paramètre par joueur pour désactiver les sons easter egg des chantiers.
+- Correction des paramètres « Fraction du coût de main-d'œuvre » et « Bonus de fourniture de matériaux » qui revenaient à leur valeur par défaut au chargement d'une sauvegarde.
+- Ajout de la traduction en portugais brésilien (merci à Myiamoto86).
 
 1.0.0.3:
 - Correction d'un problème avec les clôtures d'élevage temporaires laissées par une version antérieure du mod.
